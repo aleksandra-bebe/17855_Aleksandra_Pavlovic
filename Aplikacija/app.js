@@ -62,41 +62,44 @@ function showArticlePage(productId) {
   userOverlay.classList.remove("transparentBcg");
   userDOM.classList.remove("showUser");
   registrationOverlay.classList.remove("transparentBcg");
-  registrationDOM.classList.remove("showUser");
+  registrationOverlay.classList.remove("showUser");
   articleOverlay.classList.add("transparentBcg");
   articleDOM.classList.add("showUser");
+  body.style.overflowY = "hidden";
 
   articleInformation = document.querySelector(".articleInformation");
   var product = Storage.getProduct(productId);
 
-  console.log(product);
+  var basicInormation = document.createElement("div");
+  articleInformation.appendChild(basicInormation);
+
   var header = document.createElement("h2");
   header.classList.add("user-menu-header");
   header.classList.add("article-header");
   header.innerHTML = product.title;
-  articleInformation.appendChild(header);
+  basicInormation.appendChild(header);
 
   var articleImg = document.createElement("img");
   articleImg.classList.add("product-img");
   articleImg.classList.add("article-img");
   articleImg.src = product.image;
-  articleInformation.appendChild(articleImg);
+  basicInormation.appendChild(articleImg);
 
   var articleDescription = document.createElement("p");
   articleDescription.className = "articleDescription";
   articleDescription.innerHTML = "Opis proizvoda";
-  articleInformation.appendChild(articleDescription);
+  basicInormation.appendChild(articleDescription);
 
   var articleRating = document.createElement("div");
   prosecnaOcena = 4.4;
   StarRating(articleRating,prosecnaOcena);
   articleRating.className = "articleRating";
-  articleInformation.appendChild(articleRating);
+  basicInormation.appendChild(articleRating);
   
   var articlePrice = document.createElement("div");
   articlePrice.className = "articlePrice";
   articlePrice.innerHTML = "$"+product.price;
-  articleInformation.appendChild(articlePrice);
+  basicInormation.appendChild(articlePrice);
 
   var articleRate = document.createElement("div");
   articleRate.className = "rate-article";
@@ -104,14 +107,43 @@ function showArticlePage(productId) {
   var h3 = document.createElement("h3");
   h3.innerHTML = "Ocenite proizvod";
   h3.style = "float:right;width:35%;margin-top:40px;";
-  articleInformation.appendChild(h3);
-  articleInformation.appendChild(articleRate);
+  basicInormation.appendChild(h3);
+  basicInormation.appendChild(articleRate);
 
+  var newCommentDiv = document.createElement("div");
+  newCommentDiv.className = "newCommentDiv";
+  var newComment = document.createElement("input");
+  newComment.placeholder = "Unesite vas komentar...";
+  newComment.type = "text";
+  newComment.className = "input";
+  var unesiteKomentar = document.createElement("h3");
+  unesiteKomentar.innerHTML = "Unesite komentar";
+  newCommentDiv.appendChild(unesiteKomentar);
+  newCommentDiv.appendChild(newComment);
+
+  var commentSendBtn = document.createElement("button");
+  commentSendBtn.classList.add("commentSendBtn");
+  commentSendBtn.innerHTML = `POSALJI`;
+  newCommentDiv.appendChild(commentSendBtn);
+  basicInormation.appendChild(newCommentDiv);
 
   var articleAddToChart = document.createElement("button");
   articleAddToChart.classList.add("articleAddToChart");
   articleAddToChart.innerHTML = `<i class="fas fa-shopping-cart"></i> DODAJ U KORPU`;
-  articleInformation.appendChild(articleAddToChart);
+  basicInormation.appendChild(articleAddToChart);
+
+  // Sekcija za komentare
+  var commentInformation = document.createElement("div");
+  var articleComments = document.createElement("div");
+  articleComments.className = "articleComments";
+  ShowArticleComments(articleComments,productId);
+  var komentari = document.createElement("h3");
+  komentari.style = "margin-top:25px;";
+  komentari.innerHTML = "Komentari korisnika";
+  commentInformation.appendChild(komentari);
+  commentInformation.appendChild(articleComments);
+
+  articleInformation.appendChild(commentInformation);
 }
 
 function StarRating(host,prosecnaOcena)
@@ -137,6 +169,16 @@ function RateProduct(host)
      star.onclick = (e)=>{alert("ocena: "+ (6-i));};
      host.appendChild(star);
    }
+}
+// Prikazivanje svih komentara za dati artikal
+function ShowArticleComments(host,articleId)
+{
+  host.innerHTML = "";
+  for (let index = 0; index < 5; index++) {
+    var div = document.createElement("div");
+    div.innerHTML = "komentar"+index;
+    host.appendChild(div);
+  }
 }
 // prikazivanje proizvoda
 class UI {
@@ -242,6 +284,7 @@ class UI {
   hideArticlePage() {
     articleOverlay.classList.remove("transparentBcg");
     articleDOM.classList.remove("showUser");
+    body.style.overflowY = "scroll";
 
     var articleInformation = document.querySelector(".articleInformation");
     articleInformation.innerHTML = "";

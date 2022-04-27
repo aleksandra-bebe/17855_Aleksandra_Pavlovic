@@ -413,7 +413,6 @@ li a:hover {
 /* --------------- End of Cart ---------------- */
 /* --------------- Article page --------------- */
 .article{
-  position: fixed;
   top: 0;
   right: 0;
   width: 100%;
@@ -435,6 +434,8 @@ li a:hover {
   text-align: center;
   width: 75%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 .articleDescription{
   width: 35%;
@@ -452,7 +453,7 @@ li a:hover {
   font-weight: bold;
     font-size: x-large;
 }
-.articleAddToChart{
+.articleAddToChart, .commentSendBtn{
     background: var(--primaryColor);
     border: none;
     text-transform: uppercase;
@@ -460,11 +461,15 @@ li a:hover {
     letter-spacing: var(--mainSpacing);
     font-weight: bold;
     cursor: pointer;
-    float: right;
     width: 35%;
-    margin-top:75px;
+    margin-top: 25px;
 }
-.articleAddToChart:hover{
+.articleAddToChart{
+  float: right;
+  margin-top:100px;
+  padding: 20px;
+}
+.articleAddToChart:hover,.commentSendBtn:hover{
   color: var(--mainWhite);
 }
 
@@ -491,6 +496,38 @@ li a:hover {
   display: flex;
   justify-content: center;
   flex-direction: row-reverse;
+}
+
+.articleComments{
+  width: 80%;
+  margin: auto;
+  max-height: 300px;
+  overflow-y: scroll;
+  border: 1px black solid;
+  margin-top:30px;
+  padding: 15px;
+}
+
+.newCommentDiv{
+  margin: auto;
+    width: 35%;
+    margin-top: 30px;
+    float: right;
+}
+
+.newCommentDiv input{
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.articleComments div{
+  width: 100%;
+  background-color: var(--primaryColor);
+  padding: 20px;
+  margin-top:15px;
+}
+
+.commentSendBtn{
 }
 /* --------------- End of article page --------- */
 /* --------------- User menu ------------------*/
