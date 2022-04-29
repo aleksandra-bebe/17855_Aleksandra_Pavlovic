@@ -142,5 +142,84 @@ namespace Proba.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [Route("RegistrujSe/{Ime}/{Prezime}/{email}/{sifra}/{admin}")]
+        [HttpPost]
+        public async Task<ActionResult> DodatiKorisnika(string ime,string prezime,string email,string sifra,bool admin){
+            if(String.IsNullOrEmpty(ime))
+            {
+                return BadRequest("Zaboravili ste da unesete ime!");
+            }
+            if(String.IsNullOrEmpty(prezime))
+            {
+                return BadRequest("Zaboravili ste da unesete prezime!");
+            }
+            if(String.IsNullOrEmpty(email))
+            {
+                return BadRequest("Zaboravili ste da unesete korisnicko ime!");
+            }
+             if(String.IsNullOrEmpty(sifra))
+              {
+                    return BadRequest("Zaboravili ste da uneste sifru");
+              }  
+            if(sifra.Length<8)
+              {
+                    return BadRequest("Sifra mora imati minimum 8 karaktera");
+              } 
+              var korisnik=await Context.Korisnici.Where(p=>p.Email==email).FirstOrDefaultAsync();
+              if(korisnik!=null)
+              return BadRequest("Korisnik sa unetim korisnickim imenom vec postoji!");
+              try{
+                  Korisnik k=new Korisnik{
+                      Ime=ime,
+                      Prezime=prezime,
+                      Email=email,
+                      Sifra=sifra,
+                      Admin=admin
+
+                  };
+                  Context.Korisnici.Add(k);
+                  await Context.SaveChangesAsync();
+                  return Ok("Kreiran je novi korisnik!");
+              }
+              catch (Exception e)
+              {
+                  return BadRequest(e.Message);
+              }
+        }
+        [Route("UlogujSe/{email}/{sifra}/{admin}")]
+        [HttpGet]
+        public async Task<ActionResult> VratiKorisnika(string email,string sifra,bool admin){
+            if(String.IsNullOrEmpty(email))
+            {
+                return BadRequest("Zaboravili ste da unesete korisnicko ime!");
+            }
+            if(String.IsNullOrEmpty(sifra))
+            {
+                return BadRequest("Zaboravili ste da unesete sifru!");
+            }
+            if(sifra.Length<8)
+            {
+                return BadRequest("Sifra mora imati minimum 8 karaktera!");
+            }
+            try{
+                var korisnik=await Context.Korisnici.Where(p=>p.Email==email).FirstOrDefaultAsync();
+                if(korisnik==null)
+                {
+                    return BadRequest("Korisnik sa unetim korisnickim imenom ne postoji!");
+                }
+                if(korisnik.Sifra!=sifra)
+                {
+                    return BadRequest("Uneta sifra je pogresna!");
+                }
+                if(korisnik.Admin !=admin)
+                {
+                    return BadRequest("Unet je pogresan pristup!");
+                }
+                return Ok(korisnik);
+            }
+            catch(Exception e){
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
