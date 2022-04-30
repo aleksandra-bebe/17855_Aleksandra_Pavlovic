@@ -36,7 +36,8 @@ namespace projekat
                            .AllowAnyMethod()
                            .WithOrigins(new string[]
                            {
-                                "http://127.0.0.1:5500"
+                                "http://127.0.0.1:5500",
+                                "http://127.0.0.1:5501"
                            });
 
                });
@@ -45,11 +46,11 @@ namespace projekat
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "projekat", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LUX", Version = "v1" });
             });
               services.AddDbContext<ShopContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("OnlineLUXCS"));
+                options.UseSqlServer(Configuration.GetConnectionString("LUXCS"));
 
             });
         }

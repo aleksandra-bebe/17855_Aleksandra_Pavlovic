@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 namespace Projekat.Models{
-    [Table("Sat")]
-    public class Sat{
+    [Table("Artikal")]
+    public class Artikal{
         [Key]
-        [Column("SatID")]
-        public int SatId{get;set;}
+        [Column("ArtikalID")]
+        public int ArtikalId{get;set;}
 
         [Column("Naziv")]
         [MaxLength(50)]
@@ -21,12 +20,15 @@ namespace Projekat.Models{
         public string Opis{get;set;}
 
         [Column("Na stanju")]
-        public int NaStanju{get;set;}
+        public bool NaStanju{get;set;}
 
         [Column("Image")]
         [MaxLength(255)]
-        public string Image{get;set;} 
-        
-       
+        public byte[] Image{get;set;}
+
+        public Tip Tip{get;set;}
+
+        [JsonIgnore]
+        public List<Komentar> Komentari {get; set;}
     }
 }

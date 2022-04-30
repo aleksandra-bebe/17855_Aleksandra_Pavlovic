@@ -40,19 +40,16 @@ let buttonsDOM = [];
 
 // uzimanje proizvoda
 class Products {
-  async getProducts() {
+  async getProducts(ui) {
     try {
-      let result = await fetch("products.json");
-      let data = await result.json();
-      let products = data.items;
-      products = products.map((item) => {
-        const { title, price } = item.fields;
-        const { id } = item.sys;
-        const image = item.fields.image.fields.file.url;
-        return { title, price, id, image };
+      fetch("https://localhost:5001/Artikal/GetSat").then(p => {
+        p.json().then(data => {
+          Storage.saveProducts(data);
+          ui.displayProducts(data);
+        });
       });
-      return products;
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
   }
@@ -69,14 +66,14 @@ function showArticlePage(productId) {
 
   articleInformation = document.querySelector(".articleInformation");
   var product = Storage.getProduct(productId);
-
+ console.log(product);
   var basicInormation = document.createElement("div");
   articleInformation.appendChild(basicInormation);
 
   var header = document.createElement("h2");
   header.classList.add("user-menu-header");
   header.classList.add("article-header");
-  header.innerHTML = product.title;
+  header.innerHTML = product.naziv;
   basicInormation.appendChild(header);
 
   var articleImg = document.createElement("img");
@@ -92,13 +89,13 @@ function showArticlePage(productId) {
 
   var articleRating = document.createElement("div");
   prosecnaOcena = 4.4;
-  StarRating(articleRating,prosecnaOcena);
+  StarRating(articleRating, prosecnaOcena);
   articleRating.className = "articleRating";
   basicInormation.appendChild(articleRating);
-  
+
   var articlePrice = document.createElement("div");
   articlePrice.className = "articlePrice";
-  articlePrice.innerHTML = "$"+product.price;
+  articlePrice.innerHTML = "$" + product.cena;
   basicInormation.appendChild(articlePrice);
 
   var articleRate = document.createElement("div");
@@ -136,7 +133,7 @@ function showArticlePage(productId) {
   var commentInformation = document.createElement("div");
   var articleComments = document.createElement("div");
   articleComments.className = "articleComments";
-  ShowArticleComments(articleComments,productId);
+  ShowArticleComments(articleComments, productId);
   var komentari = document.createElement("h3");
   komentari.style = "margin-top:25px;";
   komentari.innerHTML = "Komentari korisnika";
@@ -146,37 +143,34 @@ function showArticlePage(productId) {
   articleInformation.appendChild(commentInformation);
 }
 
-function StarRating(host,prosecnaOcena)
-{
-   for (let i = 1; i <= 5; i++) {
-     var star = document.createElement("span");
-     star.classList.add("fa");
-     star.classList.add("fa-star");
-     if(prosecnaOcena+0.5 >= i) star.classList.add("checkedStar");
-     host.appendChild(star);
-   }
-   host.innerHTML += " "+prosecnaOcena;
+function StarRating(host, prosecnaOcena) {
+  for (let i = 1; i <= 5; i++) {
+    var star = document.createElement("span");
+    star.classList.add("fa");
+    star.classList.add("fa-star");
+    if (prosecnaOcena + 0.5 >= i) star.classList.add("checkedStar");
+    host.appendChild(star);
+  }
+  host.innerHTML += " " + prosecnaOcena;
 }
 
-function RateProduct(host)
-{
-   for (let i = 1; i <= 5; i++) {
-     var star = document.createElement("li");
-     var span = document.createElement("i");
-     star.classList.add("fa");
-     star.classList.add("fa-star");
-     star.title = "Rate " + (6-i);
-     star.onclick = (e)=>{alert("ocena: "+ (6-i));};
-     host.appendChild(star);
-   }
+function RateProduct(host) {
+  for (let i = 1; i <= 5; i++) {
+    var star = document.createElement("li");
+    var span = document.createElement("i");
+    star.classList.add("fa");
+    star.classList.add("fa-star");
+    star.title = "Rate " + (6 - i);
+    star.onclick = (e) => { alert("ocena: " + (6 - i)); };
+    host.appendChild(star);
+  }
 }
 // Prikazivanje svih komentara za dati artikal
-function ShowArticleComments(host,articleId)
-{
+function ShowArticleComments(host, articleId) {
   host.innerHTML = "";
   for (let index = 0; index < 5; index++) {
     var div = document.createElement("div");
-    div.innerHTML = "komentar"+index;
+    div.innerHTML = "komentar" + index;
     host.appendChild(div);
   }
 }
@@ -188,20 +182,20 @@ class UI {
     products.forEach((product) => {
       result += `
            <!-- single product-->
-        <article class="product" onclick="showArticlePage('${product.id}')">
+        <article class="product" onclick="showArticlePage('${product.artikalId}')">
           <div class="img-container">
             <img
               src=${product.image}
               alt="product"
               class="product-img"
             />
-            <button class="bag-btn" data-id=${product.id}>
+            <button class="bag-btn" data-id=${product.artikalID}>
               <i class="fas fa-shopping-cart"></i>
               Dodaj u korpu
             </button>
           </div>
-          <h3>${product.title}</h3>
-          <h4>$${product.price}</h4>
+          <h3>${product.naziv}</h3>
+          <h4>$${product.cena}</h4>
         </article>
         <!-- end single product-->
           `;
@@ -377,7 +371,7 @@ class Storage {
   }
   static getProduct(id) {
     let products = JSON.parse(localStorage.getItem("products"));
-    return products.find((product) => product.id === id);
+    return products.find(product => product.artikalId === Number(id));
   }
   static saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -396,11 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ui.setupAPP();
   // uzmi sve proizvode
   products
-    .getProducts()
-    .then((products) => {
-      ui.displayProducts(products);
-      Storage.saveProducts(products);
-    })
+    .getProducts(ui)
     .then(() => {
       ui.getBagButtons();
       ui.cartLogic();

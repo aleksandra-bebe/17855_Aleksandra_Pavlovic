@@ -30,7 +30,7 @@ namespace Proba.Controllers
 
         [Route("PostKorisnik")]
         [HttpPost]
-        public async Task<ActionResult> DodajStudenta([FromBody] Korisnik korisnik)
+        public async Task<ActionResult> DodajKorisnika([FromBody] Korisnik korisnik)
         {
             if (korisnik.KorisnikId <=0)
             {
