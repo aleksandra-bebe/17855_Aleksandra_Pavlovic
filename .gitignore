@@ -47,4 +47,10 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+*.vs
+.vscode/
+/Aplikacija/Backend/obj/
+/Aplikacija/Backend/bin/
+bin
+obj
 
