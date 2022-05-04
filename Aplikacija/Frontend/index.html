@@ -104,12 +104,21 @@
         <i class="fas fa-window-close"></i>
       </span>
       <h2 class="user-menu-header">Niste ulogovani</h2>
-      <div class="user-menu-content">
+      <form id="form_id" method="post" name="myform">
+        <div class="user-menu-content">
+           <input type="text" name="username" id="username" placeholder="Korisnicko ime">
+           <input  type="password" name="password" id="password" placeholder="Lozinka">
+           <!-- <button class="login-btn banner-btn">Uloguj se</button> -->
+           <input type="button" class="login-btn banner-btn" value="Uloguj se" id="submit" onclick="login()"/>
+           <!-- <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div> -->
+        </form>
+        </div>
+      <!-- <div class="user-menu-content">
          <input type="text" placeholder="Korisnicko ime">
          <input type="password" placeholder="Lozinka">
          <button class="login-btn banner-btn">Uloguj se</button>
          <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- end login menu-->

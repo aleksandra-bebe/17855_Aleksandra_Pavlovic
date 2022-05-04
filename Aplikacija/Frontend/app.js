@@ -174,6 +174,26 @@ function ShowArticleComments(host, articleId) {
     host.appendChild(div);
   }
 }
+var attempt = 3;
+function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if (username == "admin" && password == "admin") {
+      alert("Uspesno ste se ulogovali");
+      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/index.html"; 
+      return false;
+    }
+    else {
+      attempt--;
+      alert("Imate jos " + attempt + " pokusaja;");
+      if (attempt == 0) {
+        document.getElementById("username").disabled = true;
+        document.getElementById("password").disabled = true;
+        document.getElementById("submit").disabled = true;
+        return false;
+      }
+    }
+  }
 // prikazivanje proizvoda
 class UI {
 
