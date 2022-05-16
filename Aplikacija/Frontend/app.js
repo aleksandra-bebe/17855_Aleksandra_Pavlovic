@@ -92,7 +92,7 @@ function login() {
   var password = document.getElementById("loginPassword").value;
   if (username == "admin" && password == "admin") {
     alert("Uspesno ste se ulogovali");
-    window.location = "/admin/index.html";
+    window.location = "/Aplikacija/Frontend/admin/index.html";
     return false;
   }
   else {

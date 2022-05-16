@@ -35,7 +35,7 @@
           <a href="narukvice.html" class="nav-link">Narukvice</a>
         </li>
         <li class="nav-item">
-          <a href="packaging.html" class="nav-link">O Kompaniji</a>
+          <a href="oKompaniji.html" class="nav-link">O Kompaniji</a>
         </li>
         <li class="nav-item">
           <a href="about.html" class="nav-link">O Nama</a>
@@ -89,20 +89,20 @@
   <!-- end cart-->
  <!-- login menu -->
  <div class="user-menu-overlay">
-    <div class="user">
-      <span class="close-user-menu">
-        <i class="fas fa-window-close"></i>
-      </span>
-      <h2 class="user-menu-header">Niste ulogovani</h2>
-      <div class="user-menu-content">
-         <input type="text" placeholder="Korisnicko ime">
-         <input type="password" placeholder="Lozinka">
-         <button class="login-btn banner-btn">Uloguj se</button>
-         <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
-      </div>
-    </div>
+  <div class="user">
+    <span class="close-user-menu">
+      <i class="fas fa-window-close"></i>
+    </span>
+    <h2 class="user-menu-header">Niste ulogovani</h2>
+    <div class="user-menu-content">
+       <input id="loginUsername" type="text" placeholder="Korisnicko ime">
+       <input id="loginPassword" type="password" placeholder="Lozinka">
+       <button class="login-btn banner-btn" onclick="login()">Uloguj se</button>
+       <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
+    </div> 
   </div>
-  <!-- end login menu-->
+</div>
+<!-- end login menu-->
   <!-- registration page -->
   <div class="user-menu-overlay registration-overlay">
     <div class="registration">
@@ -148,7 +148,7 @@
 
         <a href="narukvice.html">Narukvice</a>
 
-        <a href="packaging.html">O Kompaniji</a>
+        <a href="oKompaniji.html">O Kompaniji</a>
 
         <a href="about.html">O Nama</a>
 
@@ -156,13 +156,13 @@
         <a href="kontakt.html">Kontakt</a>
       </p>
 
-      <p class="footer-company-name">Lux Prodavnica © 2020</p>
+      <p class="footer-company-name">Lux Prodavnica © 2022</p>
     </div>
 
     <div class="footer-center">
       <div>
         <i class="fa fa-map-marker"></i>
-        <p><span>Bulevar Svetog Cara Konstantina 80A</span> Nis, Srbija</p>
+        <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
       </div>
 
       <div>
@@ -192,7 +192,8 @@
       </div>
     </div>
   </footer>
-  <script src="satovi.js"></script>
+  <!-- <script src="satovi.js"></script> -->
+  <script src="app.js"></script>
 </body>
 
 </html>

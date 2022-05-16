@@ -906,6 +906,9 @@ input[type="submit"] {
   }
 }
 
+.active1  {
+  margin-left: -250px
+}
 
 
 .flip-container .back {
@@ -1020,6 +1023,7 @@ input[type="submit"] {
 .flip-container:hover .flipper {
   transform: rotateY(-180deg);
 }
+
 
 .flip-container, .front, .back {
   height: 365px;

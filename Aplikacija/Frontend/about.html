@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lux Prodavnica</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <!-- font awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   
+  <!-- custom css -->
+</head>
+
+<body>
+  <!--navbar-->
+  <nav class="navbar">
+    <div class="navbar-center">
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-times"></i>
+      </div>
+      <a href="index.html" class="logo"><img src="/images/logo-rosa.png" alt="" /></a>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link active">Početna</a>
+        </li>
+        <li class="nav-item">
+          <a href="watches.html" class="nav-link">Satovi</a>
+        </li>
+        <li class="nav-item">
+          <a href="strips.html" class="nav-link">Kaisevi</a>
+        </li>
+        <li class="nav-item">
+          <a href="narukvice.html" class="nav-link">Narukvice</a>
+        </li>
+        <li class="nav-item">
+          <a href="oKompaniji.html" class="nav-link">O Kompaniji</a>
+        </li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">O Nama</a>
+        </li>
+        <li class="nav-item">
+          <a href="kontakt.html" class="nav-link">Kontakt</a>
+        </li>
+      </ul>
+      <h1>Lux Prodavnica</h1>
+      <div style="display:inline-flex;">
+      <div class="cart-btn">
+        <span class="nav-icon">
+          <i class="fas fa-cart-plus"></i>
+        </span>
+        <div class="cart-items">0</div>
+      </div>
+      <div class="user-btn">
+          <span class="nav-icon">
+              <i class="fa-solid fa-user"></i>
+          </span>
+      </div>
+      </div>
+    </div>
+  </nav>
+  <!--end navbar-->
+  <blockquote class="w3-panel w3-leftbar w3-light-grey">
+    <p class="w3-large", style="text-align: center;">
+  
+      <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Nema malih delova, samo malih ljudi. Uvek igraš svoju ulogu ljubazno, čak i ako je u pozadini ili iza bine. Dođi na
+        centralnu scenu i uzmi svoj zasluženi naklon!"</i>
+    </p>
+    <!-- <p>Albert Einstein</p> -->
+  </blockquote>
+  <h1 style="text-align: center;">Nas tim!</h1>
+  <section class="flipgallery">
+
+    <div class="wrapper flip-gallery">
+
+      <div class="active">
+        <div class="flip-container">
+          <div class="flipper">
+            <div class="front">
+              <img alt="" src="images/edol.jpg" style="width: 250px; height: 350px;">
+              <div><b>Direktor </b>
+                <br>Lux
+              </div>
+            </div>
+            <div class="back">
+              <h2> <b>Edol Pelivanovic
+              </b></h2>
+              <div>
+                <h3>Osnivac kompanije Lux prodavnica</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flip-container">
+          <div class="flipper">
+            <div class="front">
+              <img alt="" src="images/aleksandra.jpg" style="width: 250px; height: 350px;">
+              <div><b>Prodavac</b>
+                <br>Lux
+              </div>
+            </div>
+            <div class="back">
+              <h2> <b>Aleksandra Pavlovic
+              </b></h2>
+              <div>
+                <h3>Nas cenjeni prodavac</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flip-container">
+          <div class="flipper">
+            <div class="front">
+              <img alt="" src="images/jana.jpg" style="width: 250px; height: 350px;">
+              <div><b>Menadžer</b>
+                <br>Lux
+              </div>
+            </div>
+            <div class="back">
+              <h2> <b>Jana Arsic</b></h2>
+              <div>
+                <h3>Menadžer Lux prodavnice</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      <section class="products" style="display: none;" ;>
+        <div class="section-title container">
+          <h2>Najprodavanije</h2>
+        </div>
+        <div class="products-center"></div>
+      </section>
+
+
+      <!-- end producst-->
+  <!-- cart -->
+  <div class="cart-overlay">
+    <div class="cart">
+      <span class="close-cart">
+        <i class="fas fa-window-close"></i>
+      </span>
+      <h2>Vasa korpa</h2>
+      <div class="cart-content">
+        <!-- cart item-->
+        <!-- <div class="cart-item"></div>-->
+        <!-- end cart item-->
+      </div>
+      <div class="cart-footer">
+        <h3>Ukupno : $ <span class="cart-total">0</span></h3>
+        <button class="clear-cart banner-btn">Ocisti korpu</button>
+      </div>
+    </div>
+  </div>
+  <!-- end cart-->
+ <!-- login menu -->
+ <div class="user-menu-overlay">
+  <div class="user">
+    <span class="close-user-menu">
+      <i class="fas fa-window-close"></i>
+    </span>
+    <h2 class="user-menu-header">Niste ulogovani</h2>
+    <div class="user-menu-content">
+       <input id="loginUsername" type="text" placeholder="Korisnicko ime">
+       <input id="loginPassword" type="password" placeholder="Lozinka">
+       <button class="login-btn banner-btn" onclick="login()">Uloguj se</button>
+       <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
+    </div> 
+  </div>
+</div>
+<!-- end login menu-->
+  <!-- registration page -->
+  <div class="user-menu-overlay registration-overlay">
+    <div class="registration">
+      <span class="close-user-menu close-registration-menu">
+        <i class="fas fa-window-close"></i>
+      </span>
+      <h2 class="user-menu-header">Registracija</h2>
+      <div class="user-menu-content registration-content">
+         <input type="text" placeholder="Email">
+         <input type="text" placeholder="Korisnicko ime">
+         <input type="password" placeholder="Lozinka">
+         <input type="password" placeholder="Ponovljena lozinka">
+         <input type="text" placeholder="Adresa">
+         <input type="text" placeholder="Broj telefona">
+         <button class="login-btn banner-btn registration-submit">Registruj se</button>
+      </div>
+    </div>
+  </div>
+  <!-- end registration page-->
+   
+  <!--footer-->
+  <footer class="footer-distributed">
+    <div class="footer-left">
+      <h3>Lux<span>Store</span></h3>
+
+      <p class="footer-links">
+        <a href="index.html" class="link-1">Početna</a>
+
+        <a href="watches.html">Satovi</a>
+
+        <a href="strips.html">Kaisevi</a>
+
+        <a href="narukvice.html">Narukvice</a>
+
+        <a href="oKompaniji.html">O Kompaniji</a>
+
+        <a href="about.html">O Nama</a>
+
+
+        <a href="kontakt.html">Kontakt</a>
+      </p>
+
+      <p class="footer-company-name">Lux Prodavnica © 2022</p>
+    </div>
+
+    <div class="footer-center">
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
+      </div>
+
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+381 64555444</p>
+      </div>
+
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:luxstore@gmail.com">luxstore@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>O kompaniji</span>
+        The most durable digital and analog-digital watches in the industry,
+        trusted by military personnel, law enforcement, surfers and outdoor
+        enthusiasts around the world.
+      </p>
+
+      <div class="footer-icons">
+        <a href="#"><i class="fab fa-facebook-square"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+
+</html>
