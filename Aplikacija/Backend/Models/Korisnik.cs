@@ -6,7 +6,7 @@ namespace Projekat.Models{
     [Table("Korisnik")]
     public class Korisnik{
         [Key]
-        [Column("KorisnikID")]
+        [Column("KorisnikId")]
         public int KorisnikId{get;set;}
 
         [Column("Ime")]

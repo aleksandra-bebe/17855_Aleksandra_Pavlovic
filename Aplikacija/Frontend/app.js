@@ -42,7 +42,7 @@ let buttonsDOM = [];
 class Products {
   async getProducts(ui) {
     try {
-      fetch("https://localhost:5001/Artikal/GetSat").then(p => {
+      fetch("https://localhost:5001/Artikal/GetNajprodavanije").then(p => {
         p.json().then(data => {
           Storage.saveProducts(data);
           ui.displayProducts(data);
@@ -53,94 +53,6 @@ class Products {
       console.log(error);
     }
   }
-}
-
-function showArticlePage(productId) {
-  userOverlay.classList.remove("transparentBcg");
-  userDOM.classList.remove("showUser");
-  registrationOverlay.classList.remove("transparentBcg");
-  registrationOverlay.classList.remove("showUser");
-  articleOverlay.classList.add("transparentBcg");
-  articleDOM.classList.add("showUser");
-  body.style.overflowY = "hidden";
-
-  articleInformation = document.querySelector(".articleInformation");
-  var product = Storage.getProduct(productId);
- console.log(product);
-  var basicInormation = document.createElement("div");
-  articleInformation.appendChild(basicInormation);
-
-  var header = document.createElement("h2");
-  header.classList.add("user-menu-header");
-  header.classList.add("article-header");
-  header.innerHTML = product.naziv;
-  basicInormation.appendChild(header);
-
-  var articleImg = document.createElement("img");
-  articleImg.classList.add("product-img");
-  articleImg.classList.add("article-img");
-  articleImg.src = product.image;
-  basicInormation.appendChild(articleImg);
-
-  var articleDescription = document.createElement("p");
-  articleDescription.className = "articleDescription";
-  articleDescription.innerHTML = "Opis proizvoda";
-  basicInormation.appendChild(articleDescription);
-
-  var articleRating = document.createElement("div");
-  prosecnaOcena = 4.4;
-  StarRating(articleRating, prosecnaOcena);
-  articleRating.className = "articleRating";
-  basicInormation.appendChild(articleRating);
-
-  var articlePrice = document.createElement("div");
-  articlePrice.className = "articlePrice";
-  articlePrice.innerHTML = "$" + product.cena;
-  basicInormation.appendChild(articlePrice);
-
-  var articleRate = document.createElement("div");
-  articleRate.className = "rate-article";
-  RateProduct(articleRate);
-  var h3 = document.createElement("h3");
-  h3.innerHTML = "Ocenite proizvod";
-  h3.style = "float:right;width:35%;margin-top:40px;";
-  basicInormation.appendChild(h3);
-  basicInormation.appendChild(articleRate);
-
-  var newCommentDiv = document.createElement("div");
-  newCommentDiv.className = "newCommentDiv";
-  var newComment = document.createElement("input");
-  newComment.placeholder = "Unesite vas komentar...";
-  newComment.type = "text";
-  newComment.className = "input";
-  var unesiteKomentar = document.createElement("h3");
-  unesiteKomentar.innerHTML = "Unesite komentar";
-  newCommentDiv.appendChild(unesiteKomentar);
-  newCommentDiv.appendChild(newComment);
-
-  var commentSendBtn = document.createElement("button");
-  commentSendBtn.classList.add("commentSendBtn");
-  commentSendBtn.innerHTML = `POSALJI`;
-  newCommentDiv.appendChild(commentSendBtn);
-  basicInormation.appendChild(newCommentDiv);
-
-  var articleAddToChart = document.createElement("button");
-  articleAddToChart.classList.add("articleAddToChart");
-  articleAddToChart.innerHTML = `<i class="fas fa-shopping-cart"></i> DODAJ U KORPU`;
-  basicInormation.appendChild(articleAddToChart);
-
-  // Sekcija za komentare
-  var commentInformation = document.createElement("div");
-  var articleComments = document.createElement("div");
-  articleComments.className = "articleComments";
-  ShowArticleComments(articleComments, productId);
-  var komentari = document.createElement("h3");
-  komentari.style = "margin-top:25px;";
-  komentari.innerHTML = "Komentari korisnika";
-  commentInformation.appendChild(komentari);
-  commentInformation.appendChild(articleComments);
-
-  articleInformation.appendChild(commentInformation);
 }
 
 function StarRating(host, prosecnaOcena) {
@@ -176,51 +88,62 @@ function ShowArticleComments(host, articleId) {
 }
 var attempt = 3;
 function login() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    if (username == "admin" && password == "admin") {
-      alert("Uspesno ste se ulogovali");
-      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/index.html"; 
+  var username = document.getElementById("loginUsername").value;
+  var password = document.getElementById("loginPassword").value;
+  if (username == "admin" && password == "admin") {
+    alert("Uspesno ste se ulogovali");
+    window.location = "/admin/index.html";
+    return false;
+  }
+  else {
+    attempt--;
+    alert("Imate jos " + attempt + " pokusaja;");
+    if (attempt == 0) {
+      document.getElementById("username").disabled = true;
+      document.getElementById("password").disabled = true;
+      document.getElementById("submit").disabled = true;
       return false;
     }
-    else {
-      attempt--;
-      alert("Imate jos " + attempt + " pokusaja;");
-      if (attempt == 0) {
-        document.getElementById("username").disabled = true;
-        document.getElementById("password").disabled = true;
-        document.getElementById("submit").disabled = true;
-        return false;
-      }
-    }
   }
+}
 // prikazivanje proizvoda
 class UI {
 
   displayProducts(products) {
-    let result = "";
     products.forEach((product) => {
-      result += `
-           <!-- single product-->
-        <article class="product" onclick="showArticlePage('${product.artikalId}')">
-          <div class="img-container">
-            <img
-              src=${product.image}
-              alt="product"
-              class="product-img"
-            />
-            <button class="bag-btn" data-id=${product.artikalID}>
-              <i class="fas fa-shopping-cart"></i>
-              Dodaj u korpu
-            </button>
-          </div>
-          <h3>${product.naziv}</h3>
-          <h4>$${product.cena}</h4>
-        </article>
-        <!-- end single product-->
-          `;
+      productsDOM.innerHTML += "<!-- single product-->"
+      var article = document.createElement("div");
+      article.className = "product";
+      var divImg = document.createElement("div");
+      divImg.className = "img-container";
+      article.appendChild(divImg);
+      var img = document.createElement("img");
+      img.src = "images/sat1.png";
+      img.alt = "product";
+      img.className = "product-img";
+      divImg.appendChild(img);
+      var button = document.createElement("button");
+      button.className = "bag-btn";
+      button.setAttribute("data-id",product.artikalId);
+      var icon = document.createElement("i");
+      icon.classList.add("fas");
+      icon.classList.add("fa-shopping-cart");
+      button.appendChild(icon)
+      button.innerHTML += "Dodaj u korpu";
+      divImg.appendChild(button);
+      var h3 = document.createElement("h3");
+      h3.innerHTML = product.naziv;
+      article.appendChild(h3);
+      var h4 = document.createElement("h4");
+      h4.innerHTML = "$"+product.cena;
+      article.appendChild(h4);
+      productsDOM.appendChild(article);
+      productsDOM.innerHTML += "<!-- end single product-->"
+      //Ovo nece da radi!!!
+      article.onclick = (event) => {alert("click")};
     });
-    productsDOM.innerHTML = result;
+    this.getBagButtons();
+    this.cartLogic();
   }
   getBagButtons() {
     const buttons = [...document.querySelectorAll(".bag-btn")];
@@ -255,7 +178,7 @@ class UI {
     let tempTotal = 0;
     let itemsTotal = 0;
     cart.map((item) => {
-      tempTotal += item.price * item.amount;
+      tempTotal += item.cena * item.amount;
       itemsTotal += item.amount;
     });
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
@@ -266,14 +189,14 @@ class UI {
     div.classList.add("cart-item");
     div.innerHTML = `<img src=${item.image} alt="product" />
             <div>
-              <h4>${item.title}</h4>
-              <h5>$${item.price}</h5>
-              <span class="remove-item" data-id=${item.id}>Ukloni</span>
+              <h4>${item.naziv}</h4>
+              <h5>$${item.cena}</h5>
+              <span class="remove-item" data-id=${item.artikalId}>Ukloni</span>
             </div>
             <div>
-              <i class="fas fa-chevron-up" data-id=${item.id}></i>
+              <i class="fas fa-chevron-up" data-id=${item.artikalId}></i>
               <p class="item-amount">${item.amount}</p>
-              <i class="fas fa-chevron-down" data-id=${item.id}></i>
+              <i class="fas fa-chevron-down" data-id=${item.artikalId}></i>
             </div>`;
     cartContent.appendChild(div);
   }
@@ -341,7 +264,7 @@ class UI {
       } else if (event.target.classList.contains("fa-chevron-up")) {
         let addAmount = event.target;
         let id = addAmount.dataset.id;
-        let tempItem = cart.find((item) => item.id === id);
+        let tempItem = cart.find((item) => item.artikalId == id);
         tempItem.amount = tempItem.amount + 1;
         Storage.saveCart(cart);
         this.setCartValues(cart);
@@ -349,7 +272,7 @@ class UI {
       } else if (event.target.classList.contains("fa-chevron-down")) {
         let lowerAmount = event.target;
         let id = lowerAmount.dataset.id;
-        let tempItem = cart.find((item) => item.id === id);
+        let tempItem = cart.find((item) => item.artikalId == id);
         tempItem.amount = tempItem.amount - 1;
         if (tempItem.amount > 0) {
           Storage.saveCart(cart);
@@ -363,7 +286,7 @@ class UI {
     });
   }
   clearCart() {
-    let cartItems = cart.map((item) => item.id);
+    let cartItems = cart.map((item) => item.artikalId);
     cartItems.forEach((id) => this.removeItem(id));
     while (cartContent.children.length > 0) {
       cartContent.removeChild(cartContent.children[0]);
@@ -371,7 +294,7 @@ class UI {
     this.hideCart();
   }
   removeItem(id) {
-    cart = cart.filter((item) => item.id !== id);
+    cart = cart.filter((item) => item.artikalId != id);
     this.setCartValues(cart);
     Storage.saveCart(cart);
     let button = this.getSingleButton(id);
@@ -379,10 +302,101 @@ class UI {
     button.innerHTML = `<i class="fas fa-shopping-cart"></i>Dodaj u korpu`;
   }
   getSingleButton(id) {
-    return buttonsDOM.find((button) => button.dataset.id === id);
+    return buttonsDOM.find((button) => button.dataset.id == id);
+  }
+
+  showArticlePage(productId) {
+    console.log("show article");
+    userOverlay.classList.remove("transparentBcg");
+    userDOM.classList.remove("showUser");
+    registrationOverlay.classList.remove("transparentBcg");
+    registrationOverlay.classList.remove("showUser");
+    articleOverlay.classList.add("transparentBcg");
+    articleDOM.classList.add("showUser");
+    body.style.overflowY = "hidden";
+
+    articleInformation = document.querySelector(".articleInformation");
+    var product = Storage.getProduct(productId);
+    var basicInormation = document.createElement("div");
+    articleInformation.appendChild(basicInormation);
+
+    var header = document.createElement("h2");
+    header.classList.add("user-menu-header");
+    header.classList.add("article-header");
+    header.innerHTML = product.naziv;
+    basicInormation.appendChild(header);
+
+    var articleImg = document.createElement("img");
+    articleImg.classList.add("product-img");
+    articleImg.classList.add("article-img");
+    articleImg.src = product.image;
+    basicInormation.appendChild(articleImg);
+
+    var articleDescription = document.createElement("p");
+    articleDescription.className = "articleDescription";
+    articleDescription.innerHTML = "Opis proizvoda";
+    basicInormation.appendChild(articleDescription);
+
+    var articleRating = document.createElement("div");
+    prosecnaOcena = 4.4;
+    StarRating(articleRating, prosecnaOcena);
+    articleRating.className = "articleRating";
+    basicInormation.appendChild(articleRating);
+
+    var articlePrice = document.createElement("div");
+    articlePrice.className = "articlePrice";
+    articlePrice.innerHTML = "$" + product.cena;
+    basicInormation.appendChild(articlePrice);
+
+    var articleRate = document.createElement("div");
+    articleRate.className = "rate-article";
+    RateProduct(articleRate);
+    var h3 = document.createElement("h3");
+    h3.innerHTML = "Ocenite proizvod";
+    h3.style = "float:right;width:35%;margin-top:40px;";
+    basicInormation.appendChild(h3);
+    basicInormation.appendChild(articleRate);
+
+    var newCommentDiv = document.createElement("div");
+    newCommentDiv.className = "newCommentDiv";
+    var newComment = document.createElement("input");
+    newComment.placeholder = "Unesite vas komentar...";
+    newComment.type = "text";
+    newComment.className = "input";
+    var unesiteKomentar = document.createElement("h3");
+    unesiteKomentar.innerHTML = "Unesite komentar";
+    newCommentDiv.appendChild(unesiteKomentar);
+    newCommentDiv.appendChild(newComment);
+
+    var commentSendBtn = document.createElement("button");
+    commentSendBtn.classList.add("commentSendBtn");
+    commentSendBtn.innerHTML = `POSALJI`;
+    newCommentDiv.appendChild(commentSendBtn);
+    basicInormation.appendChild(newCommentDiv);
+
+    var articleAddToChart = document.createElement("button");
+    articleAddToChart.classList.add("bag-btn");
+    articleAddToChart.classList.add("articleAddToChart");
+    articleAddToChart.setAttribute('data-id', productId);
+    console.log(ui);
+    ui.getBagButtons();
+    articleAddToChart.innerHTML = `<i class="fas fa-shopping-cart"></i> DODAJ U KORPU`;
+    basicInormation.appendChild(articleAddToChart);
+
+    // Sekcija za komentare
+    var commentInformation = document.createElement("div");
+    var articleComments = document.createElement("div");
+    articleComments.className = "articleComments";
+    ShowArticleComments(articleComments, productId);
+    var komentari = document.createElement("h3");
+    komentari.style = "margin-top:25px;";
+    komentari.innerHTML = "Komentari korisnika";
+    commentInformation.appendChild(komentari);
+    commentInformation.appendChild(articleComments);
+
+    articleInformation.appendChild(commentInformation);
   }
 }
-
 
 // localno skladiste
 class Storage {
@@ -412,8 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
   products
     .getProducts(ui)
     .then(() => {
-      ui.getBagButtons();
-      ui.cartLogic();
+
     });
 });
 

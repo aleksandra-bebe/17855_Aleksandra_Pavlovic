@@ -26,6 +26,9 @@ namespace Projekat.Models{
         [MaxLength(255)]
         public byte[] Image{get;set;}
 
+        [Column("BrojProdaja")]
+        public int BrojProdaja {get;set;}
+
         public Tip Tip{get;set;}
 
         [JsonIgnore]

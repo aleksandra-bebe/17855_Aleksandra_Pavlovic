@@ -4,8 +4,8 @@ namespace Projekat.Models{
     [Table("Komentar")]
     public class Komentar{
         [Key]
-        [Column("KomentarID")]
-        public int KomentarID{get;set;}
+        [Column("KomentarId")]
+        public int KomentarId{get;set;}
 
         [Column("OpisKomentar")]
         public string OpisKomentar{get;set;}
