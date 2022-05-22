@@ -4,6 +4,7 @@ const userBtn = document.querySelector(".user-btn");
 const registrationBtn = document.querySelector(".registration-btn");
 const closeCartBtn = document.querySelector(".close-cart");
 const closeUserMenuBtn = document.querySelector(".close-user-menu");
+const closeProfileBtn=document.querySelector(".close-profile-page");
 const closeRegistrationMenuBtn = document.querySelector(".close-registration-menu");
 const closeArticlePageBtn = document.querySelector(".close-article-page");
 const clearCartBtn = document.querySelector(".clear-cart");
@@ -20,6 +21,9 @@ const cartItems = document.querySelector(".cart-items");
 const cartTotal = document.querySelector(".cart-total");
 const cartContent = document.querySelector(".cart-content");
 const productsDOM = document.querySelector(".products-center");
+const userMenuContent=document.querySelector(".user-menu-content");
+const profileOverlay=document.querySelector(".profile-overlay");
+const profileDOM=document.querySelector(".profile");
 
 // meni togler
 const selectElement = function (element) {
@@ -37,6 +41,9 @@ menuToggler.addEventListener("click", function () {
 let cart = [];
 // buttons
 let buttonsDOM = [];
+
+let user=[];
+
 let ui_global;
 // uzimanje proizvoda
 class Products {
@@ -95,6 +102,12 @@ function login() {
     window.location = "/admin/index.html";
     return false;
   }
+  else if(username== "korisnik" && password== "korisnik") {
+    alert("Uspesno ste se ulogovali");
+    Storage.saveUser(user);
+    this.ProfilePage();
+    return false;
+  }
   else {
     attempt--;
     alert("Imate jos " + attempt + " pokusaja;");
@@ -106,6 +119,61 @@ function login() {
     }
   }
 }
+
+function ProfilePage() {
+  
+  console.log("show profile");
+  userOverlay.classList.remove("transparentBcg");
+  userDOM.classList.remove("showUser");
+  registrationOverlay.classList.remove("transparentBcg");
+  registrationOverlay.classList.remove("showUser");
+  profileOverlay.classList.add("transparentBcg");
+  profileDOM.classList.add("showUser");
+  body.style.overflowY = "hidden";
+
+
+profileInformation = document.querySelector(".profileInformation");
+
+var basicInormation = document.createElement("div");
+basicInormation.className="basicInfor";
+profileInformation.appendChild(basicInormation);
+
+var header=document.createElement("h2");
+header.classList.add("user-menu-header");
+header.innerHTML=this.ime;
+header.innerHTML=this.prezime;
+basicInormation.appendChild(header);
+
+const em=document.createElement("label");
+em.innerHTML=this.email;
+basicInormation.appendChild(em);
+
+ let dugme=document.createElement("button");
+ dugme.innerHTML="Moj profil";
+ dugme.className="btnProfil";
+ basicInormation.appendChild(dugme);
+ dugme.onclick= (event)=>{
+  window.location = "/Aplikacija/Frontend/profil.html";
+ }
+ let dugme2=document.createElement("button");
+ dugme2.innerHTML="Podesavanja";
+ dugme2.className="btnPodesavanja";
+ basicInormation.appendChild(dugme2);
+ dugme2.onclick=(event)=>{
+
+  window.location = "/Aplikacija/Frontend/podesavanja.html";
+ }
+ let dugme3=document.createElement("button");
+ dugme3.innerHTML="Odjavi se";
+ dugme3.className="btnOdjavi";
+ basicInormation.appendChild(dugme3);
+ dugme3.onclick=(event)=>{
+  alert("Da li zelite da se odjavite?");
+  window.location = "/Aplikacija/Frontend/index.html";
+ }
+}
+
+
 // prikazivanje proizvoda
 function showArticlePage(productId) {
   userOverlay.classList.remove("transparentBcg");
@@ -309,6 +377,16 @@ class UI {
     articleInformation.innerHTML = "";
     ui_global.getBagButtons();
   }
+  showProfilePage(){
+
+    profileOverlay.classList.add("transparentBcg");
+    profileDOM.classList.add("showUser");
+    
+  }
+  hideProfilePage(){
+    profileOverlay.classList.remove("transparentBcg");
+    profileDOM.classList.remove("showUser");
+  }
 
   getBagButtons() {
     const buttons = [...document.querySelectorAll(".bag-btn")];
@@ -350,6 +428,7 @@ class UI {
     registrationBtn.addEventListener("click", this.showRegistrationPage);
     closeRegistrationMenuBtn.addEventListener("click", this.hideRegistrationPage);
     closeArticlePageBtn.addEventListener("click", this.hideArticlePage);
+    closeProfileBtn.addEventListener("click",this.hideProfilePage);
   }
   populateCart(cart) {
     cart.forEach((item) => this.addCartItem(item));
@@ -435,6 +514,14 @@ class Storage {
     return localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
+  }
+  static saveUser(user){
+    localStorage.setItem("user",JSON.stringify(user));
+  }
+  static getUser(){
+    return localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    :[];
   }
 }
 
