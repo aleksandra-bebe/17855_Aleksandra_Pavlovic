@@ -186,34 +186,30 @@ namespace Proba.Controllers
                   return BadRequest(e.Message);
               }
         }
-        [Route("UlogujSe/{email}/{sifra}/{admin}")]
+        [Route("UlogujSe/{korisnickoIme}/{sifra}")]
         [HttpGet]
-        public async Task<ActionResult> VratiKorisnika(string email,string sifra,bool admin){
-            if(String.IsNullOrEmpty(email))
+        public async Task<ActionResult> VratiKorisnika(string korisnickoIme,string sifra){
+            if(String.IsNullOrEmpty(korisnickoIme))
             {
-                return BadRequest("Zaboravili ste da unesete korisnicko ime!");
+                return BadRequest("Zaboravili ste da unesete korisničko ime!");
             }
             if(String.IsNullOrEmpty(sifra))
             {
-                return BadRequest("Zaboravili ste da unesete sifru!");
+                return BadRequest("Zaboravili ste da unesete šifru!");
             }
             if(sifra.Length<8)
             {
-                return BadRequest("Sifra mora imati minimum 8 karaktera!");
+                return BadRequest("Šifra mora imati minimum 8 karaktera!");
             }
             try{
-                var korisnik=await Context.Korisnici.Where(p=>p.Email==email).FirstOrDefaultAsync();
+                var korisnik=await Context.Korisnici.Where(p=>p.KorisnickoIme==korisnickoIme).FirstOrDefaultAsync();
                 if(korisnik==null)
                 {
-                    return BadRequest("Korisnik sa unetim korisnickim imenom ne postoji!");
+                    return BadRequest("Korisnik sa unetim korisničkim imenom ne postoji!");
                 }
                 if(korisnik.Sifra!=sifra)
                 {
-                    return BadRequest("Uneta sifra je pogresna!");
-                }
-                if(korisnik.Admin !=admin)
-                {
-                    return BadRequest("Unet je pogresan pristup!");
+                    return BadRequest("Uneta šifra je pogresna!");
                 }
                 return Ok(korisnik);
             }
