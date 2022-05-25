@@ -23,8 +23,8 @@
     <div class="card p-3">
       <div class="e-navlist e-navlist--active-bg">
         <ul class="nav">
-          <li class="nav-item"><a href="index.html" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Pocetna strana</span></a></li>
-          <li class="nav-item"><a href="profil.html" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Profil</span></spa></span></a></li>
+          <li class="nav-item"><a href="index.html"><i class="fa fa-fw fa-th mr-1"></i><span>Pocetna strana</span></a></li>
+          <li class="nav-item"><a href="profil.html"><i class="fa fa-fw fa-th mr-1"></i><span>Profil</span></spa></span></a></li>
         </ul>
       </div>
     </div>
@@ -64,7 +64,6 @@
               </div>
               <div class="tab-content pt-3">
                 <div class="tab-pane active">
-                  <form class="form" novalidate="">
                     <div class="row">
                       <div class="col">
                         <div class="row">
@@ -142,21 +141,20 @@
                       </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Sacuvaj izmene</button>
+                        <button class="btn btn-primary">Sacuvaj izmene</button>
                       </div>
                     </div>
                     <div class="col-12 col-md-3 mb-3">
                       <div class="card mb-3">
                         <div class="card-body">
                           <div class="px-xl-3">
-                            <button class="btn btn-block btn-secondary" onclick="window.location.href='./watches.html'">
+                            <button class="btn btn-block btn-secondary" onclick="LogOut()">
                               <i class="fa fa-sign-out"></i>
                               <span>Odjavi se</span>
                             </button>
                           </div>
                         </div>
                       </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -223,5 +221,7 @@
     </div>
   </div>
 </footer>
+<script src="JavaScript/storage.js"></script>
+<script src="JavaScript/podesavanja.js"></script>
 </body>
 </html>

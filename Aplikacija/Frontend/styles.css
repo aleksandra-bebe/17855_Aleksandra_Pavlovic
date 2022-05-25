@@ -682,6 +682,10 @@ li a:hover {
   width: 50%;
   margin: auto;
 }
+.loginError{
+  text-align: center;
+  color:red;
+}
 /*---------------- End of User menu ------------*/
 /*---------------------------Contact US-----------------*/
 input[type="text"],
