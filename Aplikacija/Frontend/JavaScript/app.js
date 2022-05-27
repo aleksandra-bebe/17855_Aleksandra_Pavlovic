@@ -159,27 +159,42 @@ function ProfilePage() {
 
   const em = document.createElement("label");
   em.innerHTML = user.email;
+  var br3 = document.createElement("br");
   basicInormation.appendChild(em);
+  basicInormation.appendChild(br3);
+
+
 
   let dugme = document.createElement("button");
+  var br = document.createElement("br");
   dugme.innerHTML = "Moj profil";
-  dugme.className = "btnProfil";
+  dugme.className = "banner-btn";
   basicInormation.appendChild(dugme);
+  basicInormation.appendChild(br);
+
   dugme.onclick = (event) => {
     window.location = "profil.html";
   }
   let dugme2 = document.createElement("button");
+  var br1 = document.createElement("br");
+
   dugme2.innerHTML = "Podesavanja";
-  dugme2.className = "btnPodesavanja";
+  dugme2.className = "banner-btn";
   basicInormation.appendChild(dugme2);
+  basicInormation.appendChild(br1);
+
   dugme2.onclick = (event) => {
 
     window.location = "podesavanja.html";
   }
   let dugme3 = document.createElement("button");
+  var br2 = document.createElement("br");
+
   dugme3.innerHTML = "Odjavi se";
-  dugme3.className = "btnOdjavi";
+  dugme3.className = "login-btn banner-btn ";
   basicInormation.appendChild(dugme3);
+  basicInormation.appendChild(br2);
+
   dugme3.onclick = (event) => {
     let confirmAction = confirm("Da li zelite da se odjavite?");
     if (confirmAction) {
@@ -385,6 +400,26 @@ function brojVerify(){
   }
 }
 //END registracija provera
+
+//Registruj se fetch
+function registracija(){
+  let Ime=document.getElementById("ime").value;
+  let Prezime=document.getElementById("prezime").value;
+  let korisnickoIme=document.getElementById("korisnickoIme").value;
+  let email=document.getElementById("email").value;
+  let sifra=document.getElementById("password").value;
+  let adresa=document.getElementById("adresa").value;
+  let broj=document.getElementById("broj").value;
+
+  // alert(ime, prezime, korisnickoIme,email,password,adresa,broj);
+
+   fetch("https://localhost:5001/Korisnik/RegistrujSe/" + Ime + "/" + Prezime + "/" + korisnickoIme + "/" + email + "/" + sifra + "/" + adresa + "/" + broj, {method: "POST"}).then(p => {
+     if(!p.ok){
+       window.alert(console.log(ime, prezime, korisnickoIme,email,password,adresa,broj));
+     }
+   });
+}
+
 
 
 // prikazivanje proizvoda
