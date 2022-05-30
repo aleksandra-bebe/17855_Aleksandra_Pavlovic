@@ -34,7 +34,7 @@ namespace Projekat.Models{
         public int Broj{get;set;}
 
         [Column("Telefon")]
-        public int Telefon{get;set;}
+        public string Telefon{get;set;}
 
         [Column("Adresa")]
         public string Adresa{get;set;}

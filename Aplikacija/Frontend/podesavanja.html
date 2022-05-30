@@ -42,15 +42,15 @@
                   <div class="col-12 col-sm-auto mb-3"> 
                   <div class="mx-auto" style="width: 140px;">
                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                      <img id="imgUser" alt="profile image">
                     </div>
                   </div>
                 </div>  
               
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                   <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">Korisnik</h4>
-                    <p class="mb-0">@korisnik.s</p>
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap" id="pUsername"></h4>
+                    <p class="mb-0" id="pUserEmail"></p>
                     <div class="mt-2">
                       <button class="btn btn-primary" type="button" > 
                          <i class="fa fa-fw fa-camera"></i>
@@ -70,19 +70,19 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Ime</label>
-                              <input class="form-control" type="text" name="name" placeholder="Korisnik ">
+                              <input class="form-control" type="text" id="inputIme" name="name" placeholder="Korisnik ">
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>Prezime</label>
-                              <input class="form-control" type="text" name="name" placeholder="Korisnik">
+                              <input class="form-control" type="text" id="inputPrezime" name="name" placeholder="Korisnik">
                             </div>
                           </div>
                           <div class="col">
                             <div class="form-group">
                               <label>Email</label>
-                              <input class="form-control" type="text"  placeholder="user@example.com" >
+                              <input class="form-control" type="text" id="inputEmail" placeholder="user@example.com" >
                             </div>
                           </div>
                         </div>
@@ -90,7 +90,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Korisnicko ime</label>
-                              <input class="form-control" type="text" name="username" placeholder="korisnik.k">
+                              <input class="form-control" type="text" name="username" id="inputUsername" placeholder="korisnik.k">
                             </div>
                           </div>
                         </div>
@@ -98,7 +98,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Telefon</label>
-                              <input class="form-control" type="text" name="telefon" placeholder="+3819988332"></textarea>
+                              <input class="form-control" type="text" name="telefon" id="inputTelefon" placeholder="+3819988332">
                             </div>
                           </div>
                         </div>
@@ -106,8 +106,13 @@
                             <div class="col mb-3">
                               <div class="form-group">
                                 <label>Adresa</label>
-                                <input class="form-control" type="text" name="adresa" placeholder="Aleksandra Medvedeva br.14"></textarea>
+                                <input class="form-control" type="text" name="adresa" id="inputAdresa" placeholder="Aleksandra Medvedeva br.14">
                               </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col d-flex justify-content-end">
+                              <button class="btn btn-primary" onclick="sacuvajIzmene();">Sacuvaj izmene</button>
                             </div>
                           </div>
                       </div>
@@ -119,7 +124,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Trenutna lozinka</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control" id="inputTrenutnaLozinka" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
@@ -127,28 +132,28 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Nova lozinka</label>
-                              <input class="form-control" type="password" placeholder="••••••">
+                              <input class="form-control" id="inputNovaLozinka" type="password" placeholder="••••••">
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
-                              <label>Potvrdi <span class="d-none d-xl-inline">Lozinku</span></label>
-                              <input class="form-control" type="password" placeholder="••••••"></div>
+                              <label>Potvrdi lozinku</label>
+                              <input class="form-control" id="inputPotvrdaNovaLozinka" type="password" placeholder="••••••"></div>
                           </div>
                         </div>
                       </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary">Sacuvaj izmene</button>
+                        <button class="btn btn-primary" onclick="promeniLozinku();">Promeni Lozinku</button>
                       </div>
                     </div>
                     <div class="col-12 col-md-3 mb-3">
                       <div class="card mb-3">
                         <div class="card-body">
                           <div class="px-xl-3">
-                            <button class="btn btn-block btn-secondary" onclick="LogOut()">
+                            <button class="btn btn-block btn-secondary" onclick="logOut()">
                               <i class="fa fa-sign-out"></i>
                               <span>Odjavi se</span>
                             </button>

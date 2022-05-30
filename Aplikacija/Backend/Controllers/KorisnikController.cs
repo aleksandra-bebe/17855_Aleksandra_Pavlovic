@@ -97,17 +97,67 @@ namespace Proba.Controllers
             {
                 return BadRequest("Pogrešan ID!");
             }
-            if (string.IsNullOrWhiteSpace(korisnik.Ime) || korisnik.Ime.Length > 50)
-            {
-                return BadRequest("Pogrešno ime!");
-            }
 
-            if (string.IsNullOrWhiteSpace(korisnik.Prezime) || korisnik.Prezime.Length > 50)
-            {
-                return BadRequest("Pogrešno prezime!");
-            }
+            var stariKorisnik = await Context.Korisnici.Where(k => k.KorisnikId == korisnik.KorisnikId).FirstOrDefaultAsync();
             
+            if (!string.IsNullOrWhiteSpace(korisnik.Ime) || korisnik.Ime.Length < 50)
+            {
+                stariKorisnik.Ime = korisnik.Ime;
+            }
 
+            if (!string.IsNullOrWhiteSpace(korisnik.Prezime) || korisnik.Prezime.Length < 50)
+            {
+                stariKorisnik.Prezime = korisnik.Prezime;
+            }
+
+            if (!string.IsNullOrWhiteSpace(korisnik.Email))
+            {
+                stariKorisnik.Email = korisnik.Email;
+            }
+
+            if (!string.IsNullOrWhiteSpace(korisnik.KorisnickoIme))
+            {
+                stariKorisnik.KorisnickoIme = korisnik.KorisnickoIme;
+            }
+
+            if (!string.IsNullOrWhiteSpace(korisnik.Adresa))
+            {
+                stariKorisnik.Adresa = korisnik.Adresa;
+            }
+
+            if (!string.IsNullOrWhiteSpace(korisnik.Telefon))
+            {
+                stariKorisnik.Telefon = korisnik.Telefon;
+            }
+
+            try
+            {
+                Context.Korisnici.Update(stariKorisnik);
+                await Context.SaveChangesAsync();
+                return Ok($"Korisnik sa ID: {korisnik.KorisnikId} je uspešno izmenjen!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PromeniLozinku/{korisnikId}/{staraLozinka}/{novaLozinka}")]
+        [HttpPut]
+        public async Task<ActionResult> PromeniLozinku(int korisnikId, string staraLozinka, string novaLozinka)
+        {
+            if (korisnikId <= 0)
+            {
+                return BadRequest("Pogrešan ID!");
+            }
+            var korisnik =  await Context.Korisnici.Where(k => k.KorisnikId == korisnikId).FirstOrDefaultAsync();
+            if(korisnik.Sifra != staraLozinka)
+            {
+                return BadRequest("Pogrešna lozinka!");
+            }
+
+            korisnik.Sifra = novaLozinka;
+            
             try
             {
                 Context.Korisnici.Update(korisnik);
@@ -119,6 +169,7 @@ namespace Proba.Controllers
                 return BadRequest(e.Message);
             }
         }
+
 
         [Route("DeleteKorisnik/{id}")]
         [HttpDelete]
@@ -144,7 +195,7 @@ namespace Proba.Controllers
         }
         [Route("RegistrujSe/{Ime}/{Prezime}/{korisnickoIme}/{email}/{sifra}/{adresa}/{broj}/{admin}")]
         [HttpPost]
-        public async Task<ActionResult> DodatiKorisnika(string Ime,string Prezime,string korisnickoIme,string email,string sifra,string adresa,int broj,bool admin){
+        public async Task<ActionResult> DodatiKorisnika(string Ime,string Prezime,string korisnickoIme,string email,string sifra,string adresa,string broj,bool admin){
             if(String.IsNullOrEmpty(Ime))
             {
                 return BadRequest("Zaboravili ste da unesete ime!");
