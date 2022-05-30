@@ -410,91 +410,46 @@
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <form id="myForm" enctype="multipart/form-data"  class="w-75 mx-auto">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="icon nalika-user"
                                                                 aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control" placeholder="Ime">
+                                                        <input type="text" id="ime" class="form-control" placeholder="Ime">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="icon nalika-user"
                                                                 aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" id="prezime" class="form-control"
                                                             placeholder="Prezime">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-calendar"
                                                                 aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" id="godinaRodjenja" class="form-control"
                                                             placeholder="Godina rodjenja">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-home"
                                                                 aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" id="adresa" class="form-control"
                                                             placeholder="Adresa">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-phone"
                                                                 aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" id="brojTelefona" class="form-control"
                                                             placeholder="Broj telefona">
                                                     </div>
-                                                    <!-- <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="icon nalika-new-file" aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control" placeholder="Tax">
-                                                    </div> -->
-                                                    <!-- <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="icon nalika-favorites"
-                                                                aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control" placeholder="Kolicina">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="review-content-section"> -->
-                                                    <!-- <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="icon nalika-user" aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control" placeholder="Last Name">
-                                                    </div> -->
-                                                    <!-- <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i
-                                                                class="icon nalika-favorites-button"
-                                                                aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Opis proizvoda">
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-usd"
-                                                                aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Prodajna cena">
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="icon nalika-like"
-                                                                aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Kategorija">
-                                                    </div>
-                                                    <select name="select"
-                                                        class="form-control pro-edt-select form-control-primary">
-                                                        <option value="opt1">Select One Value Only</option>
-                                                        <option value="opt2">2</option>
-                                                        <option value="opt3">3</option>
-                                                        <option value="opt4">4</option>
-                                                        <option value="opt5">5</option>
-                                                        <option value="opt6">6</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                            
+                                
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="text-center custom-pro-edt-ds">
-                                                    <button type="button"
-                                                        class="btn btn-ctl-bt waves-effect waves-light m-r-10">Sacuvaj
+                                                    <button type="submit"
+                                                        class="btn btn-ctl-bt waves-effect waves-light m-r-10" onclick="dodajKorisnika()">Sacuvaj
                                                     </button>
                                                     <button type="button"
                                                         class="btn btn-ctl-bt waves-effect waves-light">Odustani
@@ -502,7 +457,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+    </form>
 
 
 
@@ -518,7 +473,7 @@
             </div>
         </div> -->
                                     </div>
-
+<script src="js/korisnik.js"></script>
                                     <!-- jquery
 		============================================ -->
                                     <script src="js/vendor/jquery-1.12.4.min.js"></script>
