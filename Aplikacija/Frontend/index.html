@@ -122,25 +122,25 @@
       </span>
       <h2 class="user-menu-header">Registracija</h2>
       <div class="user-menu-content registration-content">
-         <form method="POST" action ="index.html" onsubmit="return Validate()" name="vform" >
+         <form    onsubmit="return Validate()" name="vform" >
           <div class="reg_div" id="ime_div">
-        <input type="text" placeholder="Ime" name="ime" class="textInput" id="ime">
+        <input id="ime" type="text" placeholder="Ime" name="ime" class="textInput" >
         <div id="ime_error"></div>
           </div>
          <div class="reg_div" id="prezime_div">
-        <input type="text" placeholder="Prezime" name="prezime" class="textInput" id="prezime">
+        <input  id="prezime" type="text" placeholder="Prezime" name="prezime" class="textInput" >
         <div id="prezime_error"></div>
         </div>
           <div class="reg_div" id="korisnickoIme_div">
-         <input type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput" id="korisnickoIme" >
+         <input id="korisnickoIme" type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput"  >
          <div id="korisnickoIme_error"></div>
           </div>
           <div class="reg_div" id="email_div">
-         <input type="text" placeholder="Email" name="email" class="textInput" id="email">
+         <input id="email" type="text" placeholder="Email" name="email" class="textInput" >
          <div id="email_error"></div>
           </div>
           <div class="reg_div" id="password_div">
-         <input type="password" placeholder="Lozinka" name="password" class="textInput" id="password">
+         <input id="password"  type="password" placeholder="Lozinka" name="password" class="textInput" >
           <div id="password_error1"></div>
         </div>
           <div class="reg_div" id="pass_confirm_div">
@@ -148,15 +148,15 @@
          <div id="password_error"></div>
         </div>
         <div class="reg_div" id="adresa_div">
-         <input type="text" placeholder="Adresa" name="adresa" class="textInput" id="adresa">
+         <input  id="adresa"  type="text" placeholder="Adresa" name="adresa" class="textInput">
          <div id="adresa_error"></div>
          </div>
          <div class="reg_div" id="broj_div">
-         <input type="text" placeholder="Broj telefona" name="broj" id="broj" class="textInput">
+         <input id="broj"  type="text" placeholder="Broj telefona" name="broj"  class="textInput">
          <div id="broj_error"></div>
          </div>
          <div class="reg_div">
-          <button class="login-btn banner-btn registration-submit">Registruj se</button>
+          <button class="login-btn banner-btn registration-submit" onclick="registracija()" >Registruj se</button>
          </div>
         </form> 
       </div>

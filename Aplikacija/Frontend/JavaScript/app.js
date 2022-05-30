@@ -401,7 +401,7 @@ function brojVerify(){
 }
 //END registracija provera
 
-//Registruj se fetch
+//Registruj se fetchon
 function registracija(){
   let Ime=document.getElementById("ime").value;
   let Prezime=document.getElementById("prezime").value;
@@ -413,12 +413,18 @@ function registracija(){
 
   // alert(ime, prezime, korisnickoIme,email,password,adresa,broj);
 
-   fetch("https://localhost:5001/Korisnik/RegistrujSe/" + Ime + "/" + Prezime + "/" + korisnickoIme + "/" + email + "/" + sifra + "/" + adresa + "/" + broj, {method: "POST"}).then(p => {
+   fetch("https://localhost:5001/Korisnik/RegistrujSe/" + Ime + "/" + Prezime + "/" + korisnickoIme + "/" + email + "/" + sifra + "/" + adresa + "/" + broj,{method:'POST'}).then(p => {
      if(!p.ok){
-       window.alert(console.log(ime, prezime, korisnickoIme,email,password,adresa,broj));
+       p.json().then(data=>{
+         if(data){
+          window.location="./index.html";
+         }
+       })
+      
      }
    });
 }
+//END registracija
 
 
 

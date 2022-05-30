@@ -357,8 +357,10 @@ li a:hover {
 }
 
 .close-cart {
+  display: flex;
   font-size: 1.7rem;
   cursor: pointer;
+  align-self: flex-start;
 }
 .cart h2 {
   text-transform: capitalize;
@@ -615,6 +617,8 @@ li a:hover {
 }
 
 .close-user-menu {
+  display: flex;
+  align-self: flex-start;
   font-size: 1.7rem;
   cursor: pointer;
 }
@@ -687,6 +691,7 @@ li a:hover {
   text-align: center;
   color:red;
 }
+
 /*---------------- End of User menu ------------*/
 /*---------------------------Contact US-----------------*/
 input[type="text"],
@@ -1294,7 +1299,11 @@ textarea{
   
    
   }
+  .col.mb-3{
+    align-self: center;
+  }
   .e-profile{
+    align-self: center;
     display:flex;
     flex-direction: row;
     margin:20px;
@@ -1312,6 +1321,7 @@ textarea{
      display: flex;
     flex-direction: row;
     margin:20px;
+    align-items: center;
   }
   .container1{
   background-color: #dbd8d3;
@@ -1321,6 +1331,7 @@ textarea{
   .container2{
     display: flex;
     flex-direction: row;
+    align-self: center;
   }
   .row1{
     display: flex;
@@ -1341,6 +1352,7 @@ textarea{
     border-radius: .25rem;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
   }
+ 
   .card-body2{
     margin: 20px;
     position: relative;

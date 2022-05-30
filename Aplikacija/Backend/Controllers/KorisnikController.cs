@@ -193,10 +193,10 @@ namespace Proba.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Route("RegistrujSe/{Ime}/{Prezime}/{korisnickoIme}/{email}/{sifra}/{adresa}/{broj}/{admin}")]
+        [Route("RegistrujSe/{Ime}/{Prezime}/{korisnickoIme}/{email}/{sifra}/{adresa}/{broj}")]
         [HttpPost]
-        public async Task<ActionResult> DodatiKorisnika(string Ime,string Prezime,string korisnickoIme,string email,string sifra,string adresa,string broj,bool admin){
-            if(String.IsNullOrEmpty(Ime))
+        public async Task<ActionResult> DodatiKorisnika(string Ime,string Prezime,string korisnickoIme,string email,string sifra,string adresa,string broj){
+             if(String.IsNullOrEmpty(Ime))
             {
                 return BadRequest("Zaboravili ste da unesete ime!");
             }
@@ -235,7 +235,7 @@ namespace Proba.Controllers
                 k.Sifra=sifra;
                 k.Adresa=adresa;
                 k.Telefon=broj;
-                k.Admin=false;
+               // k.Admin=false;
 
                 Context.Korisnici.Add(k);
                 await Context.SaveChangesAsync();
