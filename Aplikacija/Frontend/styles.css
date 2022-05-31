@@ -1295,18 +1295,20 @@ textarea{
   .row{
     display: flex;
     flex-direction: column;
+    width: auto;
     margin: 20px;
   
    
   }
   .col.mb-3{
     align-self: center;
+    width: auto;
+    display: flex;
   }
   .e-profile{
     align-self: center;
-    display:flex;
-    flex-direction: row;
-    margin:20px;
+     display:flex; 
+    flex-direction: row; 
     background-color: rgba(255, 255, 255, 0.377);
   
   }

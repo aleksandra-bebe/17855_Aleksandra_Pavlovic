@@ -134,7 +134,17 @@ function login() {
     }
   }
 }
-
+//Kupovina proizvoda provera
+function check(){
+  
+  if (Storage.getUser('status') != null){
+    alert("Proizvod je kupljen!");
+  }
+   else{
+    alert("Morate se prvo ulogovati!");
+  }
+}
+//END
 function ProfilePage() {
   userOverlay.classList.remove("transparentBcg");
   userDOM.classList.remove("showUser");
@@ -561,8 +571,8 @@ class UI {
               Dodaj u korpu
             </button>
           </div>
-          <h3>${product.naziv}</h3>
-          <h4>$${product.cena}</h4>
+          <h3>${product.naziv} </h3>
+          <h4>${product.cena} RSD </h4>
         </article>
         <!-- end single product-->
           `;
@@ -589,7 +599,7 @@ class UI {
     div.innerHTML = `<img src=${item.image} alt="product" />
             <div>
               <h4>${item.naziv}</h4>
-              <h5>$${item.cena}</h5>
+              <h5>${item.cena} RSD </h5>
               <span class="remove-item" data-id=${item.artikalId}>Ukloni</span>
             </div>
             <div>

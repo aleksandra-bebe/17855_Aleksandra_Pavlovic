@@ -27,9 +27,6 @@ namespace Projekat.Models{
         [MinLength(8)]
         public string Sifra{get;set;}
 
-        [Required]
-        public Boolean Admin{get;set;}
-
         [Column("BrojKupljenihProizvoda")]
         public int Broj{get;set;}
 
