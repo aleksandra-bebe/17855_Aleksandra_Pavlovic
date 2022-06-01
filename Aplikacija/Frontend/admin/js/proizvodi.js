@@ -75,6 +75,28 @@ function prikaziSatove() {
               }
             )
             }
+
+            function dodajArtikal(){
+              let naziv = document.getElementById("naziv").value;
+              let cena = document.getElementById("cena").value;
+              let opis = document.getElementById("opis").value;
+              let naStanju = document.getElementById("naStanju").value;
+              let tipId = document.getElementById("tipId").value;
+              document.getElementById("naziv").value = "";
+              document.getElementById("cena").value = "";
+              document.getElementById("opis").value = "";
+              document.getElementById("naStanju").value = "";
+              document.getElementById("tipId").value = "";
+           
+      
+              fetch("https://localhost:5001/Artikal/DodajArtikal/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/" + tipId, { method: "POST" }).then(p => {
+                  if (!p.ok) {
+                      window.alert("Nije moguce dodati artikal!");
+                  }
+                  // this.vratiInstruktore();
+              });
+      }
+      // dodajArtikal();
     prikaziNarukvice();
     prikaziKaiseve();    
     prikaziSatove();

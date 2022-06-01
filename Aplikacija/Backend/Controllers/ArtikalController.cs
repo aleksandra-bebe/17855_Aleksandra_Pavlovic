@@ -174,6 +174,34 @@ namespace Projekat.Controllers
             }
         }
 
+        [Route("DodajArtikal/{Naziv}/{Cena}/{Opis}/{NaStanju}/{TipId}")]
+        [HttpPost]
+        public async Task<ActionResult> DodajArtikal(string Naziv, int Cena, string Opis, bool NaStanju,int TipId)
+        {
+            if (string.IsNullOrWhiteSpace(Naziv) || Naziv.Length > 50)
+                return BadRequest("Pogresno unet parametar 'Naziv'!");
+
+            var tip=await Context.Tipovi.Where(p => p.TipId == TipId).FirstOrDefaultAsync();
+  
+          try{     
+            Artikal k = new Artikal();
+            k.Naziv=Naziv;
+            k.Cena=Cena;
+            k.Opis=Opis;
+            k.NaStanju=NaStanju;
+            k.Tip=tip;
+
+            Context.Artikli.Add(k);
+            await Context.SaveChangesAsync();
+
+            return Ok("Dodat je artikal.");
+          }
+          catch(Exception e)
+          {
+              return BadRequest(e.Message);
+          }
+        }
+
        
 
     }
