@@ -23,7 +23,7 @@ namespace Projekat.Controllers
         [HttpGet]
         public async Task<List<Artikal>> GetNajprodavanije()
         {
-            var lista = await Context.Artikli.Where(k => k.NaStanju == true).ToListAsync();
+            var lista = await Context.Artikli.Where(k => k.NaStanju != 0).ToListAsync();
             lista.OrderBy(a => a.BrojProdaja);
             return lista;
         }
@@ -66,7 +66,7 @@ namespace Projekat.Controllers
 
         [Route("UpdateArtikal/{naziv}/{cena}/{opis}/{naStanju}/{slika}")]
         [HttpPut]
-        public async Task<ActionResult> Promeni(string naziv, int cena, string opis, bool nastanju, byte[] slika)
+        public async Task<ActionResult> Promeni(string naziv, int cena, string opis, int nastanju, byte[] slika)
         {
             if (string.IsNullOrWhiteSpace(naziv) || naziv.Length > 50)
             {
@@ -176,7 +176,7 @@ namespace Projekat.Controllers
 
         [Route("DodajArtikal/{Naziv}/{Cena}/{Opis}/{NaStanju}/{TipId}")]
         [HttpPost]
-        public async Task<ActionResult> DodajArtikal(string Naziv, int Cena, string Opis, bool NaStanju,int TipId)
+        public async Task<ActionResult> DodajArtikal(string Naziv, int Cena, string Opis, int NaStanju,int TipId)
         {
             if (string.IsNullOrWhiteSpace(Naziv) || Naziv.Length > 50)
                 return BadRequest("Pogresno unet parametar 'Naziv'!");

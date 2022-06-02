@@ -20,7 +20,7 @@ namespace Projekat.Models{
         public string Opis{get;set;}
 
         [Column("Na stanju")]
-        public bool NaStanju{get;set;}
+        public int NaStanju{get;set;}
 
         [Column("Image")]
         [MaxLength(255)]
