@@ -67,6 +67,7 @@ namespace Proba.Controllers
                   Korisnik=k,
               };
             artikal.BrojProdaja++;
+            artikal.NaStanju--;
             k.Broj++;
             Context.Transakcije.Add(tr);
             await Context.SaveChangesAsync();
