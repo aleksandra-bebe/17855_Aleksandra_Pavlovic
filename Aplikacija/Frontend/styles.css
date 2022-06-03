@@ -1379,15 +1379,14 @@ textarea{
     margin:50px;
     
   }
-  .table{
+   .table{
    margin-left: 150px;
    border: 10px black;
-    justify-content: space-evenly;
-    padding: auto;
-    margin-right: 150px;
+   padding: auto;
+   margin-right: 150px;  
+   }
+  
+  
+ 
 
-  }
-  .tbody{
-    justify-content: space-evenly;
-  }
  
