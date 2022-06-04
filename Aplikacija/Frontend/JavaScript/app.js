@@ -147,12 +147,14 @@ function check(){
          if(!p.ok){
            p.json().then(data=>{
              if(data){
-               alert("Proizvod je kupljen!");
+                Storage.saveUser(data);
              }
            })
          }
       });
     })
+    alert("Proizvod je kupljen!");
+    window.location='./profil.html';
   }
  else{
     alert("Morate se prvo ulogovati!");

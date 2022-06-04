@@ -1385,7 +1385,19 @@ textarea{
    padding: auto;
    margin-right: 150px;  
    }
-  
+   .tr{
+    /* display: flex;
+    flex-direction: row; */
+    margin: 10px;
+    align-items: flex-start;
+     /* justify-content: space-evenly;  */
+  } 
+  .td{
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: black 10px;
+    align-self: flex-start;
+  } 
   
  
 
