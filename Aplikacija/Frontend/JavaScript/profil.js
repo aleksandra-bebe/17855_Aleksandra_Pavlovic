@@ -28,12 +28,13 @@ function prikaziSatove() {
 
                  var ar=itemData.artikal;
 
-                  temp += "<tr class=tbody>";
+                  temp += "<tr class=tr>";
                   
                   // temp+="<td>"+ar.artikalId+"</td>";
-                  temp+="<td class=tbody>"+ar.naziv+  "</td>";
-                  temp+="<td class=tbody>"+ar.cena+  "</td>";
-                  temp+="<td class=tbody>"+ar.opis+  "</td>";
+                  temp+="<td class=td >"+   ar.naziv+  "</td>";
+                  temp+="<td class=td >"+   ar.cena+   "</td>";
+                  temp+="<td class=td >"+   ar.opis+   "</td>";
+                  // temp+="<td class=td>"+   ar.slika + "</td>";
                  
                   });
               document.getElementById('satovi').innerHTML = temp;

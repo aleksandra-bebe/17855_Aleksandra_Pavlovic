@@ -135,25 +135,28 @@ function login() {
   }
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function check(product){
-  
+function check(){
   if (Storage.getUser('status') != null){
-    
     var user=Storage.getUser();
     console.log("user",user);
-    var products=Storage.getProduct();
-    console.log("products",products);
-    fetch("https://localhost:5001/Transakcija/GetTransakcija/"+user.korisnikId +"/" + products.artikalId).then(p=>{
-      if(!p.ok){
-        p.json().then(data=>{
-          if(data){
-            window.location= alert("Proizvod je kupljen!");
-          }
-        })
-      }
+      let cart= Storage.getCart();
+      console.log("cart",cart);
+      alert("Da li zelite da kupite proizvod?");
+       cart.forEach((product)=>{
+       fetch("https://localhost:5001/Transakcija/PostTransakcija/"+user.korisnikId +"/" + product.artikalId,{method:'POST'}).then(p=>{
+         if(!p.ok){
+           p.json().then(data=>{
+             if(data){
+                Storage.saveUser(data);
+             }
+           })
+         }
+      });
     })
+    alert("Proizvod je kupljen!");
+    window.location='./profil.html';
   }
-   else{
+ else{
     alert("Morate se prvo ulogovati!");
   }
 }
@@ -607,7 +610,7 @@ class UI {
   }
 
   addCartItem(item) {
-
+  
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `<img src=${item.image} alt="product" />

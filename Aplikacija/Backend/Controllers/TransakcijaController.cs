@@ -36,42 +36,42 @@ namespace Proba.Controllers
         
         }
 
-        [Route("PostTransakcija/{idArtikal}/{korId}")]
+        [Route("PostTransakcija/{idKor}/{artikalId}")]
         [HttpPost]
-        public async Task<ActionResult> DodajTransakciju(int idArtikal,int korId)
+        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId)
         {   
-            if(idArtikal <0){
+            if(artikalId <0){
                 return BadRequest("Nije unet artikal!");
             }
-            if(korId<0)
+            if(idKor<0)
             {
                 return BadRequest("Nije unet korisnik!");
             }
             try{
-            var artikal= await Context.Artikli.Where(p=>p.ArtikalId==idArtikal).FirstOrDefaultAsync();
-            if(artikal==null)
+            var kor= await Context.Korisnici.Where(p=>p.KorisnikId==idKor).FirstOrDefaultAsync();
+            if(kor==null)
             {
-                return BadRequest("Artikal ne postoji!");
+                return BadRequest("Korisnik ne postoji!");
             }
-            int brojProdaja=artikal.BrojProdaja;
-            Korisnik k;
-            k= await Context.Korisnici.Where(p=>p.KorisnikId==korId).FirstOrDefaultAsync();
-            if(k==null)
+            int brKupljenih=kor.Broj;
+            Artikal a;
+            a= await Context.Artikli.Where(p=>p.ArtikalId==artikalId).FirstOrDefaultAsync();
+            if(a==null)
             {
-                return BadRequest("Ne postoji korisnik sa korisnickim imenom!");
+                return BadRequest("Ne postoji artikal!");
             }
-            int brKupljenih=k.Broj;
+            int brProdatih=a.BrojProdaja;
             Transakcija tr=new Transakcija
               { 
-                  Artikal =artikal,
-                  Korisnik=k,
+                  Korisnik =kor,
+                  Artikal=a,
               };
-            artikal.BrojProdaja++;
-            artikal.NaStanju--;
-            k.Broj++;
+            a.BrojProdaja++;
+            a.NaStanju--;
+            kor.Broj++;
             Context.Transakcije.Add(tr);
             await Context.SaveChangesAsync();
-             return Ok($"Dodata je transakcija");
+             return Ok("Dodata je transakcija");
 
             }   
             catch(Exception e)
