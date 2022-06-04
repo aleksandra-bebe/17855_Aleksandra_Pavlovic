@@ -64,9 +64,10 @@ namespace Projekat.Controllers
             }
         }
 
-        [Route("UpdateArtikal/{naziv}/{cena}/{opis}/{naStanju}/{slika}")]
+         //trenutno bez slike!!!
+        [Route("UpdateArtikal/{ArtikalId}/{naziv}/{cena}/{opis}/{naStanju}")]
         [HttpPut]
-        public async Task<ActionResult> Promeni(string naziv, int cena, string opis, int nastanju, byte[] slika)
+        public async Task<ActionResult> Promeni(int ArtikalId,string naziv, int cena, string opis, int naStanju)
         {
             if (string.IsNullOrWhiteSpace(naziv) || naziv.Length > 50)
             {
@@ -74,14 +75,15 @@ namespace Projekat.Controllers
             }
             try
             {
-                var artikal = Context.Artikli.Where(p => p.Naziv == naziv).FirstOrDefault();
+                var artikal = Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstOrDefault();
+                // var artikal = Context.Artikli.Where(p => p.Naziv == naziv).FirstOrDefault();
                 if (artikal != null)
                 {
                     artikal.Naziv = naziv;
                     artikal.Cena = cena;
                     artikal.Opis = opis;
-                    artikal.NaStanju = nastanju;
-                    artikal.Image = slika;
+                    artikal.NaStanju = naStanju;
+                    // artikal.Image = slika;
                     await Context.SaveChangesAsync();
                     return Ok($"Uspesno promenjen artikal! ID: {artikal.ArtikalId}");
                 }
@@ -116,28 +118,58 @@ namespace Projekat.Controllers
         //         return BadRequest(e.Message);
         //     }
         // }
-        [Route("DeleteArtikal/{id}")]
+
+        //NE RADI!
+        // [Route("DeleteArtikal/{ArtikalId}")]
+        // [HttpDelete]
+        // public async Task<ActionResult> Izbrisi(int ArtikalId)
+        // {
+        //     if (ArtikalId <= 0)
+        //     {
+        //         return BadRequest("Pogresan id!");
+        //     }
+        //     try
+        //     {
+
+        //        var artikal = await Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstAsync();
+        //        if (artikal == null)
+        //             throw new Exception("Ne postoji artikal sa takvim ID-jem!");
+        //         // var artikal = await Context.Artikli.FindAsync(ArtikalId);
+        //         string naziv = artikal.Naziv;
+        //         var tip = artikal.Tip.Naziv;
+        //         Context.Artikli.Remove(artikal);
+        //         await Context.SaveChangesAsync();
+        //         return Ok($"Uspesno je obrisan artikal sa nazivom:{naziv} i tipom {tip}");
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         return BadRequest(e.Message);
+        //     }
+        // }
+
+        [Route("IzbrisiArtikal/{ArtikalId}")]
         [HttpDelete]
-        public async Task<ActionResult> Izbrisi(int id)
+        public async Task<ActionResult> IzbrisiArtikal(int ArtikalId)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Pogresan id!");
-            }
             try
             {
-                var artikal = await Context.Artikli.FindAsync(id);
-                string naziv = artikal.Naziv;
-                var tip = artikal.Tip.Naziv;
-                Context.Artikli.Remove(artikal);
+                var artikal = await Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstAsync();
+
+                if (artikal == null)
+                    throw new Exception("Ne postoji takav artikal");
+
+                Context.Remove(artikal);
+
                 await Context.SaveChangesAsync();
-                return Ok($"Uspesno je obrisan artikal sa nazivom:{naziv} i tipom {tip}");
+
+                return Ok("Artikal je obrisan!");
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
+
 
         [Route("GetNarukvica")]
         [HttpGet]
@@ -200,6 +232,61 @@ namespace Projekat.Controllers
           {
               return BadRequest(e.Message);
           }
+        }
+
+    //    [Route("VratiArtikal/{ArtikalId}")]
+    //    [HttpGet]
+    //    public async Task<ActionResult> VratiKandidateNaOsnovuJmbg(int ArtikalId)
+    //    {
+    //         if (ArtikalId == 0)
+    //         {
+    //              return BadRequest("Nepostojeci id!");
+    //         }
+
+    //         try{
+    //             var artikal = await Context.Artikli.Where(p => p.ArtikalId == ArtikalId).ToListAsync(); 
+    //             if (artikal == null)
+    //             {
+    //                 throw new Exception("Ne postoji artikal sa trazenim id-jem.");
+    //             }
+    //             return Ok(artikal);
+    //         }
+    //         catch(Exception e)
+    //         {
+    //             return BadRequest(e.Message);
+    //         }
+    //    }
+
+
+        [Route("VratiArtikal/{ArtikalId}")]    
+        [HttpGet]
+        public async Task<ActionResult> VrariArtikal(int ArtikalId)
+        {
+            try
+            {
+                var artikal = await Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstAsync();
+                if(artikal == null)
+                {
+                    throw new Exception("Ne postoji trazeni artikal.");
+                }
+
+                var proizvod = await Context.Artikli.Where(p => p.ArtikalId == ArtikalId).Select(p => new{
+                    artikalID = p.ArtikalId,
+                    naziv = p.Naziv,
+                    cena = p.Cena,
+                    opis = p.Opis,
+                    naStanju=p.NaStanju,
+                    // artikalSlika=p.Image,
+                    brojProdaja=p.BrojProdaja
+                    // tip=p.Tip.TipId
+
+                }).ToArrayAsync();
+                return Ok(proizvod);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
        
