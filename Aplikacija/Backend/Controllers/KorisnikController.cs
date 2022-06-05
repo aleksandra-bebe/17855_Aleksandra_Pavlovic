@@ -73,14 +73,14 @@ namespace Proba.Controllers
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     korisnik.Email=email;
-                    korisnik.Broj=brojKup;
+                    korisnik.BrojKupljenihProizvoda=brojKup;
 
                     await Context.SaveChangesAsync();
                     return Ok($"Uspešno promenjen korisnik! ID: {korisnik.KorisnikId}");
                 }
                 else
                 {
-                    return BadRequest("Student nije pronađen!");
+                    return BadRequest("Korisnik nije pronađen!");
                 }
             }
             catch (Exception e)
@@ -142,6 +142,30 @@ namespace Proba.Controllers
             }
         }
 
+         [Route("PromeniSlikuKorisnika/{id}")]
+        [HttpPut]
+        public async Task<ActionResult> PromeniSlikuKorisnika([FromBody] string slika,int id)
+        {
+
+            if (id <= 0)
+            {
+                return BadRequest("Pogrešan ID!");
+            }
+            
+            try
+            {
+                var stariKorisnik = await Context.Korisnici.Where(k => k.KorisnikId == id).FirstOrDefaultAsync();
+                stariKorisnik.Slika = Convert.FromBase64String(slika);
+                Context.Korisnici.Update(stariKorisnik);
+                await Context.SaveChangesAsync();
+                return Ok(slika);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PromeniLozinku/{korisnikId}/{staraLozinka}/{novaLozinka}")]
         [HttpPut]
         public async Task<ActionResult> PromeniLozinku(int korisnikId, string staraLozinka, string novaLozinka)
@@ -193,53 +217,44 @@ namespace Proba.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Route("RegistrujSe/{Ime}/{Prezime}/{korisnickoIme}/{email}/{sifra}/{adresa}/{broj}")]
+        [Route("RegistrujSe")]
         [HttpPost]
-        public async Task<ActionResult> DodatiKorisnika(string Ime,string Prezime,string korisnickoIme,string email,string sifra,string adresa,string broj){
-             if(String.IsNullOrEmpty(Ime))
+        public async Task<ActionResult> DodatiKorisnika([FromBody] Korisnik k){
+             if(String.IsNullOrEmpty(k.Ime))
             {
                 return BadRequest("Zaboravili ste da unesete ime!");
             }
-            if(String.IsNullOrEmpty(Prezime))
+            if(String.IsNullOrEmpty(k.Prezime))
             {
                 return BadRequest("Zaboravili ste da unesete prezime!");
             }
-            if(String.IsNullOrEmpty(email))
+            if(String.IsNullOrEmpty(k.Email))
             {
                 return BadRequest("Zaboravili ste da unesete korisnicko ime!");  
             }
-            if(String.IsNullOrEmpty(sifra))
+            if(String.IsNullOrEmpty(k.Sifra))
             {
                 return BadRequest("Zaboravili ste da uneste sifru!");
             }  
-            if(sifra.Length<8)
+            if(k.Sifra.Length<8)
             {
                 return BadRequest("Sifra mora imati minimum 8 karaktera!");
             } 
 
-            if(String.IsNullOrEmpty(adresa))
+            if(String.IsNullOrEmpty(k.Adresa))
             {
                 return BadRequest("Zaboravili ste da uneste adresu!");
-            } 
-
-              var korisnik=await Context.Korisnici.Where(p=>p.KorisnickoIme==korisnickoIme).FirstOrDefaultAsync();
-              if(korisnik!=null)
-              return BadRequest("Korisnik sa unetim korisnickim imenom vec postoji!");
-      
+            }       
+             var korisnik=await Context.Korisnici.Where(p=>p.KorisnickoIme==k.KorisnickoIme).FirstOrDefaultAsync();
+                if(korisnik != null)
+                {
+                    return BadRequest("Korisnik sa unetim korisničkim imenom vec postoji!");
+                }
             try{
-                Korisnik k = new Korisnik();
-                k.Ime=Ime;
-                k.Prezime=Prezime;
-                k.KorisnickoIme=korisnickoIme;
-                k.Email=email;
-                k.Sifra=sifra;
-                k.Adresa=adresa;
-                k.Telefon=broj;
-               // k.Admin=false;
-
                 Context.Korisnici.Add(k);
                 await Context.SaveChangesAsync();
-                return Ok("Kreiran je novi korisnik!");
+               var korisnikReturn=await Context.Korisnici.Where(p=>p.KorisnickoIme==k.KorisnickoIme).FirstOrDefaultAsync();
+                return Ok(korisnikReturn.KorisnikId);
             }
             catch (Exception e)
             {

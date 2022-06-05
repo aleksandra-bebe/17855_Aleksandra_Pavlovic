@@ -6,6 +6,7 @@ var inputEmail = document.getElementById("inputEmail");
 var inputUsername = document.getElementById("inputUsername");
 var telefon = document.getElementById("inputTelefon");
 var adresa = document.getElementById("inputAdresa");
+var profilnaSlika = document.getElementById("imgUser");
 
 window.onload = function pageOnLoad() {
     var user = Storage.getUser();
@@ -22,6 +23,7 @@ window.onload = function pageOnLoad() {
         inputUsername.value = user.korisnickoIme;
         telefon.value = user.telefon;
         adresa.value = user.adresa;
+        profilnaSlika.src = 'data:image/png;base64,' + user.slika;
     }
 }
 
@@ -35,33 +37,69 @@ function logOut() {
 
 function sacuvajIzmene() {
     var oldUser = Storage.getUser();
-    let user = JSON.stringify({
-        "korisnikId": oldUser.korisnikId,
-        "korisnickoIme": inputUsername.value,
-        "email": inputEmail.value,
-        "ime": ime.value,
-        "prezime": prezime.value,
-        "telefon": telefon.value,
-        "adresa": adresa.value,
-    });
 
+    var file = document.getElementById("profilePicture").files[0];
+    console.log("profilnaSLika: ", file);
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        var codedFile = reader.result;
+        var byteString = codedFile.split(',')[1];
+        let user = JSON.stringify({
+            "korisnikId": oldUser.korisnikId,
+            "korisnickoIme": inputUsername.value,
+            "email": inputEmail.value,
+            "ime": ime.value,
+            "prezime": prezime.value,
+            "telefon": telefon.value,
+            "adresa": adresa.value,
+        });
 
-    fetch("https://localhost:5001/Korisnik/PromenaFromBodyKorisnik", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: user
-    }).then(r => {
-        if (r.ok) {
-            Storage.removeUser();
-            localStorage.setItem("user", user);
-            window.location.reload();
-        }
-        else {
-            r.text().then(errorText => { alert(errorText); });
-        }
-    });
+        fetch("https://localhost:5001/Korisnik/PromenaFromBodyKorisnik", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: user
+        }).then(r => {
+            if (r.ok) {
+                // Izmeni sliku 
+                fetch("https://localhost:5001/Korisnik/PromeniSlikuKorisnika/" + oldUser.korisnikId, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(byteString)
+                }).then(r => {
+                    if (r.ok) {
+                        r.text().then(slika => {
+                            Storage.removeUser();
+                            console.log("slika:", slika);
+                            user.slika = slika;
+                            let userNew = JSON.stringify({
+                                "korisnikId": oldUser.korisnikId,
+                                "korisnickoIme": inputUsername.value,
+                                "email": inputEmail.value,
+                                "ime": ime.value,
+                                "prezime": prezime.value,
+                                "telefon": telefon.value,
+                                "adresa": adresa.value,
+                                "slika":slika
+                            });
+                            localStorage.setItem("user", userNew);
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        r.text().then(errorText => { alert(errorText); });
+                    }
+                });
+            }
+            else {
+                r.text().then(errorText => { alert(errorText); });
+            }
+        });
+    };
 }
 
 function promeniLozinku() {

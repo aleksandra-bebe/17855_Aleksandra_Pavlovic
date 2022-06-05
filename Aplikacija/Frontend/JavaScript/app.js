@@ -135,28 +135,28 @@ function login() {
   }
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function check(){
-  if (Storage.getUser('status') != null){
-    var user=Storage.getUser();
-    console.log("user",user);
-      let cart= Storage.getCart();
-      console.log("cart",cart);
-      alert("Da li zelite da kupite proizvod?");
-       cart.forEach((product)=>{
-       fetch("https://localhost:5001/Transakcija/PostTransakcija/"+user.korisnikId +"/" + product.artikalId,{method:'POST'}).then(p=>{
-         if(!p.ok){
-           p.json().then(data=>{
-             if(data){
-                Storage.saveUser(data);
-             }
-           })
-         }
+function check() {
+  if (Storage.getUser('status') != null) {
+    var user = Storage.getUser();
+    console.log("user", user);
+    let cart = Storage.getCart();
+    console.log("cart", cart);
+    alert("Da li zelite da kupite proizvod?");
+    cart.forEach((product) => {
+      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId, { method: 'POST' }).then(p => {
+        if (!p.ok) {
+          p.json().then(data => {
+            if (data) {
+              Storage.saveUser(data);
+            }
+          })
+        }
       });
     })
     alert("Proizvod je kupljen!");
-    window.location='./profil.html';
+    window.location = './profil.html';
   }
- else{
+  else {
     alert("Morate se prvo ulogovati!");
   }
 }
@@ -230,113 +230,117 @@ function ProfilePage() {
   }
 }
 //Registracija provera 
-var ime=document.forms['vform']['ime'];
-var prezime=document.forms['vform']['prezime'];
-var korisnickoIme=document.forms['vform']['korisnickoIme'];
-var email=document.forms['vform']['email'];
-var password=document.forms['vform']['password'];
-var password_confirm=document.forms['vform']['password_confirm'];
-var adresa=document.forms['vform']['adresa'];
-var broj=document.forms['vform']['broj'];
- 
-var ime_error=document.getElementById('ime_error');
-var prezime_error=document.getElementById('prezime_error');
-var korisnickoIme_error=document.getElementById('korisnickoIme_error');
-var email_error=document.getElementById('email_error');
-var password_error=document.getElementById('password_error');
-var password_error1=document.getElementById('password_error1');
-var adresa_error=document.getElementById('adresa_error');
-var broj_error=document.getElementById('broj_error');
+let ime = document.getElementById("ime");
+let Prezime = document.getElementById("prezime");
+let korisnickoIme = document.getElementById("korisnickoIme");
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+let password_confirm = document.getElementById("password_confirm");
+let adresa = document.getElementById("adresa");
+let broj = document.getElementById("broj");
+
+var ime_error = document.getElementById('ime_error');
+var prezime_error = document.getElementById('prezime_error');
+var korisnickoIme_error = document.getElementById('korisnickoIme_error');
+var email_error = document.getElementById('email_error');
+var password_error = document.getElementById('password_error');
+var password_error1 = document.getElementById('password_error1');
+var adresa_error = document.getElementById('adresa_error');
+var broj_error = document.getElementById('broj_error');
 
 var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
-		var letters = /^[A-Za-z]+$/;
-		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+var letters = /^[A-Za-z]+$/;
+var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 
-ime.addEventListener('blur',imeVerify,true);
-prezime.addEventListener('blur',prezimeVerify,true);
-korisnickoIme.addEventListener('blur',korisnickoImeVerify,true);
-email.addEventListener('blur',emailVerify,true);
-password.addEventListener('blur',passwordVerify,true);
-adresa.addEventListener('blur',adresaVerify,true);
-broj.addEventListener('blur',brojVerify,true);
+ime.addEventListener('blur', imeVerify, true);
+prezime.addEventListener('blur', prezimeVerify, true);
+korisnickoIme.addEventListener('blur', korisnickoImeVerify, true);
+email.addEventListener('blur', emailVerify, true);
+password.addEventListener('blur', passwordVerify, true);
+adresa.addEventListener('blur', adresaVerify, true);
+broj.addEventListener('blur', brojVerify, true);
 
-function Validate(){
-  if(ime.value==""){
-    ime.style.border="1px solid red";
-    document.getElementById('ime_div').style.color="red";
-    ime_error.textContent="Ime je obavezno!";
+function Validate() {
+  console.log("password: ", password);
+  console.log("password value: ", password.value);
+  console.log("password_confirm: ", password_confirm);
+  console.log("password_confirm value: ", password_confirm.value);
+  if (ime.value == "") {
+    ime.style.border = "1px solid red";
+    document.getElementById('ime_div').style.color = "red";
+    ime_error.textContent = "Ime je obavezno!";
     ime.focus();
     return false;
   }
-  else if(!letters.test(ime.value)){
-    ime.style.border="1px solid red";
-    document.getElementById('ime_div').style.color="red";
-    ime_error.textContent="Ime mora da sazdrzi samo slova!";
+  else if (!letters.test(ime.value)) {
+    ime.style.border = "1px solid red";
+    document.getElementById('ime_div').style.color = "red";
+    ime_error.textContent = "Ime mora da sazdrzi samo slova!";
     ime.focus();
     return false;
   }
-  else if(prezime.value==""){
-    prezime.style.border="1px solid red";
-    document.getElementById('prezime_div').style.color="red";
-    prezime_error.textContent="Prezime je obavezno!";
+  else if (prezime.value == "") {
+    prezime.style.border = "1px solid red";
+    document.getElementById('prezime_div').style.color = "red";
+    prezime_error.textContent = "Prezime je obavezno!";
     prezime.focus();
     return false;
   }
-  else if(!letters.test(prezime.value)){
-    prezime.style.border="1px solid red";
-    document.getElementById('ime_div').style.color="red";
-    prezime_error.textContent="Prezime mora da sazdrzi samo slova!";
+  else if (!letters.test(prezime.value)) {
+    prezime.style.border = "1px solid red";
+    document.getElementById('ime_div').style.color = "red";
+    prezime_error.textContent = "Prezime mora da sazdrzi samo slova!";
     prezime.focus();
     return false;
   }
-  else if(korisnickoIme.value==""){
-    korisnickoIme.style.border="1px solid red";
-    document.getElementById('korisnickoIme_div').style.color="red";
-    korisnickoIme_error.textContent="Korisnicko ime je obavezno!";
+  else if (korisnickoIme.value == "") {
+    korisnickoIme.style.border = "1px solid red";
+    document.getElementById('korisnickoIme_div').style.color = "red";
+    korisnickoIme_error.textContent = "Korisnicko ime je obavezno!";
     korisnickoIme.focus();
     return false;
   }
-  else if(!letters.test(korisnickoIme.value)){
-    korisnickoIme.style.border="1px solid red";
-    document.getElementById('korisnickoIme_div').style.color="red";
-    korisnickoIme_error.textContent="Korisnicko ime mora sadrzati samo slova!";
+  else if (!letters.test(korisnickoIme.value)) {
+    korisnickoIme.style.border = "1px solid red";
+    document.getElementById('korisnickoIme_div').style.color = "red";
+    korisnickoIme_error.textContent = "Korisnicko ime mora sadrzati samo slova!";
     korisnickoIme.focus();
     return false;
   }
- else  if(korisnickoIme.value.length<3){
-    korisnickoIme.style.border="1px solid red";
-    document.getElementById('korisnickoIme_div').style.color="red";
-    korisnickoIme_error.textContent="Korisnicko ime mora imati najmanje 3 slova!";
+  else if (korisnickoIme.value.length < 3) {
+    korisnickoIme.style.border = "1px solid red";
+    document.getElementById('korisnickoIme_div').style.color = "red";
+    korisnickoIme_error.textContent = "Korisnicko ime mora imati najmanje 3 slova!";
     korisnickoIme.focus();
     return false;
- }
-  else if(email.value==""){
-    email.style.border="1px solid red";
-    document.getElementById('email_div').style.color="red";
-    email_error.textContent="Email je obavezan!";
+  }
+  else if (email.value == "") {
+    email.style.border = "1px solid red";
+    document.getElementById('email_div').style.color = "red";
+    email_error.textContent = "Email je obavezan!";
     email.focus();
     return false;
   }
-  else if(!filter.test(email.value)){
-    email.style.border="1px solid red";
-    document.getElementById('email_div').style.color="red";
-    email_error.textContent="Nevalidan email!";
+  else if (!filter.test(email.value)) {
+    email.style.border = "1px solid red";
+    document.getElementById('email_div').style.color = "red";
+    email_error.textContent = "Nevalidan email!";
     email.focus();
     return false;
   }
-  
- else  if(password.value==""){
-    password.style.border="1px solid red";
-    document.getElementById('password_div').style.color="red";
-    password_error1.textContent="Sifra  je obavezna!";
+
+  else if (password.value == "") {
+    password.style.border = "1px solid red";
+    document.getElementById('password_div').style.color = "red";
+    password_error1.textContent = "Sifra  je obavezna!";
     password.focus();
     return false;
   }
-  else if(!pwd_expression.test(password.value)){
-    password.style.border="1px solid red";
-    document.getElementById('password_div').style.color= "red";
-    password_error1.textContent="Sifra mora sadrzati velika slova mala slova specijalni karakter i numericko slovo!";
+  else if (!pwd_expression.test(password.value)) {
+    password.style.border = "1px solid red";
+    document.getElementById('password_div').style.color = "red";
+    password_error1.textContent = "Sifra mora sadrzati velika slova, mala slova, specijalni karakter i broj!";
     password.focus();
     return false;
   }
@@ -347,108 +351,177 @@ function Validate(){
     password_error.innerHTML = "Sifre se ne slazu!";
     return false;
   }
-  else if(adresa.value==""){
-    adresa.style.border="1px solid red";
-    document.getElementById('adresa_div').style.color="red";
-    adresa_error.textContent="Adresa je obavezan!";
+  else if (password.value.length < 8) {
+    password.style.border = "1px solid red";
+    document.getElementById('password_div').style.color = "red";
+    password_error1.textContent = "Sifra mora sadrzati minimum 8 karaktera!";
+    password.focus();
+    return false;
+  }
+  else if (adresa.value == "") {
+    adresa.style.border = "1px solid red";
+    document.getElementById('adresa_div').style.color = "red";
+    adresa_error.textContent = "Adresa je obavezan!";
     adresa.focus();
     return false;
   }
- else if(broj.value==""){
-  broj.style.border="1px solid red";
-  document.getElementById('broj_div').style.color="red";
-  broj_error.textContent="Broj telefona je obavezan!";
-  broj.focus();
-  return false;
+  else if (broj.value == "") {
+    broj.style.border = "1px solid red";
+    document.getElementById('broj_div').style.color = "red";
+    broj_error.textContent = "Broj telefona je obavezan!";
+    broj.focus();
+    return false;
+  }
+  else {
+    return true;
   }
 }
-function imeVerify(){
-  if(ime.value != ""){
-   ime.style.border="1px solid #5e6e66";
-   document.getElementById('ime_div').style.color = "#5e6e66";
-   ime_error.innerHTML = "";
-   return true;
+function imeVerify() {
+  if (ime.value != "") {
+    ime.style.border = "1px solid #5e6e66";
+    document.getElementById('ime_div').style.color = "#5e6e66";
+    ime_error.innerHTML = "";
+    return true;
   }
 }
-function prezimeVerify(){
-  if(prezime.value != ""){
-   prezime.style.border="1px solid #5e6e66";
-   document.getElementById('prezime_div').style.color = "#5e6e66";
-   prezime_error.innerHTML = "";
-   return true;
+function prezimeVerify() {
+  if (prezime.value != "") {
+    prezime.style.border = "1px solid #5e6e66";
+    document.getElementById('prezime_div').style.color = "#5e6e66";
+    prezime_error.innerHTML = "";
+    return true;
   }
 }
-function korisnickoImeVerify(){
-  if(korisnickoIme.value != ""){
-   korisnickoIme.style.border="1px solid #5e6e66";
-   document.getElementById('korisnickoIme_div').style.color = "#5e6e66";
-   korisnickoIme_error.innerHTML = "";
-   return true;
+function korisnickoImeVerify() {
+  if (korisnickoIme.value != "") {
+    korisnickoIme.style.border = "1px solid #5e6e66";
+    document.getElementById('korisnickoIme_div').style.color = "#5e6e66";
+    korisnickoIme_error.innerHTML = "";
+    return true;
   }
 }
-function emailVerify(){
-  if(email.value != ""){
-   email.style.border="1px solid #5e6e66";
-   document.getElementById('email_div').style.color = "#5e6e66";
-   email_error.innerHTML = "";
-   return true;
+function emailVerify() {
+  if (email.value != "") {
+    email.style.border = "1px solid #5e6e66";
+    document.getElementById('email_div').style.color = "#5e6e66";
+    email_error.innerHTML = "";
+    return true;
   }
 }
-function passwordVerify(){
-  if(password.value != ""){
-   password.style.border="1px solid #5e6e66";
-   document.getElementById('pass_confirm_div').style.color = "#5e6e66";
-   document.getElementById('password_div').style.color = "#5e6e66";
-   password_error.innerHTML = "";
-   return true;
-  }
-  else  if(password.value===password_confirm.value){
+function passwordVerify() {
+  if (password.value != "") {
     password.style.border = "1px solid #5e6e66";
-  	document.getElementById('pass_confirm_div').style.color = "#5e6e66";
-  	password_error.innerHTML = "";
-  	return true;
+    document.getElementById('pass_confirm_div').style.color = "#5e6e66";
+    document.getElementById('password_div').style.color = "#5e6e66";
+    password_error.innerHTML = "";
+    return true;
+  }
+  else if (password.value === password_confirm.value) {
+    password.style.border = "1px solid #5e6e66";
+    document.getElementById('pass_confirm_div').style.color = "#5e6e66";
+    password_error.innerHTML = "";
+    return true;
   }
 }
-function adresaVerify(){
-  if(adresa.value != ""){
-   adresa.style.border="1px solid #5e6e66";
-   document.getElementById('adresa_div').style.color = "#5e6e66";
-   adresa_error.innerHTML = "";
-   return true;
+function adresaVerify() {
+  if (adresa.value != "") {
+    adresa.style.border = "1px solid #5e6e66";
+    document.getElementById('adresa_div').style.color = "#5e6e66";
+    adresa_error.innerHTML = "";
+    return true;
   }
 }
-function brojVerify(){
-  if(broj.value != ""){
-   broj.style.border="1px solid #5e6e66";
-   document.getElementById('broj_div').style.color = "#5e6e66";
-   broj_error.innerHTML = "";
-   return true;
+function brojVerify() {
+  if (broj.value != "") {
+    broj.style.border = "1px solid #5e6e66";
+    document.getElementById('broj_div').style.color = "#5e6e66";
+    broj_error.innerHTML = "";
+    return true;
   }
 }
 //END registracija provera
 
 //Registruj se fetchon
-function registracija(){
-  let Ime=document.getElementById("ime").value;
-  let Prezime=document.getElementById("prezime").value;
-  let korisnickoIme=document.getElementById("korisnickoIme").value;
-  let email=document.getElementById("email").value;
-  let sifra=document.getElementById("password").value;
-  let adresa=document.getElementById("adresa").value;
-  let broj=document.getElementById("broj").value;
+function registracija() {
+  if (!Validate()) {
+    return;
+  }
+  var profilnaSlika = document.getElementById("profilnaSlika").files[0];
+  let ime = document.getElementById("ime").value;
+  let prezime = document.getElementById("prezime").value;
+  let korisnickoIme = document.getElementById("korisnickoIme").value;
+  let email = document.getElementById("email").value;
+  let sifra = document.getElementById("password").value;
+  let adresa = document.getElementById("adresa").value;
+  let broj = document.getElementById("broj").value;
 
-  // alert(ime, prezime, korisnickoIme,email,password,adresa,broj);
+  let user = JSON.stringify({
+    "korisnickoIme": korisnickoIme,
+    "email": email,
+    "ime": ime,
+    "prezime": prezime,
+    "telefon": broj,
+    "adresa": adresa,
+    "sifra": sifra,
+  });
 
-   fetch("https://localhost:5001/Korisnik/RegistrujSe/" + Ime + "/" + Prezime + "/" + korisnickoIme + "/" + email + "/" + sifra + "/" + adresa + "/" + broj,{method:'POST'}).then(p => {
-     if(!p.ok){
-       p.json().then(data=>{
-         if(data){
-          window.location="./index.html";
-         }
-       })
-      
-     }
-   });
+  if (profilnaSlika) {
+    var reader = new FileReader();
+    reader.readAsDataURL(profilnaSlika);
+
+    reader.onload = function () {
+      var codedFile = reader.result;
+      var byteString = codedFile.split(',')[1];
+
+      fetch("https://localhost:5001/Korisnik/RegistrujSe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: user
+      }).then(r => {
+        if (r.ok) {
+          r.text().then(id => {
+              fetch("https://localhost:5001/Korisnik/PromeniSlikuKorisnika/" + id, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(byteString)
+              }).then(r => {
+                if (r.ok) {
+                  alert("Uspeno ste se registrovali!");
+                  window.location.reload();
+                }
+                else {
+                  r.text().then(errorText => { alert(errorText); });
+                }
+              });
+          });
+        }
+        else {
+          r.text().then(errorText => { alert(errorText); });
+        }
+      });
+    }
+  }
+  else{
+    fetch("https://localhost:5001/Korisnik/RegistrujSe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: user
+      }).then(r => {
+        if (r.ok) {
+          alert("Uspesno ste se registrovali!");
+          window.location.reload();
+        }
+        else {
+          r.text().then(errorText => { alert(errorText); });
+        }
+      });
+    }
 }
 //END registracija
 
@@ -610,7 +683,7 @@ class UI {
   }
 
   addCartItem(item) {
-  
+
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `<img src=${item.image} alt="product" />
@@ -709,7 +782,7 @@ class UI {
           });
         }
       }
-      });
+    });
   }
 
   setupAPP() {

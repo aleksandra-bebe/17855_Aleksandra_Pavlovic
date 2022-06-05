@@ -28,13 +28,16 @@ namespace Projekat.Models{
         public string Sifra{get;set;}
 
         [Column("BrojKupljenihProizvoda")]
-        public int Broj{get;set;}
+        public int BrojKupljenihProizvoda{get;set;}
 
         [Column("Telefon")]
         public string Telefon{get;set;}
 
         [Column("Adresa")]
         public string Adresa{get;set;}
+
+        [Column("Slika")]
+        public byte[] Slika { get; set; }
 
         public List<Komentar> Komentari {get; set;}
 

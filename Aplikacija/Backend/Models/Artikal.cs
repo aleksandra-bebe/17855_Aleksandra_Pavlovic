@@ -19,7 +19,7 @@ namespace Projekat.Models{
         [Column("Opis")]
         public string Opis{get;set;}
 
-        [Column("Na stanju")]
+        [Column("NaStanju")]
         public int NaStanju{get;set;}
 
         [Column("Image")]

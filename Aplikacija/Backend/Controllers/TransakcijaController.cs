@@ -53,7 +53,7 @@ namespace Proba.Controllers
             {
                 return BadRequest("Korisnik ne postoji!");
             }
-            int brKupljenih=kor.Broj;
+            int brKupljenih=kor.BrojKupljenihProizvoda;
             Artikal a;
             a= await Context.Artikli.Where(p=>p.ArtikalId==artikalId).FirstOrDefaultAsync();
             if(a==null)
@@ -68,7 +68,7 @@ namespace Proba.Controllers
               };
             a.BrojProdaja++;
             a.NaStanju--;
-            kor.Broj++;
+            kor.BrojKupljenihProizvoda++;
             Context.Transakcije.Add(tr);
             await Context.SaveChangesAsync();
              return Ok("Dodata je transakcija");

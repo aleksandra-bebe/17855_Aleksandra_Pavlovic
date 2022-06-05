@@ -94,26 +94,28 @@
         <h3>Ukupno :<span class="cart-total">0</span> RSD </h3>
         <button class="clear-cart banner-btn">Ocisti korpu</button>
         <div class="cart-footer">
-        <button class="buy-cart banner-btn" onclick="check()"> Kupi </button>
+          <button class="buy-cart banner-btn" onclick="check()"> Kupi </button>
         </div>
       </div>
     </div>
   </div>
   <!-- end cart-->
-   <!-- login menu -->
-   <div class="user-menu-overlay">
+  <!-- login menu -->
+  <div class="user-menu-overlay">
     <div class="user">
       <span class="close-user-menu">
         <i class="fas fa-window-close"></i>
       </span>
       <h2 class="user-menu-header">Niste ulogovani</h2>
       <div class="user-menu-content">
-         <input id="loginUsername" type="text" placeholder="Korisnicko ime">
-         <input id="loginPassword" type="password" placeholder="Lozinka">
-         <button class="login-btn banner-btn" onclick="login()">Uloguj se</button>
-         <h3 id="loginErrorText" class="loginError"></h3>
-         <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
-      </div> 
+        <input id="loginUsername" type="text" placeholder="Korisnicko ime">
+        <input id="loginPassword" type="password" placeholder="Lozinka">
+        <button class="login-btn banner-btn" onclick="login()">Uloguj se</button>
+        <h3 id="loginErrorText" class="loginError"></h3>
+        <div class="registrationDiv">
+          <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button>
+        </div>
+      </div>
     </div>
   </div>
   <!-- end login menu-->
@@ -125,45 +127,48 @@
       </span>
       <h2 class="user-menu-header">Registracija</h2>
       <div class="user-menu-content registration-content">
-         <form    onsubmit="return Validate()" name="vform" >
-          <div class="reg_div" id="ime_div">
-        <input id="ime" type="text" placeholder="Ime" name="ime" class="textInput" >
-        <div id="ime_error"></div>
+          <div class="reg_div" id="slika_div">
+            <label>Profilna slika</label>
+            <input id="profilnaSlika" type="file" name="profilnaSlika" class="textInput">
+            <div id="slika_error"></div>
           </div>
-         <div class="reg_div" id="prezime_div">
-        <input  id="prezime" type="text" placeholder="Prezime" name="prezime" class="textInput" >
-        <div id="prezime_error"></div>
-        </div>
+          <div class="reg_div" id="ime_div">
+            <input id="ime" type="text" placeholder="Ime" name="ime" class="textInput">
+            <div id="ime_error"></div>
+          </div>
+          <div class="reg_div" id="prezime_div">
+            <input id="prezime" type="text" placeholder="Prezime" name="prezime" class="textInput">
+            <div id="prezime_error"></div>
+          </div>
           <div class="reg_div" id="korisnickoIme_div">
-         <input id="korisnickoIme" type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput"  >
-         <div id="korisnickoIme_error"></div>
+            <input id="korisnickoIme" type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput">
+            <div id="korisnickoIme_error"></div>
           </div>
           <div class="reg_div" id="email_div">
-         <input id="email" type="text" placeholder="Email" name="email" class="textInput" >
-         <div id="email_error"></div>
+            <input id="email" type="text" placeholder="Email" name="email" class="textInput">
+            <div id="email_error"></div>
           </div>
           <div class="reg_div" id="password_div">
-         <input id="password"  type="password" placeholder="Lozinka" name="password" class="textInput" >
-          <div id="password_error1"></div>
-        </div>
+            <input id="password" type="password" placeholder="Lozinka" name="password" class="textInput">
+            <div id="password_error1"></div>
+          </div>
           <div class="reg_div" id="pass_confirm_div">
-         <input type="password" placeholder="Ponovljena lozinka" name="password_confirm" class="textInput" >
-         <div id="password_error"></div>
-        </div>
-        <div class="reg_div" id="adresa_div">
-         <input  id="adresa"  type="text" placeholder="Adresa" name="adresa" class="textInput">
-         <div id="adresa_error"></div>
-         </div>
-         <div class="reg_div" id="broj_div">
-         <input id="broj"  type="text" placeholder="Broj telefona" name="broj"  class="textInput">
-         <div id="broj_error"></div>
-         </div>
-         <div class="reg_div">
-          <button class="login-btn banner-btn registration-submit" onclick="registracija()" >Registruj se</button>
-         </div>
-        </form> 
+            <input id="password_confirm" type="password" placeholder="Ponovljena lozinka" name="password_confirm" class="textInput">
+            <div id="password_error"></div>
+          </div>
+          <div class="reg_div" id="adresa_div">
+            <input id="adresa" type="text" placeholder="Adresa" name="adresa" class="textInput">
+            <div id="adresa_error"></div>
+          </div>
+          <div class="reg_div" id="broj_div">
+            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput">
+            <div id="broj_error"></div>
+          </div>
+          <div class="reg_div">
+            <button class="login-btn banner-btn registration-submit" onclick="registracija(); return false;">Registruj se</button>
+          </div>
       </div>
-      </div>
+    </div>
   </div>
   <!-- end registration page-->
   <!-- Profile overrlay -->
@@ -178,8 +183,8 @@
     </div>
   </div>
   <!-- end profile overlay -->
-   <!-- article page -->
-   <div class="user-menu-overlay article-overlay">
+  <!-- article page -->
+  <div class="user-menu-overlay article-overlay">
     <div class="article">
       <span class="close-user-menu close-article-page">
         <i class="fas fa-window-close"></i>
@@ -243,8 +248,8 @@
     <div class="footer-right">
       <p class="footer-company-about">
         <span>O kompaniji</span>
-        Najizdržljiviji digitalni i analogno-digitalni satovi u industriji, 
-        kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti 
+        Najizdržljiviji digitalni i analogno-digitalni satovi u industriji,
+        kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti
         na otvorenom širom sveta.
       </p>
 
