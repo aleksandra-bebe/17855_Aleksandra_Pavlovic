@@ -50,7 +50,9 @@ Thumbs.db
 *.vs
 .vscode/
 /Aplikacija/Backend/obj/
-/Aplikacija/Backend/bin/
+/Aplikacija/Backend/Migrations/
 bin
 obj
+*.dll
+
 
