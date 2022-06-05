@@ -25,4 +25,7 @@ class Storage {
     static removeUser(){
       localStorage.removeItem("user");
     }
+    static removeCart(){
+      localStorage.removeItem("cart");
+    }
   }

@@ -27,8 +27,8 @@ namespace Projekat.Models{
         [MinLength(8)]
         public string Sifra{get;set;}
 
-        [Column("BrojKupljenihProizvoda")]
-        public int BrojKupljenihProizvoda{get;set;}
+        [Column("BrojOnlineKupovina")]
+        public int BrojOnlineKupovina{get;set;}
 
         [Column("Telefon")]
         public string Telefon{get;set;}

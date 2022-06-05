@@ -73,7 +73,7 @@ namespace Proba.Controllers
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     korisnik.Email=email;
-                    korisnik.BrojKupljenihProizvoda=brojKup;
+                    korisnik.BrojOnlineKupovina=brojKup;
 
                     await Context.SaveChangesAsync();
                     return Ok($"Uspešno promenjen korisnik! ID: {korisnik.KorisnikId}");

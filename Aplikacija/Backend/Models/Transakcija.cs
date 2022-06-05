@@ -10,6 +10,13 @@ namespace Projekat.Models{
         [Key]
         [Column("TransakcijaId")]
         public int transakcijaId{get;set;}
+
+        [Column("Kolicina")]
+        public int Kolicina{get;set;}
+
+        [Column("Adresa")]
+        public string Adresa{get;set;}
+
        
    
         public Korisnik Korisnik{get;set;}

@@ -21,16 +21,10 @@ function prikaziSatove() {
           data => {
             console.log(data);
             if (data.length > 0) {
-    
               var temp = "";
-             
               data.forEach((itemData) => {
-
-                 var ar=itemData.artikal;
-
-                  temp += "<tr class=tr>";
-                  
-                  // temp+="<td>"+ar.artikalId+"</td>";
+                var ar=itemData.artikal;
+                temp += "<tr class=tr>";
                   temp+="<td class=td >"+   ar.naziv+  "</td>";
                   temp+="<td class=td >"+   ar.cena+   "</td>";
                   temp+="<td class=td >"+   ar.opis+   "</td>";

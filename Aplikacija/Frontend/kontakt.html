@@ -80,7 +80,7 @@
             <input type="text" id="name" name="name" placeholder="Vase ime.." required pattern="[a-zA-Z0-9]+" minlength="4" maxlength="10"/>
 
             <label for="lname">Prezime</label>
-            <input type="text" id="prezime" name="prezime" placeholder="Vase prezime.." required pattern="[a-zA-Z0-9]+"/>
+            <input type="text" id="pr" name="pr" placeholder="Vase prezime.." required pattern="[a-zA-Z0-9]+"/>
 
             <label for="lname">Broj telefona</label>
             <input type="number" id="telefon" name="telefon" placeholder="Vas broj telefona.." pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g" required/>
@@ -125,8 +125,11 @@
         <!-- end cart item-->
       </div>
       <div class="cart-footer">
-        <h3>Ukupno : <span class="cart-total">0</span> RSD </h3>
+        <h3>Ukupno :<span class="cart-total">0</span> RSD </h3>
         <button class="clear-cart banner-btn">Ocisti korpu</button>
+        <div class="cart-footer">
+          <button class="buy-cart banner-btn" onclick="check()"> Kupi </button>
+        </div>
       </div>
     </div>
   </div>
@@ -155,45 +158,48 @@
       </span>
       <h2 class="user-menu-header">Registracija</h2>
       <div class="user-menu-content registration-content">
-         <form    onsubmit="return Validate()" name="vform" >
-          <div class="reg_div" id="ime_div">
-        <input id="ime" type="text" placeholder="Ime" name="ime" class="textInput" >
-        <div id="ime_error"></div>
+          <div class="reg_div" id="slika_div">
+            <label>Profilna slika</label>
+            <input id="profilnaSlika" type="file" name="profilnaSlika" class="textInput">
+            <div id="slika_error"></div>
           </div>
-         <div class="reg_div" id="prezime_div">
-        <input  id="prezime" type="text" placeholder="Prezime" name="prezime" class="textInput" >
-        <div id="prezime_error"></div>
-        </div>
+          <div class="reg_div" id="ime_div">
+            <input id="ime" type="text" placeholder="Ime" name="ime" class="textInput">
+            <div id="ime_error"></div>
+          </div>
+          <div class="reg_div" id="prezime_div">
+            <input id="prezime" type="text" placeholder="Prezime" name="prezime" class="textInput">
+            <div id="prezime_error"></div>
+          </div>
           <div class="reg_div" id="korisnickoIme_div">
-         <input id="korisnickoIme" type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput"  >
-         <div id="korisnickoIme_error"></div>
+            <input id="korisnickoIme" type="text" placeholder="Korisnicko ime" name="korisnickoIme" class="textInput">
+            <div id="korisnickoIme_error"></div>
           </div>
           <div class="reg_div" id="email_div">
-         <input id="email" type="text" placeholder="Email" name="email" class="textInput" >
-         <div id="email_error"></div>
+            <input id="email" type="text" placeholder="Email" name="email" class="textInput">
+            <div id="email_error"></div>
           </div>
           <div class="reg_div" id="password_div">
-         <input id="password"  type="password" placeholder="Lozinka" name="password" class="textInput" >
-          <div id="password_error1"></div>
-        </div>
+            <input id="password" type="password" placeholder="Lozinka" name="password" class="textInput">
+            <div id="password_error1"></div>
+          </div>
           <div class="reg_div" id="pass_confirm_div">
-         <input type="password" placeholder="Ponovljena lozinka" name="password_confirm" class="textInput" >
-         <div id="password_error"></div>
-        </div>
-        <div class="reg_div" id="adresa_div">
-         <input  id="adresa"  type="text" placeholder="Adresa" name="adresa" class="textInput">
-         <div id="adresa_error"></div>
-         </div>
-         <div class="reg_div" id="broj_div">
-         <input id="broj"  type="text" placeholder="Broj telefona" name="broj"  class="textInput">
-         <div id="broj_error"></div>
-         </div>
-         <div class="reg_div">
-          <button class="login-btn banner-btn registration-submit" onclick="registracija()" >Registruj se</button>
-         </div>
-        </form> 
+            <input id="password_confirm" type="password" placeholder="Ponovljena lozinka" name="password_confirm" class="textInput">
+            <div id="password_error"></div>
+          </div>
+          <div class="reg_div" id="adresa_div">
+            <input id="adresa" type="text" placeholder="Adresa" name="adresa" class="textInput">
+            <div id="adresa_error"></div>
+          </div>
+          <div class="reg_div" id="broj_div">
+            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput">
+            <div id="broj_error"></div>
+          </div>
+          <div class="reg_div">
+            <button class="login-btn banner-btn registration-submit" onclick="registracija(); return false;">Registruj se</button>
+          </div>
       </div>
-      </div>
+    </div>
   </div>
   <!-- end registration page-->
    <!-- Profile overrlay -->

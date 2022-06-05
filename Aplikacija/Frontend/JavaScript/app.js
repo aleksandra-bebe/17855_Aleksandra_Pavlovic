@@ -9,6 +9,7 @@ const closeProfileBtn = document.querySelector(".close-profile-page");
 const closeRegistrationMenuBtn = document.querySelector(".close-registration-menu");
 const closeArticlePageBtn = document.querySelector(".close-article-page");
 const clearCartBtn = document.querySelector(".clear-cart");
+const buyCartBtn=document.querySelector(".buy-cart");
 const loginBtn = document.querySelector(".login-btn");
 const cartDOM = document.querySelector(".cart");
 const userDOM = document.querySelector(".user");
@@ -25,6 +26,7 @@ const productsDOM = document.querySelector(".products-center");
 const userMenuContent = document.querySelector(".user-menu-content");
 const profileOverlay = document.querySelector(".profile-overlay");
 const profileDOM = document.querySelector(".profile");
+
 
 // meni togler
 const selectElement = function (element) {
@@ -136,30 +138,47 @@ function login() {
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function check() {
+  var errorLabel=document.getElementById("ErrorText");
   if (Storage.getUser('status') != null) {
+    if(Storage.getCart()[0] !=null)
+    {
     var user = Storage.getUser();
     console.log("user", user);
     let cart = Storage.getCart();
     console.log("cart", cart);
-    alert("Da li zelite da kupite proizvod?");
+    var kol=document.getElementById("amount").innerHTML;
     cart.forEach((product) => {
-      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId, { method: 'POST' }).then(p => {
+      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId + "/" + kol, {method: 'POST'}).then(p => {
         if (!p.ok) {
           p.json().then(data => {
             if (data) {
-              Storage.saveUser(data);
-            }
-          })
+              p.text().then(errorText => { errorLabel.innerHTML = errorText });
+              setTimeout(() => {
+                errorLabel.innerHTML = ""
+              }, 7000);
+          }
+         });
         }
-      });
-    })
-    alert("Proizvod je kupljen!");
-    window.location = './profil.html';
+        else
+         {
+          alert("Proizvod je kupljen!");
+          Storage.removeCart();
+          window.location='./profil.html';
+        // Storage.getUser();
+          }
+        });
+      })
   }
-  else {
-    alert("Morate se prvo ulogovati!");
-  }
+  else{
+    alert("Morate izabrati proizvod!");
+    }
 }
+  else {
+  alert("Morate se prvo ulogovati!");
+       }
+}
+
+
 //END
 function ProfilePage() {
   userOverlay.classList.remove("transparentBcg");
@@ -694,7 +713,7 @@ class UI {
             </div>
             <div>
               <i class="fas fa-chevron-up" data-id=${item.artikalId}></i>
-              <p class="item-amount">${item.amount}</p>
+              <p id="amount" class="item-amount">${item.amount} </p>
               <i class="fas fa-chevron-down" data-id=${item.artikalId}></i>
             </div>`;
     cartContent.appendChild(div);
@@ -834,7 +853,7 @@ class UI {
         let id = lowerAmount.dataset.id;
         let tempItem = cart.find((item) => item.artikalId == id);
         tempItem.amount = tempItem.amount - 1;
-        if (tempItem.amount > 0) {
+         if (tempItem.amount > 0) {
           Storage.saveCart(cart);
           this.setCartValues(cart);
           lowerAmount.previousElementSibling.innerText = tempItem.amount;
@@ -845,7 +864,7 @@ class UI {
       }
     });
   }
-  clearCart() {
+   clearCart() {
     let cartItems = cart.map((item) => item.artikalId);
     cartItems.forEach((id) => this.removeItem(id));
     while (cartContent.children.length > 0) {

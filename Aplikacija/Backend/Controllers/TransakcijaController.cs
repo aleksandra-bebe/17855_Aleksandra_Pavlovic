@@ -36,9 +36,9 @@ namespace Proba.Controllers
         
         }
 
-        [Route("PostTransakcija/{idKor}/{artikalId}")]
+        [Route("PostTransakcija/{idKor}/{artikalId}/{kol}")]
         [HttpPost]
-        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId)
+        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol)
         {   
             if(artikalId <0){
                 return BadRequest("Nije unet artikal!");
@@ -53,7 +53,7 @@ namespace Proba.Controllers
             {
                 return BadRequest("Korisnik ne postoji!");
             }
-            int brKupljenih=kor.BrojKupljenihProizvoda;
+            int brKupovina=kor.BrojOnlineKupovina;
             Artikal a;
             a= await Context.Artikli.Where(p=>p.ArtikalId==artikalId).FirstOrDefaultAsync();
             if(a==null)
@@ -66,9 +66,15 @@ namespace Proba.Controllers
                   Korisnik =kor,
                   Artikal=a,
               };
-            a.BrojProdaja++;
-            a.NaStanju--;
-            kor.BrojKupljenihProizvoda++;
+             tr.Kolicina=kol;
+             
+            if(tr.Kolicina > a.NaStanju)
+            {
+                return BadRequest($"Na stanju imamo samo jos: {a.NaStanju} artikla");
+            }
+            a.BrojProdaja += tr.Kolicina;
+            a.NaStanju -= tr.Kolicina;
+            kor.BrojOnlineKupovina++;
             Context.Transakcije.Add(tr);
             await Context.SaveChangesAsync();
              return Ok("Dodata je transakcija");
