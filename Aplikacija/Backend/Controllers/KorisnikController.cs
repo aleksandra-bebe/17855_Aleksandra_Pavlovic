@@ -244,7 +244,7 @@ namespace Proba.Controllers
             if(String.IsNullOrEmpty(k.Adresa))
             {
                 return BadRequest("Zaboravili ste da uneste adresu!");
-            }       
+            }      
              var korisnik=await Context.Korisnici.Where(p=>p.KorisnickoIme==k.KorisnickoIme).FirstOrDefaultAsync();
                 if(korisnik != null)
                 {
@@ -293,5 +293,29 @@ namespace Proba.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Route("ObrisiKorisnika/{korisnikId}")]
+        [HttpPut]
+        public async Task<ActionResult> ObrisiKorisnika(int korisnikId)
+        {
+
+            if (korisnikId <= 0)
+            {
+                return BadRequest("Pogrešan ID!");
+            }
+            
+                var korisnik = Context.Korisnici.Where(p => p.KorisnikId == korisnikId).FirstOrDefault();
+                if (korisnik != null)
+                {
+                    korisnik.Obrisan=true;
+                    await Context.SaveChangesAsync();
+                    return Ok($"Korisnik obrisan! ID: {korisnik.KorisnikId}");
+                }
+                else
+                {
+                    return BadRequest("Korisnik nije pronadjen");
+                }
+        }
+
     }
 }

@@ -13,7 +13,9 @@ fetch("https://localhost:5001/Korisnik/GetKorisnik").then(
             temp += "<td>" + itemData.prezime + "</td>";
             temp += "<td>" + itemData.korisnickoIme + "</td>";
             temp += "<td>" + itemData.adresa + "</td>";
-            temp += "<td>" + itemData.telefon + "</td></tr>";
+            temp += "<td>" + itemData.telefon + "</td>";
+            temp += "<td>" + itemData.obrisan + "</td>";
+            temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiKorisnika("+ itemData.korisnikId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +  "</button></td></tr>";
           });
           document.getElementById('data').innerHTML = temp;
         }
@@ -39,4 +41,17 @@ function dodajKorisnika(){
             }
             this.vratiInstruktore();
         });
+}
+
+
+function izbrisiKorisnika(val){
+  // console.log(val);
+  fetch("https://localhost:5001/Korisnik/ObrisiKorisnika/" + val, { method: "PUT" }).then(p => {
+    if (!p.ok) {
+        alert("Nije moguce obrisati korisnika!");
+    } else {
+      window.alert("Uspesno ste obrisali korisnika");
+      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/workers.html";
+    }
+});
 }

@@ -151,15 +151,18 @@ function prikaziSatove() {
             if (!p.ok) {
                 window.alert("Nije moguce izmeniti artikal!");
             } else {
-              history.go(0);
-              window.alert("Uspesno ste izmenili proizvod");
+              // history.go(1);
+              // window.alert("Uspesno ste izmenili proizvod");
+             window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+
+              // header('http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html');
             }
         });
 
       }
 
       function izbrisiArtikal(val){
-        fetch("https://localhost:5001/Artikal/IzbrisiArtikal/" + val, { method: "DELETE" }).then(p => {
+        fetch("https://localhost:5001/Artikal/DeleteArtikal/" + val, { method: "DELETE" }).then(p => {
           if (!p.ok) {
               alert("Nije moguce obrisati artikal!");
           } else {

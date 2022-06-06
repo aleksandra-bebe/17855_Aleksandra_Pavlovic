@@ -39,6 +39,9 @@ namespace Projekat.Models{
         [Column("Slika")]
         public byte[] Slika { get; set; }
 
+        [Column("Obrisan")]
+        public bool Obrisan {get; set;}
+
         public List<Komentar> Komentari {get; set;}
 
     }
