@@ -147,27 +147,15 @@ function check() {
     let cart = Storage.getCart();
     console.log("cart", cart);
     var kol=document.getElementById("amount").innerHTML;
-    cart.forEach((product) => {
-      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId + "/" + kol, {method: 'POST'}).then(p => {
-        if (!p.ok) {
-          p.json().then(data => {
-            if (data) {
-              p.text().then(errorText => { errorLabel.innerHTML = errorText });
-              setTimeout(() => {
-                errorLabel.innerHTML = ""
-              }, 7000);
-          }
-         });
-        }
-        else
-         {
-          alert("Proizvod je kupljen!");
-          Storage.removeCart();
-          window.location='./profil.html';
-        // Storage.getUser();
-          }
-        });
-      })
+    cart.forEach((itemData)=>{
+      if(kol>itemData.naStanju){
+         alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
+      }
+      else
+      {
+        window.location='./potvrda.html';
+      }
+    });
   }
   else{
     alert("Morate izabrati proizvod!");

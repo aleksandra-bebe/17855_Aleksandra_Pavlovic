@@ -36,9 +36,9 @@ namespace Proba.Controllers
         
         }
 
-        [Route("PostTransakcija/{idKor}/{artikalId}/{kol}")]
+        [Route("PostTransakcija/{idKor}/{artikalId}/{kol}/{adresa}")]
         [HttpPost]
-        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol)
+        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol,string adresa)
         {   
             if(artikalId <0){
                 return BadRequest("Nije unet artikal!");
@@ -67,6 +67,7 @@ namespace Proba.Controllers
                   Artikal=a,
               };
              tr.Kolicina=kol;
+             tr.Adresa=adresa;
              
             if(tr.Kolicina > a.NaStanju)
             {

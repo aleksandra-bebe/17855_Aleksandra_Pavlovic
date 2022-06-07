@@ -1412,6 +1412,43 @@ textarea{
     border-radius: black 10px;
     align-self: flex-start;
   } 
+   /* Potvrda stranica */
+   .pIme, .pPrezime{
+    align-self: center;
+    display: inline;
+    margin: 10px;
+  }
+  .pEmail{
+    margin-top:10px;
+    margin-left: 25px;
+    display: flex;
+    align-items: center;
+  }
+  .pBroj{
+    display:flex;
+    align-items: center;
+    margin-left: 30px;
+  }
+  .adresa{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    align-items: center;
+    margin:25px;
+  }
+ .cart-footer1{
+   display: flex;
+   align-self: center;
+ }
+ .poruci.banner-btn,.otkazi.banner-btn{
+   align-self: center;
+   margin-bottom: 10px;
+   margin-left: 350px;
+ }
+
+
+ /* END potvrda stranice */
   
  
 

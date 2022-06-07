@@ -287,6 +287,10 @@ namespace Proba.Controllers
                 {
                     return BadRequest("Uneta šifra je pogresna!");
                 }
+                   if(korisnik.Obrisan == true)
+                {
+                    return BadRequest("Nalog je blokiran!");
+                }
                 return Ok(korisnik);
             }
             catch(Exception e){
