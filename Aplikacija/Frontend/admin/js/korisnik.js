@@ -37,9 +37,8 @@ function dodajKorisnika(){
 
         fetch("https://localhost:5001/Korisnik/PostKorisnik" + ime + "/" + prezime, { method: "POST" }).then(p => {
             if (!p.ok) {
-                window.alert("Nije moguce dodati instruktora!");
+                window.alert("Nije moguce dodati korisnika!");
             }
-            this.vratiInstruktore();
         });
 }
 
