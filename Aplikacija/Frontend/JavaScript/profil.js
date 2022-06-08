@@ -24,10 +24,10 @@ function prikaziSatove() {
               var temp = "";
               data.forEach((itemData) => {
                 var ar=itemData.artikal;
-                temp += "<tr class=tr>";
-                  temp+="<td class=td >"+   ar.naziv+  "</td>";
-                  temp+="<td class=td >"+   ar.cena+   "</td>";
-                  temp+="<td class=td >"+   ar.opis+   "</td>";
+                temp += "<tr>";
+                  temp+="<td>"+   ar.naziv+  "</td>";
+                  temp+="<td>"+   ar.cena+   "</td>";
+                  temp+="<td>"+   ar.opis+   "</td>";
                   // temp+="<td class=td>"+   ar.slika + "</td>";
                  
                   });

@@ -15,6 +15,7 @@ function prikaziSatove() {
                 temp += "<td>" + itemData.opis + "</td>";
                 temp += "<td>" + itemData.naStanju + "</td>";
                 temp += "<td>" + itemData.brojProdaja + "</td>";
+                temp += "<td>" + itemData.obrisan + "</td>";
                 temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?"+itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +  "</a></td>";
                 temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal("+ itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +  "</button></td></tr>";
               });
@@ -43,6 +44,7 @@ function prikaziSatove() {
                     temp += "<td>" + itemData.opis + "</td>";
                     temp += "<td>" + itemData.naStanju + "</td>";
                     temp += "<td>" + itemData.brojProdaja + "</td>";
+                    temp += "<td>" + itemData.obrisan + "</td>";
                     temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?"+itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +  "</a></td>";
                     temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal("+ itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +  "</button></td></tr>";
                   });
@@ -71,6 +73,7 @@ function prikaziSatove() {
                         temp += "<td>" + itemData.opis + "</td>";
                         temp += "<td>" + itemData.naStanju + "</td>";
                         temp += "<td>" + itemData.brojProdaja + "</td>";
+                        temp += "<td>" + itemData.obrisan + "</td>";
                         temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?"+itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" +  "</a></td>";
                         temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal("+ itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +  "</button></td></tr>";
                       });
@@ -161,13 +164,32 @@ function prikaziSatove() {
 
       }
 
+      // function izbrisiArtikal(val){
+      //   fetch("https://localhost:5001/Artikal/DeleteArtikal/" + val, { method: "DELETE" }).then(p => {
+      //     if (!p.ok) {
+      //         alert("Nije moguce obrisati artikal!");
+      //     } else {
+      //       // history.go(0);
+      //       window.alert("Uspesno ste obrisali proizvod");
+      //       window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+
+      //     }
+      // });
+      // }
+      function vratiNaListu()
+      {
+        window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+
+      }
       function izbrisiArtikal(val){
-        fetch("https://localhost:5001/Artikal/DeleteArtikal/" + val, { method: "DELETE" }).then(p => {
+        fetch("https://localhost:5001/Artikal/ObrisiArtikal/" + val, { method: "PUT" }).then(p => {
           if (!p.ok) {
               alert("Nije moguce obrisati artikal!");
           } else {
-            history.go(0);
+            // history.go(0);
             window.alert("Uspesno ste obrisali proizvod");
+            window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+
           }
       });
       }

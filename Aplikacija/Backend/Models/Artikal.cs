@@ -29,6 +29,9 @@ namespace Projekat.Models{
         [Column("BrojProdaja")]
         public int BrojProdaja {get;set;}
 
+        [Column("Obrisan")]
+        public bool Obrisan {get; set;}
+
         public Tip Tip{get;set;}
 
         [JsonIgnore]

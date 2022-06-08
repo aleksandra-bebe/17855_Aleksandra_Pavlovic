@@ -77,7 +77,7 @@ namespace Projekat.Controllers
             {
                 var artikal = Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstOrDefault();
                 // var artikal = Context.Artikli.Where(p => p.Naziv == naziv).FirstOrDefault();
-                if (artikal != null)
+                if (artikal != null && artikal.Obrisan==false)
                 {
                     artikal.Naziv = naziv;
                     artikal.Cena = cena;
@@ -164,30 +164,28 @@ namespace Projekat.Controllers
         //         return Ok("Artikal je obrisan!");
         // }
 
-        [Route("DeleteArtikal/{artikalId}")]
-        [HttpDelete]
-        public async Task<ActionResult> IzbrisiArtikal(int artikalId){
-            if(artikalId ==0)
+    
+        [Route("ObrisiArtikal/{artikalId}")]
+        [HttpPut]
+        public async Task<ActionResult> ObrisiArtikal(int artikalId)
+        {
+
+            if (artikalId <= 0)
             {
-                return BadRequest("Nije odabran artikal!");
+                return BadRequest("Pogrešan ID!");
             }
-            try{
-                var artikal= await Context.Artikli.Where(p=>p.ArtikalId== artikalId).FirstOrDefaultAsync();
-                if(artikal==null)
+            
+                var artikal = Context.Artikli.Where(p => p.ArtikalId == artikalId).FirstOrDefault();
+                if (artikal != null && artikal.Obrisan==false)
                 {
-                    return BadRequest("Artikal ne postoji!");
+                    artikal.Obrisan=true;
+                    await Context.SaveChangesAsync();
+                    return Ok($"Artikal obrisan! ID: {artikal.ArtikalId}");
                 }
-                List<Transakcija> transakcija=await Context.Transakcije.Where(q=>q.Artikal.ArtikalId==artikalId).ToListAsync();
-                
-                Context.Transakcije.RemoveRange(transakcija);
-                Context.Artikli.Remove(artikal);
-                await Context.SaveChangesAsync();
-                return Ok("Uspesno izbrisan artikal!");
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+                else
+                {
+                    return BadRequest("Artikal nije pronadjen");
+                }
         }
 
 
