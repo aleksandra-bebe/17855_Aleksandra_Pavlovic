@@ -25,7 +25,7 @@ namespace Proba.Controllers
         [HttpGet]
           public async Task<List<Korisnik>> GetKorisnik()
         {
-            return await Context.Korisnici.ToListAsync();
+            return await Context.Korisnici.Where(p=>p.Obrisan==false).ToListAsync();
         }
 
         [Route("PostKorisnik")]

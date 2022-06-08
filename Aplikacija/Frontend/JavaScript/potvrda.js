@@ -30,14 +30,14 @@ window.onload=function pageOnLoad(){
           var temp="";
      cart.forEach((itemData) => {
         var ar=itemData.artikal;
-        temp += "<tr class=tr>";
-          temp+="<td class=td >"+   itemData.naziv+  "</td>";
-          temp+="<td class=td >"+   itemData.cena+   "</td>";
-          temp+="<td class=td >"+   itemData.opis+   "</td>";
-          temp+="<td class=td>" + itemData.amount+ "</td>";
+        temp += "<tr>";
+          temp+="<td>"+   itemData.naziv+  "</td>";
+          temp+="<td>"+   itemData.cena+   "</td>";
+          temp+="<td>"+   itemData.opis+   "</td>";
+          temp+="<td>" + itemData.amount+ "</td>";
             
         });
-        document.getElementById('proizvodi').innerHTML=temp;
+        document.getElementById('proizvodi').innerHTML= temp;
     }  
 }
 
@@ -53,14 +53,16 @@ function poruci(){
         if (!p.ok) {
           p.json().then(data => {
             if (data) {
-               Storage.getUser(data);
+             Storage.getUser();
           }
          });
         }
+        else
+        {
+          Storage.removeCart();
+          window.location='./profil.html';
+        }
         });
-      })
+      });
       alert("Proizvod je porucen!");
-      Storage.removeCart();
-      window.location='./profil.html';
-
 }

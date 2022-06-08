@@ -28,7 +28,7 @@ function prikaziSatove() {
                   temp+="<td>"+   ar.naziv+  "</td>";
                   temp+="<td>"+   ar.cena+   "</td>";
                   temp+="<td>"+   ar.opis+   "</td>";
-                  // temp+="<td class=td>"+   ar.slika + "</td>";
+                  //  temp+="<td>"+  ar + "</td>";
                  
                   });
               document.getElementById('satovi').innerHTML = temp;

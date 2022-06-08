@@ -146,16 +146,17 @@ function check() {
     console.log("user", user);
     let cart = Storage.getCart();
     console.log("cart", cart);
-    var kol=document.getElementById("amount").innerHTML;
-    cart.forEach((itemData)=>{
-      if(kol>itemData.naStanju){
-         alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
-      }
-      else
+      cart.forEach((itemData)=> 
       {
-        window.location='./potvrda.html';
-      }
-    });
+        var kol=document.getElementById("amount").innerHTML;
+        if(kol>itemData.naStanju){
+           alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
+        }
+        else
+        {
+          window.location='./potvrda.html';
+        }
+      });
   }
   else{
     alert("Morate izabrati proizvod!");

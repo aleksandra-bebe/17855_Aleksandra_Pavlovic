@@ -1,152 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lux Prodavnica</title>
+  <!-- font awesome-->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lux Prodavnica</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <!-- font awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- custom css -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  </head> 
-   
+  <!-- custom css -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
 
 <body>
-<div class="container1">
-<div class="row flex-lg-nowrap">
-  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-    
-    <div class="card p-3">
-      <div class="e-navlist e-navlist--active-bg">
-        <!-- <ul class="nav">
-          <li class="nav-item"><a href="index.html"><i class="fa fa-fw fa-th mr-1"></i><span>Pocetna strana</span></a></li>
-          <li class="nav-item"><a href="profil.html"><i class="fa fa-fw fa-th mr-1"></i><span>Profil</span></spa></span></a></li>
-        </ul> -->
+  <section>
+    <div class="container3">
+      <div class="container">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="index.html"><i class="fa fa-fw fa-th mr-1"></i>Pocetna strana</a>
+          <a class="navbar-brand" href="podesavanja.html"><i class="fa fa-fw fa-th mr-1"></i>Podesavanja</a>
+
+        </nav> -->
       </div>
-    </div>
-  </div>
-
-  <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-      <div class="text-center text-sm-left mb-2 mb-sm-0">
-        <h2 class="pIme"  id="pIme"></h2>
-        <h2 class="pPrezime"  id="pPrezime"></h2>
-          <!-- <h2 class="pt-sm-2 pb-1 mb-0 text-nowrap"  id="pUsername"></h2> -->
-          <div class="pEmail">
-          <p class="pEmail" id="pUserEmail"></p>
-          </div>
-          <div class="pBroj">
-            <h4>Broj online kupovina: </h4>
-          <h3 class="pBrojKupovina" id="pBrojKupovina"></h3>
-          </div>
-      </div>
-  </div>
-  <div class="adresa">
-    <input id="adresaDostave" class="adresaDostave" type="text"  name="adresaDostave" placeholder="Hilandrska br.5,Nis,18000">
-    <h5> Unesite adresu dostave!</h5>
-  </div>
-  <div class="popust">
-    <h3 class="popust-body" id="popust"> </h3>
-  </div>
-  <div class="product-status mg-b-30">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="product-status-wrap">
-                    <!-- <h4>Lista proizvoda</h4> -->
-                    <ul class="nav nav-tabs" id="myNavTabs">
-                        <!-- <li class="active"><a href="#navtabs1" data-toggle="tab">Poruzbine</a> -->
-                        <!-- <li><a href="#navtabs2" data-toggle="tab">Kaisevi</a>
-                        <li><a href="#navtabs3" data-toggle="tab">Narukvice</a> -->
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="navtabs1">
-                            <br>
-                            <h2 style="color: black;" >Lista izabranih proizvoda</h2>
-                            <br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <!-- <th>ID</th> -->
-                                        <!-- <th class="th">Kolicina</th>  -->
-                                        <th clas="th">Naziv </th>
-                                        <th class="th">Cena </th>
-                                        <th class="th">Opis </th>
-                                        <th class="th">Kolicina</th> 
-                                        <!-- <th> Cena</th>
-                                        <th>Opis</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody class="tbody" id="proizvodi">
-
-                                </tbody>
-
-                            </table>
-                        </div>
-        <div class="cart-footer1>">
-          <button class="poruci banner-btn" onclick="poruci()"> Poruci</button>
-          <button class="otkazi banner-btn" onclick="window.location='./index.html'">Otkazi</button>
+      <div class="row">
+      <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+        <div class="text-center text-sm-left mb-2 mb-sm-0">
+          <h2 class="pIme"  id="pIme"></h2>
+          <h2 class="pPrezime"  id="pPrezime"></h2>
+            <!-- <h2 class="pt-sm-2 pb-1 mb-0 text-nowrap"  id="pUsername"></h2> -->
+            <div class="pEmail">
+            <p class="pEmail" id="pUserEmail"></p>
+            </div>
+            <div class="pBroj">
+              <h4>Broj online kupovina: </h4>
+            <h3 class="pBrojKupovina" id="pBrojKupovina"></h3>
+            </div>
         </div>
-                    </div>
-                </div>
-  <footer class="footer-distributed">
-    <div class="footer-left">
-      <h3>Lux<span>Store</span></h3>
-  
-      <p class="footer-links">
-        <a href="index.html" class="link-1">Početna</a>
-  
-        <a href="watches.html">Satovi</a>
-  
-        <a href="kaisevi.html">Kaisevi</a>
-  
-        <a href="narukvice.html">Narukvice</a>
-  
-        <a href="oKompaniji.html">O Kompaniji</a>
-  
-        <a href="about.html">O Nama</a>
-        <a href="kontakt.html">Kontakt</a>
-      </p>
-  
-      <p class="footer-company-name">Lux Store © 2022</p>
     </div>
-  
-    <div class="footer-center">
-      <div>
-        <i class="fa fa-map-marker"></i>
-        <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
-      </div>
-  
-      <div>
-        <i class="fa fa-phone"></i>
-        <p>+381 60555333</p>
-      </div>
-  
-      <div>
-        <i class="fa fa-envelope"></i>
-        <p><a href="mailto:luxstore@company.com">luxstore@gmail.com</a></p>
-      </div>
+    <div class="adresa">
+      <input id="adresaDostave" class="adresaDostave" type="text"  name="adresaDostave" placeholder="Hilandrska br.5,Nis,18000">
+      <h5> Unesite adresu dostave!</h5>
     </div>
-  
-    <div class="footer-right">
-      <p class="footer-company-about">
-        <span>O kompaniji</span>
-        Najizdržljiviji digitalni i analogno-digitalni satovi u industriji, 
-        kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti 
-        na otvorenom širom sveta.
-      </p>
-  
-      <div class="footer-icons">
-        <a href="#"><i class="fab fa-facebook-square"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
-      </div>
+    <div class="popust">
+      <h3 class="popust-body" id="popust"> </h3>
     </div>
-  </footer>
+      </div>
+  
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <hr class="clear">
+          <h2 class="text-center">Lista porucenih proizvoda</h2>
+          <hr class="clear">
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Naziv </th>
+                <th>Cena </th>
+                <th>Opis </th>
+                <th>Kolicna</th>
+              </tr>
+            </thead>
+            <tbody class="tbody" id="proizvodi"></tbody>
+          </table>
+          <br>
+          <hr class="clear">
+        </div>
+      </div>
+      <div class="cart-footer1>">
+        <button class="poruci banner-btn" onclick="poruci()"> Poruci</button>
+        <button class="otkazi banner-btn" onclick="window.location='./index.html'">Otkazi</button>
+      </div>   
+          </div>
+          <footer class="footer-distributed">
+            <div class="footer-left">
+              <h3>Lux<span>Store</span></h3>
+
+              <p class="footer-links">
+                <a href="index.html" class="link-1">Početna</a>
+
+                <a href="watches.html">Satovi</a>
+
+                <a href="kaisevi.html">Kaisevi</a>
+
+                <a href="narukvice.html">Narukvice</a>
+
+                <a href="oKompaniji.html">O Kompaniji</a>
+
+                <a href="about.html">O Nama</a>
+                <a href="kontakt.html">Kontakt</a>
+              </p>
+
+              <p class="footer-company-name">Lux Store © 2022</p>
+            </div>
+
+            <div class="footer-center">
+              <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
+              </div>
+
+              <div>
+                <i class="fa fa-phone"></i>
+                <p>+381 60555333</p>
+              </div>
+
+              <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:luxstore@company.com">luxstore@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="footer-right">
+              <p class="footer-company-about">
+                <span>O kompaniji</span>
+                Najizdržljiviji digitalni i analogno-digitalni satovi u industriji,
+                kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti
+                na otvorenom širom sveta.
+              </p>
+
+              <div class="footer-icons">
+                <a href="#"><i class="fab fa-facebook-square"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+              </div>
+            </div>
+          </footer>
+  </section>
   <script src="JavaScript/storage.js"></script>
   <script src="JavaScript/potvrda.js"></script>
-  </body>
-  </html>
+</body>
+
+</html>
