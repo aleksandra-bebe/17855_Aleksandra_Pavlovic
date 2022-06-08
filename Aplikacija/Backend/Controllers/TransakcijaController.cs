@@ -35,6 +35,28 @@ namespace Proba.Controllers
             }
         
         }
+        
+        [Route("VratiTransakcije")]
+        [HttpGet]
+          public async Task<ActionResult> VratiTransakcije()
+        { 
+            try{
+            var k=await Context.Transakcije.Where(p=>p.transakcijaId != 0).Include(a=>a.Artikal).Include(k=>k.Korisnik).Select(p => new{
+                    transakcijaId = p.transakcijaId,
+                    kolicina = p.Kolicina,
+                    adresa = p.Adresa,
+                    naziv = p.Artikal.Naziv,
+                    korisnickoIme = p.Korisnik.KorisnickoIme
+
+                }).ToArrayAsync();
+             return Ok(k);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        
+        }
 
         [Route("PostTransakcija/{idKor}/{artikalId}/{kol}/{adresa}")]
         [HttpPost]

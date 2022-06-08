@@ -32,7 +32,7 @@ namespace Projekat.Controllers
         [HttpGet]
         public async Task<List<Artikal>> GetKaiseve()
         {
-            return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString()).ToListAsync();
+            return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString() && k.Obrisan==false).ToListAsync();
         }
         [Route("PostArtikal/{tipId}")]
         [HttpPost]
@@ -193,14 +193,14 @@ namespace Projekat.Controllers
         [HttpGet]
         public async Task<List<Artikal>> GetNarukvica()
         {
-            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Narukvica.ToString()).ToListAsync();
+            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Narukvica.ToString() && a.Obrisan==false).ToListAsync();
         }
 
         [Route("GetSat")]
         [HttpGet]
         public async Task<List<Artikal>> GetSatovi()
         {
-            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Sat.ToString()).ToListAsync();
+            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Sat.ToString() && a.Obrisan==false).ToListAsync();
         }
 
         [Route("PostTip")]
