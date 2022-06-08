@@ -146,26 +146,34 @@ function check() {
     console.log("user", user);
     let cart = Storage.getCart();
     console.log("cart", cart);
-      cart.forEach((itemData)=> 
+    var kol=[];
+    var a=[];
+  for(let i=0; i<cart.length;i++)
+    {
+      kol[i]=cart[i].amount;
+    }  
+    console.log(kol);
+    for(let i=0; i< kol.length;i++){
+      var itemData=cart[i];
+      if(kol[i] > itemData.naStanju){
+        alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
+        
+      }
+      else if(kol.every(i=>i < itemData.naStanju))
       {
-        var kol=document.getElementById("amount").innerHTML;
-        if(kol>itemData.naStanju){
-           alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
-        }
-        else
-        {
-          window.location='./potvrda.html';
-        }
-      });
+        window.location='./potvrda.html';
+      }
+    }
   }
   else{
     alert("Morate izabrati proizvod!");
     }
-}
+  }
   else {
   alert("Morate se prvo ulogovati!");
        }
 }
+
 
 
 //END

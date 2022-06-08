@@ -42,18 +42,25 @@ window.onload=function pageOnLoad(){
 }
 
 function poruci(){
+  var errorLabel=document.getElementById("ErrorText");
     var user = Storage.getUser();
     console.log("user", user);
     let cart = Storage.getCart();
     console.log("cart", cart);
     var adresa=document.getElementById("adresaDostave").value;
+    if(adresa != "")
+    {
     cart.forEach((product) => {
-        var kol=product.amount;
+      var kol=product.amount;
       fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId + "/" + kol + "/" + adresa, {method: 'POST'}).then(p => {
         if (!p.ok) {
           p.json().then(data => {
             if (data) {
-             Storage.getUser();
+              p.text().then(errorText => { errorLabel.innerHTML = errorText });
+                  setTimeout(() => {
+                          errorLabel.innerHTML = ""
+                        }, 7000);
+             //Storage.getUser();
           }
          });
         }
@@ -61,8 +68,15 @@ function poruci(){
         {
           Storage.removeCart();
           window.location='./profil.html';
+         
         }
         });
-      });
+      })
       alert("Proizvod je porucen!");
+    }
+    else
+    {
+      alert("Morate uneti adresu dostave!");
+    }
+  
 }
