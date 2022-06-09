@@ -694,6 +694,7 @@ class UI {
       tempTotal += item.cena * item.amount;
       itemsTotal += item.amount;
     });
+
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
     cartItems.innerText = itemsTotal;
   }

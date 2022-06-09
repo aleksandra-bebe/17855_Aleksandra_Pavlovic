@@ -23,11 +23,12 @@ function prikaziSatove() {
             if (data.length > 0) {
               var temp = "";
               data.forEach((itemData) => {
-                var ar=itemData.artikal;
                 temp += "<tr>";
-                  temp+="<td>"+   ar.naziv+  "</td>";
-                  temp+="<td>"+   ar.cena+   "</td>";
-                  temp+="<td>"+   ar.opis+   "</td>";
+                  temp+="<td>"+   itemData.naziv+  "</td>";
+                  temp+="<td>"+   itemData.opis+   "</td>";
+                  temp+="<td>"+   itemData.kolicina+ "</td>";
+                  temp+="<td>"+   itemData.cena+   "</td>";
+                  temp+="<td>"+ itemData.cenaPopust+ "</td>";
                   //  temp+="<td>"+  ar + "</td>";
                  
                   });
