@@ -667,7 +667,7 @@ class UI {
         <article class="product" onclick="showArticlePage('${product.artikalId}')">
           <div class="img-container">
             <img
-              src="${product.image}"
+              src='data:image/png;base64,' + "${product.image}"
               alt="product"
               class="product-img"
             />
