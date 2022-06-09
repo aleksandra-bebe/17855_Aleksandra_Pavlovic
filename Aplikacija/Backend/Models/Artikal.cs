@@ -23,7 +23,6 @@ namespace Projekat.Models{
         public int NaStanju{get;set;}
 
         [Column("Image")]
-        [MaxLength(255)]
         public byte[] Image{get;set;}
 
         [Column("BrojProdaja")]

@@ -567,6 +567,7 @@ function showArticlePage(productId) {
   var articleImg = document.createElement("img");
   articleImg.classList.add("product-img");
   articleImg.classList.add("article-img");
+  if(product.image) product.image = 'data:image/png;base64,' + product.image;
   articleImg.src = product.image;
   basicInormation.appendChild(articleImg);
 
@@ -662,12 +663,14 @@ class UI {
     let result = "";
     ui_global = this;
     products.forEach((product) => {
+      if(product.image) product.image = 'data:image/png;base64,' + product.image;
+      console.log(product.image);
       result += `
            <!-- single product-->
         <article class="product" onclick="showArticlePage('${product.artikalId}')">
           <div class="img-container">
             <img
-              src='data:image/png;base64,' + "${product.image}"
+              src=${product.image}
               alt="product"
               class="product-img"
             />

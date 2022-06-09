@@ -158,8 +158,10 @@ function dodajArtikal() {
   var reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = function () {
+    var codedFile = reader.result;
+    var byteString = codedFile.split(',')[1];
     fetch("https://localhost:5001/Artikal/DodajArtikal/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/" + tipId, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -170,6 +172,7 @@ function dodajArtikal() {
         window.location.reload();
       }
       else {
+        alert("Nije moguce dodati artikal!");
         r.text().then(errorText => { alert(errorText); });
       }
     });
