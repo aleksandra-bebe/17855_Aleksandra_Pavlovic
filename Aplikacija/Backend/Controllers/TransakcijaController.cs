@@ -26,7 +26,14 @@ namespace Proba.Controllers
           public async Task<ActionResult> GetTransakcija(int korId)
         { 
             try{
-            var k=await Context.Transakcije.Where(p=>p.Korisnik.KorisnikId==korId).Include(q=>q.Artikal).ToListAsync();
+            var k=await Context.Transakcije.Where(p=> p.Korisnik.KorisnikId==korId).Include(q=>q.Artikal).Select(a=> new{
+                naziv=a.Artikal.Naziv,
+                opis=a.Artikal.Opis,
+                 kolicina= a.Kolicina,
+                  cena=a.Artikal.Cena,
+                cenaPopust= a.CenaSaPopustom
+               
+            }).ToArrayAsync();
             return Ok(k);
             }
             catch(Exception e)
@@ -58,9 +65,9 @@ namespace Proba.Controllers
         
         }
 
-        [Route("PostTransakcija/{idKor}/{artikalId}/{kol}/{adresa}")]
+        [Route("PostTransakcija/{idKor}/{artikalId}/{kol}/{adresa}/{cenaPopust}")]
         [HttpPost]
-        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol,string adresa)
+        public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol,string adresa,double cenaPopust)
         {   
             if(artikalId <0){
                 return BadRequest("Nije unet artikal!");
@@ -90,6 +97,7 @@ namespace Proba.Controllers
               };
              tr.Kolicina=kol;
              tr.Adresa=adresa;
+             tr.CenaSaPopustom=cenaPopust;
              
             if(tr.Kolicina > a.NaStanju)
             {

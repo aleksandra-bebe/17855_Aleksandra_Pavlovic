@@ -17,8 +17,10 @@ namespace Projekat.Models{
         [Column("Adresa")]
         public string Adresa{get;set;}
 
-       
-   
+        [Column("CenaSaPopustom")]
+        public double CenaSaPopustom{get;set;}
+
+      
         public Korisnik Korisnik{get;set;}
 
         public Artikal Artikal {get;set;}
