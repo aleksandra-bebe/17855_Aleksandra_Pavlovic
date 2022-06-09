@@ -226,7 +226,7 @@ namespace Projekat.Controllers
 
         [Route("DodajArtikal/{Naziv}/{Cena}/{Opis}/{NaStanju}/{TipId}")]
         [HttpPost]
-        public async Task<ActionResult> DodajArtikal(string Naziv, int Cena, string Opis, int NaStanju,int TipId)
+        public async Task<ActionResult> DodajArtikal(string Naziv, int Cena, string Opis, int NaStanju,int TipId, [FromBody] string slika)
         {
             if (string.IsNullOrWhiteSpace(Naziv) || Naziv.Length > 50)
                 return BadRequest("Pogresno unet parametar 'Naziv'!");
@@ -240,6 +240,7 @@ namespace Projekat.Controllers
             k.Opis=Opis;
             k.NaStanju=NaStanju;
             k.Tip=tip;
+            k.Image = Convert.FromBase64String(slika);
 
             Context.Artikli.Add(k);
             await Context.SaveChangesAsync();
