@@ -1,4 +1,17 @@
+function changePicture() {
+  var file = document.getElementById("profilePicture").files[0];
+  var img = document.getElementById("imgProfilePicture");
+  if (file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      img.src = reader.result;
+    }
+  }
+}
 function prikaziSatove() {
+  var satovi = document.getElementById('satovi')
+  if (!satovi) return;
   fetch("https://localhost:5001/Artikal/GetSat").then(
     res => {
       res.json().then(
@@ -16,10 +29,10 @@ function prikaziSatove() {
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
               temp += "<td>" + itemData.obrisan + "</td>";
-              temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
+              temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
-            document.getElementById('satovi').innerHTML = temp;
+            satovi.innerHTML = temp;
           }
         }
       )
@@ -45,7 +58,7 @@ function prikaziKaiseve() {
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
               temp += "<td>" + itemData.obrisan + "</td>";
-              temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
+              temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
             document.getElementById('kaisevi').innerHTML = temp;
@@ -74,7 +87,7 @@ function prikaziNarukvice() {
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
               temp += "<td>" + itemData.obrisan + "</td>";
-              temp += "<td><a href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
+              temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
             document.getElementById('narukvice').innerHTML = temp;
@@ -115,6 +128,7 @@ function artikalDetaljno() {
 
           // document.getElementById("tip").value = data[0].tip;
 
+          document.getElementById("imgProfilePicture").src = 'data:image/png;base64,' + data[0].image;
         }
       )
     }
@@ -185,19 +199,23 @@ function izmeniArtikal() {
   let opis = document.getElementById("opis").value;
   let naStanju = document.getElementById("naStanju").value;
 
-  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju, { method: "PUT" }).then(p => {
+  var codedFile = document.getElementById("imgProfilePicture").src;
+  var byteString = codedFile.split(',')[1];
 
+  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(byteString)
+  }).then(p => {
     if (!p.ok) {
       window.alert("Nije moguce izmeniti artikal!");
     } else {
-      // history.go(1);
-      // window.alert("Uspesno ste izmenili proizvod");
-      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
-
-      // header('http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html');
+      alert("Uspesno ste izmenili proizvod");
+      window.location = "product-list.html";
     }
   });
-
 }
 
 // function izbrisiArtikal(val){

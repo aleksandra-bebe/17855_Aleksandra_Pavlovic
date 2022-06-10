@@ -31,6 +31,9 @@ namespace Projekat.Models{
         [Column("Obrisan")]
         public bool Obrisan {get; set;}
 
+        [Column("ProsecnaOcena")]
+        public decimal ProsecnaOcena {get;set;}
+
         public Tip Tip{get;set;}
 
         [JsonIgnore]

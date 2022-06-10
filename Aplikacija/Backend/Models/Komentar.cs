@@ -16,10 +16,8 @@ namespace Projekat.Models{
         public int Ocena{get;set;}
 
         [JsonIgnore]
-
         public Artikal Artikal {get;set;}
         
-        [JsonIgnore]
         public Korisnik Korisnik {get;set;}
     }
 }

@@ -39,7 +39,6 @@ function sacuvajIzmene() {
     var oldUser = Storage.getUser();
 
     var file = document.getElementById("profilePicture").files[0];
-    console.log("profilnaSLika: ", file);
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {

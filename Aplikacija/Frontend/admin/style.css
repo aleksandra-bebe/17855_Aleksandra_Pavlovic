@@ -687,6 +687,10 @@ ul.message-menu li .message-content p, ul.notification-menu li .notification-con
 ul.setting-panel-list li{
 	display: block !important;
 }
+.slikaProizvoda{
+    width: 150px;
+    height: 150px;
+}
 .checkbox-title-pro h2 {
     display: block;
     font-size: 14px;

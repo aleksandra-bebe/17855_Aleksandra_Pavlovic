@@ -9,7 +9,7 @@ const closeProfileBtn = document.querySelector(".close-profile-page");
 const closeRegistrationMenuBtn = document.querySelector(".close-registration-menu");
 const closeArticlePageBtn = document.querySelector(".close-article-page");
 const clearCartBtn = document.querySelector(".clear-cart");
-const buyCartBtn=document.querySelector(".buy-cart");
+const buyCartBtn = document.querySelector(".buy-cart");
 const loginBtn = document.querySelector(".login-btn");
 const cartDOM = document.querySelector(".cart");
 const userDOM = document.querySelector(".user");
@@ -76,26 +76,83 @@ function StarRating(host, prosecnaOcena) {
   host.innerHTML += " " + prosecnaOcena;
 }
 
-function RateProduct(host) {
+function RateProduct(host, productId) {
   for (let i = 1; i <= 5; i++) {
     var star = document.createElement("li");
     var span = document.createElement("i");
     star.classList.add("fa");
     star.classList.add("fa-star");
     star.title = "Rate " + (6 - i);
-    star.onclick = (e) => { alert("ocena: " + (6 - i)); };
+    star.onclick = (e) => {
+      var ocena = 6 - i;
+      fetch("https://localhost:5001/Artikal/OceniProizvod/" + productId + "/" + ocena, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(p => {
+        if (p.ok) {
+          alert("Uspesno ste ocenili proizvod");
+          getProduct(productId);
+        }
+        else {
+          p.text().then(errorText => { console.log(errorText) });
+          alert("Greska pri ocenjivanju proizvoda");
+        }
+      });
+    };
     host.appendChild(star);
   }
+}
+
+function posaljiKomentar(productId) {
+  var korisnikId = Storage.getUser().korisnikId;
+  var opisKomentara = document.getElementById("inputComment").value;
+  if (!opisKomentara) {
+    alert("Unesite komentar!");
+    return;
+  }
+  fetch("https://localhost:5001/Artikal/PostKomentar/" + productId + "/" + korisnikId, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(opisKomentara)
+  }).then(p => {
+    if (p.ok) {
+      alert("Uspesno ste komentarisali proizvod");
+      getProduct(productId);
+    }
+    else {
+      p.text().then(errorText => { console.log(errorText) });
+      alert("Greska pri komentarisanju proizvoda");
+    }
+  });
 }
 // Prikazivanje svih komentara za dati artikal
 function ShowArticleComments(host, articleId) {
   host.innerHTML = "";
-  for (let index = 0; index < 5; index++) {
-    var div = document.createElement("div");
-    div.innerHTML = "komentar" + index;
-    host.appendChild(div);
-  }
+  fetch("https://localhost:5001/Artikal/VratiKomentareArtikal/" + articleId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(
+    res => {
+      res.json().then(
+        data => {
+          console.log(data);
+          data.forEach((itemData) => {
+            var div = document.createElement("div");
+            div.innerHTML = itemData.korisnik.korisnickoIme + " : " + itemData.opisKomentar;
+            host.appendChild(div);
+          });
+        }
+      )
+    }
+  )
 }
+
 var attempt = 3;
 function login() {
   var username = document.getElementById("loginUsername").value;
@@ -138,40 +195,37 @@ function login() {
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function check() {
-  var errorLabel=document.getElementById("ErrorText");
+  var errorLabel = document.getElementById("ErrorText");
   if (Storage.getUser('status') != null) {
-    if(Storage.getCart()[0] !=null)
-    {
-    var user = Storage.getUser();
-    console.log("user", user);
-    let cart = Storage.getCart();
-    console.log("cart", cart);
-    var kol=[];
-    var a=[];
-  for(let i=0; i<cart.length;i++)
-    {
-      kol[i]=cart[i].amount;
-    }  
-    console.log(kol);
-    for(let i=0; i< kol.length;i++){
-      var itemData=cart[i];
-      if(kol[i] > itemData.naStanju){
-        alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
-        
+    if (Storage.getCart()[0] != null) {
+      var user = Storage.getUser();
+      console.log("user", user);
+      let cart = Storage.getCart();
+      console.log("cart", cart);
+      var kol = [];
+      var a = [];
+      for (let i = 0; i < cart.length; i++) {
+        kol[i] = cart[i].amount;
       }
-      else if(kol.every(i=>i < itemData.naStanju))
-      {
-        window.location='./potvrda.html';
+      console.log(kol);
+      for (let i = 0; i < kol.length; i++) {
+        var itemData = cart[i];
+        if (kol[i] > itemData.naStanju) {
+          alert("Na stanju " + itemData.naziv + " imamo samo jos " + itemData.naStanju + " !");
+
+        }
+        else if (kol.every(i => i < itemData.naStanju)) {
+          window.location = './potvrda.html';
+        }
       }
     }
-  }
-  else{
-    alert("Morate izabrati proizvod!");
+    else {
+      alert("Morate izabrati proizvod!");
     }
   }
   else {
-  alert("Morate se prvo ulogovati!");
-       }
+    alert("Morate se prvo ulogovati!");
+  }
 }
 
 
@@ -204,8 +258,6 @@ function ProfilePage() {
   var br3 = document.createElement("br");
   basicInormation.appendChild(em);
   basicInormation.appendChild(br3);
-
-
 
   let dugme = document.createElement("button");
   var br = document.createElement("br");
@@ -498,21 +550,21 @@ function registracija() {
       }).then(r => {
         if (r.ok) {
           r.text().then(id => {
-              fetch("https://localhost:5001/Korisnik/PromeniSlikuKorisnika/" + id, {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(byteString)
-              }).then(r => {
-                if (r.ok) {
-                  alert("Uspeno ste se registrovali!");
-                  window.location.reload();
-                }
-                else {
-                  r.text().then(errorText => { alert(errorText); });
-                }
-              });
+            fetch("https://localhost:5001/Korisnik/PromeniSlikuKorisnika/" + id, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(byteString)
+            }).then(r => {
+              if (r.ok) {
+                alert("Uspeno ste se registrovali!");
+                window.location.reload();
+              }
+              else {
+                r.text().then(errorText => { alert(errorText); });
+              }
+            });
           });
         }
         else {
@@ -521,30 +573,29 @@ function registracija() {
       });
     }
   }
-  else{
+  else {
     fetch("https://localhost:5001/Korisnik/RegistrujSe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: user
-      }).then(r => {
-        if (r.ok) {
-          alert("Uspesno ste se registrovali!");
-          window.location.reload();
-        }
-        else {
-          r.text().then(errorText => { alert(errorText); });
-        }
-      });
-    }
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: user
+    }).then(r => {
+      if (r.ok) {
+        alert("Uspesno ste se registrovali!");
+        window.location.reload();
+      }
+      else {
+        r.text().then(errorText => { alert(errorText); });
+      }
+    });
+  }
 }
 //END registracija
 
-
-
 // prikazivanje proizvoda
-function showArticlePage(productId) {
+function showArticlePage(product) {
+  var productId = product.artikalID;
   userOverlay.classList.remove("transparentBcg");
   userDOM.classList.remove("showUser");
   registrationOverlay.classList.remove("transparentBcg");
@@ -554,7 +605,7 @@ function showArticlePage(productId) {
   body.style.overflowY = "hidden";
 
   articleInformation = document.querySelector(".articleInformation");
-  var product = Storage.getProduct(productId);
+  articleInformation.innerHTML = "";
   var basicInormation = document.createElement("div");
   articleInformation.appendChild(basicInormation);
 
@@ -567,17 +618,17 @@ function showArticlePage(productId) {
   var articleImg = document.createElement("img");
   articleImg.classList.add("product-img");
   articleImg.classList.add("article-img");
-  if(product.image) product.image = 'data:image/png;base64,' + product.image;
+  if (product.image) product.image = 'data:image/png;base64,' + product.image;
   articleImg.src = product.image;
   basicInormation.appendChild(articleImg);
 
   var articleDescription = document.createElement("p");
   articleDescription.className = "articleDescription";
-  articleDescription.innerHTML = "Opis proizvoda";
+  articleDescription.innerHTML = product.opis;
   basicInormation.appendChild(articleDescription);
 
   var articleRating = document.createElement("div");
-  prosecnaOcena = 4.4;
+  prosecnaOcena = product.prosecnaOcena;
   StarRating(articleRating, prosecnaOcena);
   articleRating.className = "articleRating";
   basicInormation.appendChild(articleRating);
@@ -589,7 +640,7 @@ function showArticlePage(productId) {
 
   var articleRate = document.createElement("div");
   articleRate.className = "rate-article";
-  RateProduct(articleRate);
+  RateProduct(articleRate, productId);
   var h3 = document.createElement("h3");
   h3.innerHTML = "Ocenite proizvod";
   h3.style = "float:right;width:35%;margin-top:40px;";
@@ -602,6 +653,7 @@ function showArticlePage(productId) {
   newComment.placeholder = "Unesite vas komentar...";
   newComment.type = "text";
   newComment.className = "input";
+  newComment.id = "inputComment";
   var unesiteKomentar = document.createElement("h3");
   unesiteKomentar.innerHTML = "Unesite komentar";
   newCommentDiv.appendChild(unesiteKomentar);
@@ -612,6 +664,13 @@ function showArticlePage(productId) {
   commentSendBtn.innerHTML = `POSALJI`;
   newCommentDiv.appendChild(commentSendBtn);
   basicInormation.appendChild(newCommentDiv);
+  commentSendBtn.onclick = (event) => {
+    if (!Storage.getUser()) {
+      alert("Morate biti prijavljeni da bi ostavili komentar!");
+      return;
+    }
+    posaljiKomentar(productId);
+  }
 
   var articleAddToChart = document.createElement("button");
   articleAddToChart.classList.add("bag-btn");
@@ -663,11 +722,10 @@ class UI {
     let result = "";
     ui_global = this;
     products.forEach((product) => {
-      if(product.image) product.image = 'data:image/png;base64,' + product.image;
-      console.log(product.image);
+      if (product.image) product.image = 'data:image/png;base64,' + product.image;
       result += `
            <!-- single product-->
-        <article class="product" onclick="showArticlePage('${product.artikalId}')">
+        <article class="product" onclick="getProduct('${product.artikalId}')">
           <div class="img-container">
             <img
               src=${product.image}
@@ -706,7 +764,7 @@ class UI {
 
     const div = document.createElement("div");
     div.classList.add("cart-item");
-    div.innerHTML = `<img src=${item.image} alt="product" />
+    div.innerHTML = `<img src=data:image/png;base64,${item.image} alt="product" />
             <div>
               <h4>${item.naziv}</h4>
               <h5>${item.cena} RSD </h5>
@@ -770,7 +828,6 @@ class UI {
 
   getBagButtons() {
     const buttons = [...document.querySelectorAll(".bag-btn")];
-    console.log("buttons:", buttons.length);
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
@@ -854,7 +911,7 @@ class UI {
         let id = lowerAmount.dataset.id;
         let tempItem = cart.find((item) => item.artikalId == id);
         tempItem.amount = tempItem.amount - 1;
-         if (tempItem.amount > 0) {
+        if (tempItem.amount > 0) {
           Storage.saveCart(cart);
           this.setCartValues(cart);
           lowerAmount.previousElementSibling.innerText = tempItem.amount;
@@ -865,7 +922,7 @@ class UI {
       }
     });
   }
-   clearCart() {
+  clearCart() {
     let cartItems = cart.map((item) => item.artikalId);
     cartItems.forEach((id) => this.removeItem(id));
     while (cartContent.children.length > 0) {
@@ -902,50 +959,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function PROVERA() {
-  alert("Forma je uspesno poslata");
+function getProduct(productId) {
+  fetch("https://localhost:5001/Artikal/VratiArtikal/" + productId).then(
+    res => {
+      res.json().then(
+        data => {
+          showArticlePage(data[0]);
+        }
+      )
+    }
+  )
 }
-// // //validacija formew
-// function PROVERA() {
-//   let name = document.forms["RegForm"]["name"];
-//   let prezime = document.forms["RegForm"]["prezime"];
-//   let telefon = document.forms["RegForm"]["telefon"];
-//   let naslov = document.forms["RegForm"]["naslov"];
-//   let subject = document.forms["RegForm"]["subject"];
-//   let nijeBroj = /^\d+$/;
-//   let space = /\W+/g;
-//   let nameproba = /^\S*$/u;
-//   let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-//   let telefon = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
-//   if (name.value.match(nameproba)) {
-//     window.alert("Polje ime ne sme da sazdrzi razmak izmedju slova");
-//     name.focus();
-//     return false;
-//   }
-
-//   if (prezime.value.match(space)) {
-//     window.alert("Polje prezime ne sme da sazdrzi razmak izmedju slova.");
-//     prezime.focus();
-//     return false;
-//   }
-
-//   if (!telefon.value.match(telefon)) {
-//     window.alert("Molimo vas unesite broj telefona.");
-//     telefon.focus();
-//     return false;
-//   }
-
-//   if (naslov.value == "") {
-//     window.alert("Molimo vas unesite naslov poruke.");
-//     naslov.focus();
-//     return false;
-//   }
-
-//   if (subject.value == "") {
-//     window.alert("Morate uneti poruku");
-//     subject.focus();
-//     return false;
-//   }
-//   return window.alert("Uspesno ste poslali poruku, bice vam odgovoreno u najkracem roku");;
-// }
-

@@ -67,7 +67,7 @@ namespace Projekat.Controllers
          //trenutno bez slike!!!
         [Route("UpdateArtikal/{ArtikalId}/{naziv}/{cena}/{opis}/{naStanju}")]
         [HttpPut]
-        public async Task<ActionResult> Promeni(int ArtikalId,string naziv, int cena, string opis, int naStanju)
+        public async Task<ActionResult> Promeni(int ArtikalId,string naziv, int cena, string opis, int naStanju, [FromBody] string slika)
         {
             if (string.IsNullOrWhiteSpace(naziv) || naziv.Length > 50)
             {
@@ -83,6 +83,10 @@ namespace Projekat.Controllers
                     artikal.Cena = cena;
                     artikal.Opis = opis;
                     artikal.NaStanju = naStanju;
+
+                    if(slika.Length > 0){
+                        artikal.Image = Convert.FromBase64String(slika);
+                    }
                     // artikal.Image = slika;
                     await Context.SaveChangesAsync();
                     return Ok($"Uspesno promenjen artikal! ID: {artikal.ArtikalId}");
@@ -296,7 +300,9 @@ namespace Projekat.Controllers
                     opis = p.Opis,
                     naStanju=p.NaStanju,
                     // artikalSlika=p.Image,
-                    brojProdaja=p.BrojProdaja
+                    brojProdaja=p.BrojProdaja,
+                    image = p.Image,
+                    prosecnaOcena = p.ProsecnaOcena
                     // tip=p.Tip.TipId
 
                 }).ToArrayAsync();
@@ -308,7 +314,89 @@ namespace Projekat.Controllers
             }
         }
 
-       
+        [Route("OceniProizvod/{artikalId}/{ocena}")]    
+        [HttpPut]
+        public async Task<ActionResult> OceniProizvod(int artikalId, int ocena)
+        {
+            try
+            {
+                var artikal = await Context.Artikli.Where(p => p.ArtikalId == artikalId).FirstAsync();
+                if(artikal == null)
+                {
+                    throw new Exception("Ne postoji trazeni artikal!");
+                }
 
+                if(artikal.ProsecnaOcena > 0)
+                {
+                artikal.ProsecnaOcena = (artikal.ProsecnaOcena + ocena)/2;
+                }
+                else{
+                    artikal.ProsecnaOcena += ocena;
+                }
+                await Context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PostKomentar/{artikalId}/{korisnikId}")]    
+        [HttpPost]
+        public async Task<ActionResult> OceniProizvod(int artikalId, int korisnikId, [FromBody] string opisKomentara)
+        {
+            try
+            {
+                var artikal = await Context.Artikli.Where(p => p.ArtikalId == artikalId).FirstAsync();
+                if(artikal == null)
+                {
+                    throw new Exception("Ne postoji trazeni artikal!");
+                }
+
+                var korisnik = await Context.Korisnici.Where(p => p.KorisnikId == korisnikId).FirstAsync();
+                if(korisnik == null)
+                {
+                    throw new Exception("Ne postoji trazeni korisnik!");
+                }
+                var komentar = new Komentar();
+                komentar.OpisKomentar = opisKomentara;
+                komentar.Artikal = artikal;
+                komentar.Korisnik = korisnik;
+
+                Context.Komentari.Add(komentar);
+                await Context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+       
+        [Route("VratiKomentareArtikal/{artikalId}")]    
+        [HttpGet]
+        public async Task<ActionResult> VratiKomentareArtikal(int artikalId)
+        {
+            try
+            {
+                var komentari = await Context.Komentari.Where(p => p.Artikal.ArtikalId == artikalId)
+                .Select(x =>
+                  new Komentar 
+                  {
+                      KomentarId = x.KomentarId,
+                      OpisKomentar = x.OpisKomentar,
+                      Korisnik = x.Korisnik
+                  }
+                )
+                .ToListAsync();
+
+                return Ok(komentari);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

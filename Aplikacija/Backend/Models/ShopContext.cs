@@ -9,6 +9,7 @@ namespace Projekat.Models
         public DbSet<Tip> Tipovi { get; set; }
         public DbSet<Korisnik> Korisnici{get;set;}
         public DbSet<Transakcija> Transakcije{get;set;}
+        public DbSet<Komentar> Komentari{get;set;}
 
         public ShopContext(DbContextOptions options) : base(options)
         {
