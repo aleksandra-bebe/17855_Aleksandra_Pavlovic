@@ -22,6 +22,7 @@ function prikaziSatove() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
+              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -32,7 +33,7 @@ function prikaziSatove() {
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
-            satovi.innerHTML = temp;
+            document.getElementById('satovi').innerHTML = temp;
           }
         }
       )
@@ -51,6 +52,7 @@ function prikaziKaiseve() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
+              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -80,6 +82,7 @@ function prikaziNarukvice() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
+              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -231,7 +234,7 @@ function izmeniArtikal() {
 // });
 // }
 function vratiNaListu() {
-  window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+  window.location = "product-list.html";
 
 }
 function izbrisiArtikal(val) {
@@ -241,7 +244,7 @@ function izbrisiArtikal(val) {
     } else {
       // history.go(0);
       window.alert("Uspesno ste obrisali proizvod");
-      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
+      window.location = "product-list.html";
 
     }
   });
