@@ -23,7 +23,7 @@ namespace Projekat.Controllers
         [HttpGet]
         public async Task<List<Artikal>> GetNajprodavanije()
         {
-            var lista = await Context.Artikli.Where(p => p.NaStanju != 0).ToListAsync();
+            var lista = await Context.Artikli.Where(p => p.NaStanju != 0 && p.Obrisan==false).ToListAsync();
             lista.OrderBy(a => a.BrojProdaja);
             return lista;
         }

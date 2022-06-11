@@ -63,7 +63,49 @@ class Products {
       console.log(error);
     }
   }
+  async getSatovi(ui){
+    try{
+    fetch("https://localhost:5001/Artikal/GetSat").then(p=>{
+      p.json().then(data=>{
+        Storage.saveProducts(data);
+        ui.displayProducts(data,ui);
+      });
+    });
+  }
+  catch(error){
+    console.log(error);
+  }
+  }
+  async getKaisevi(ui){
+    try{
+    fetch("https://localhost:5001/Artikal/GetKais").then(p=>{
+      p.json().then(data=>{
+        Storage.saveProducts(data);
+        ui.displayProducts(data,ui);
+      });
+    });
+  }
+  catch(error){
+    console.log(error);
+  }
+  }
+  async getNarukvice(ui){
+    try{
+    fetch("https://localhost:5001/Artikal/GetNarukvica").then(p=>{
+      p.json().then(data=>{
+        Storage.saveProducts(data);
+        ui.displayProducts(data,ui);
+      });
+    });
+  }
+  catch(error){
+    console.log(error);
+  }
+  }
 }
+
+
+
 
 function StarRating(host, prosecnaOcena) {
   for (let i = 1; i <= 5; i++) {
@@ -195,37 +237,40 @@ function login() {
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function check() {
-  var errorLabel = document.getElementById("ErrorText");
+  var errorLabel=document.getElementById("ErrorText");
   if (Storage.getUser('status') != null) {
-    if (Storage.getCart()[0] != null) {
-      var user = Storage.getUser();
-      console.log("user", user);
-      let cart = Storage.getCart();
-      console.log("cart", cart);
-      var kol = [];
-      var a = [];
-      for (let i = 0; i < cart.length; i++) {
-        kol[i] = cart[i].amount;
+    if(Storage.getCart()[0] !=null)
+    {
+    var user = Storage.getUser();
+    console.log("user", user);
+    let cart = Storage.getCart();
+    console.log("cart", cart);
+    var kol=[];
+    var a=[];
+  for(let i=0; i<cart.length;i++)
+    {
+      kol[i]=cart[i].amount;
+    }  
+    console.log(kol);
+    for(let i=0; i< cart.length;i++){
+      var itemData=cart[i];
+      if(kol[i] > itemData.naStanju){
+        alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
+        
       }
-      console.log(kol);
-      for (let i = 0; i < kol.length; i++) {
-        var itemData = cart[i];
-        if (kol[i] > itemData.naStanju) {
-          alert("Na stanju " + itemData.naziv + " imamo samo jos " + itemData.naStanju + " !");
-
-        }
-        else if (kol.every(i => i < itemData.naStanju)) {
-          window.location = './potvrda.html';
-        }
+      else if(kol.every(i=>i <= itemData.naStanju))
+      {
+        window.location='./potvrda.html';
       }
     }
-    else {
-      alert("Morate izabrati proizvod!");
+}
+  else{
+    alert("Morate izabrati proizvod!");
     }
   }
   else {
-    alert("Morate se prvo ulogovati!");
-  }
+  alert("Morate se prvo ulogovati!");
+       }
 }
 
 
@@ -944,20 +989,71 @@ class UI {
 }
 
 // localno skladiste
-
-
+var najprod=document.getElementById('najprodavanije');
+var satBody=document.getElementById('satBody');
+var kaisBody=document.getElementById('kaisBody');
+var narukviceBody=document.getElementById('narukviceBody');
+if(najprod !=null)
+{
 document.addEventListener("DOMContentLoaded", () => {
   const ui = new UI();
-  const products = new Products();
+  najprod= new Products();
   // setup app
   ui.setupAPP();
   // uzmi sve proizvode
-  products
+  najprod
     .getProducts(ui)
     .then(() => {
 
     });
 });
+}
+else if(satBody!=null)
+{
+//Ucitavanje satova
+document.addEventListener("DOMContentLoaded",()=>{
+ 
+  const ui=new UI();
+  satBody=new Products();
+  ui.setupAPP();
+  satBody
+  .getSatovi(ui)
+  .then(()=>
+  {
+
+  });
+});
+}
+else if(kaisBody !=null)
+{
+  document.addEventListener("DOMContentLoaded",()=>{
+ 
+    const ui=new UI();
+    kaisBody=new Products();
+    ui.setupAPP();
+    kaisBody
+    .getKaisevi(ui)
+    .then(()=>
+    {
+  
+    });
+  });
+}
+else if(narukviceBody!=null)
+{
+  document.addEventListener("DOMContentLoaded",()=>{
+ 
+    const ui=new UI();
+    narukviceBody=new Products();
+    ui.setupAPP();
+    narukviceBody
+    .getNarukvice(ui)
+    .then(()=>
+    {
+  
+    });
+  });
+}
 
 function getProduct(productId) {
   fetch("https://localhost:5001/Artikal/VratiArtikal/" + productId).then(
