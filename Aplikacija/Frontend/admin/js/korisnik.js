@@ -50,7 +50,7 @@ function izbrisiKorisnika(val){
         alert("Nije moguce obrisati korisnika!");
     } else {
       window.alert("Uspesno ste obrisali korisnika");
-      window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/workers.html";
+      window.location = "workers.html";
     }
 });
 }
