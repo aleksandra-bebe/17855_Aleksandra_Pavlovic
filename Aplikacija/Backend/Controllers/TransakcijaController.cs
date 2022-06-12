@@ -65,6 +65,24 @@ namespace Proba.Controllers
         
         }
 
+         [Route("VratiZaradu")]
+        [HttpGet]
+          public async Task<ActionResult> VratiZaradu()
+        { 
+            try{
+                 var suma =Context.Transakcije.Sum(x => x.CenaSaPopustom * x.Kolicina);
+
+                 return Ok(suma);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        
+        }
+
+
+
         [Route("PostTransakcija/{idKor}/{artikalId}/{kol}/{adresa}/{cenaPopust}")]
         [HttpPost]
         public async Task<ActionResult> DodajTransakciju(int idKor,int artikalId,int kol,string adresa,double cenaPopust)
