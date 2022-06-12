@@ -75,27 +75,12 @@
         </div>
         <div class="right">
           <h2>Kontaktirajte nas</h2>
-          <form name="RegForm" href="/kontakt.html" onsubmit="return PROVERA()" method="get">
-            <label for="fname">Ime</label>
-            <input type="text" id="name" name="name" placeholder="Vase ime.." required pattern="[a-zA-Z0-9]+" minlength="4" maxlength="10"/>
-
-            <label for="lname">Prezime</label>
-            <input type="text" id="pr" name="pr" placeholder="Vase prezime.." required pattern="[a-zA-Z0-9]+"/>
-
-            <label for="lname">Broj telefona</label>
-            <input type="number" id="telefon" name="telefon" placeholder="Vas broj telefona.." pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g" required/>
-
-            <label for="opcija">Vrsta poruke</label>
-            <select NAME="opcija" SIZE=0>
-              <option VALUE="0">Korisnicka podrska
-              <option VALUE="1">Tehnicka podrska
-              <option VALUE="2">Povrat novca
-            </select>
+          <form name="RegForm" href="/kontakt.html" onsubmit="posaljiMail()" method="get">
             <label for="lname">Naslov poruke</label>
-            <input type="text" id="naslov" name="naslov" placeholder="Naslov.." required/>
+            <input type="text" id="contactSubject" name="naslov" placeholder="Naslov.." required/>
 
             <label for="subject">Poruka</label>
-            <textarea id="subject" name="subject" placeholder="Ovde napisite poruku.."
+            <textarea id="contactBody" name="subject" placeholder="Ovde napisite poruku.."
               style="height: 150px;" minlength="5" maxlength="40" required></textarea>
 
             <input type="submit" value="Posalji" />
@@ -286,6 +271,7 @@
   </footer>
   <script src="JavaScript/app.js"></script>
   <script src="JavaScript/storage.js"></script>
+  <script src="JavaScript/kontakt.js"></script>
 </body>
 
 </html>

@@ -63,44 +63,44 @@ class Products {
       console.log(error);
     }
   }
-  async getSatovi(ui){
-    try{
-    fetch("https://localhost:5001/Artikal/GetSat").then(p=>{
-      p.json().then(data=>{
-        Storage.saveProducts(data);
-        ui.displayProducts(data,ui);
+  async getSatovi(ui) {
+    try {
+      fetch("https://localhost:5001/Artikal/GetSat").then(p => {
+        p.json().then(data => {
+          Storage.saveProducts(data);
+          ui.displayProducts(data, ui);
+        });
       });
-    });
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
-  catch(error){
-    console.log(error);
-  }
-  }
-  async getKaisevi(ui){
-    try{
-    fetch("https://localhost:5001/Artikal/GetKais").then(p=>{
-      p.json().then(data=>{
-        Storage.saveProducts(data);
-        ui.displayProducts(data,ui);
+  async getKaisevi(ui) {
+    try {
+      fetch("https://localhost:5001/Artikal/GetKais").then(p => {
+        p.json().then(data => {
+          Storage.saveProducts(data);
+          ui.displayProducts(data, ui);
+        });
       });
-    });
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
-  catch(error){
-    console.log(error);
-  }
-  }
-  async getNarukvice(ui){
-    try{
-    fetch("https://localhost:5001/Artikal/GetNarukvica").then(p=>{
-      p.json().then(data=>{
-        Storage.saveProducts(data);
-        ui.displayProducts(data,ui);
+  async getNarukvice(ui) {
+    try {
+      fetch("https://localhost:5001/Artikal/GetNarukvica").then(p => {
+        p.json().then(data => {
+          Storage.saveProducts(data);
+          ui.displayProducts(data, ui);
+        });
       });
-    });
-  }
-  catch(error){
-    console.log(error);
-  }
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 }
 
@@ -186,7 +186,25 @@ function ShowArticleComments(host, articleId) {
           console.log(data);
           data.forEach((itemData) => {
             var div = document.createElement("div");
-            div.innerHTML = itemData.korisnik.korisnickoIme + " : " + itemData.opisKomentar;
+            var divUser = document.createElement("div");
+            divUser.className = "divUser";
+            var divComment = document.createElement("div");
+            divComment.className = "divComment";
+
+            //div user
+            var imageUser = document.createElement("img");
+            imageUser.src = 'data:image/png;base64,' + itemData.korisnik.slika;
+            imageUser.className = "commentImgUser";
+            divUser.appendChild(imageUser);
+
+            var username = document.createElement("label");
+            username.innerHTML = itemData.korisnik.korisnickoIme;
+            divUser.appendChild(username);
+
+            divComment.innerHTML = itemData.opisKomentar;
+
+            div.appendChild(divUser);
+            div.appendChild(divComment);
             host.appendChild(div);
           });
         }
@@ -237,40 +255,30 @@ function login() {
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function check() {
-  var errorLabel=document.getElementById("ErrorText");
-  if (Storage.getUser('status') != null) {
-    if(Storage.getCart()[0] !=null)
-    {
-    var user = Storage.getUser();
-    console.log("user", user);
-    let cart = Storage.getCart();
-    console.log("cart", cart);
-    var kol=[];
-    var a=[];
-  for(let i=0; i<cart.length;i++)
-    {
-      kol[i]=cart[i].amount;
-    }  
-    console.log(kol);
-    for(let i=0; i< cart.length;i++){
-      var itemData=cart[i];
-      if(kol[i] > itemData.naStanju){
-        alert("Na stanju " + itemData.naziv+ " imamo samo jos " + itemData.naStanju + " !");
-        
-      }
-      else if(kol.every(i=>i <= itemData.naStanju))
-      {
-        window.location='./potvrda.html';
+  var errorLabel = document.getElementById("ErrorText");
+  var user = Storage.getUser();
+  let cart = Storage.getCart();
+
+  if (user) {
+    if (cart) {
+      var potvrda = true;
+      cart.forEach(p => {
+        if (p.amount > p.naStanju) {
+          alert("Na stanju " + p.naziv + " imamo samo jos " + p.naStanju + " !");
+          potvrda = false
+        }
+      })
+      if(potvrda){
+        window.location = './potvrda.html';
       }
     }
-}
-  else{
-    alert("Morate izabrati proizvod!");
+    else {
+      alert("Morate izabrati proizvod!");
     }
   }
   else {
-  alert("Morate se prvo ulogovati!");
-       }
+    alert("Morate se prvo ulogovati!");
+  }
 }
 
 
@@ -989,69 +997,62 @@ class UI {
 }
 
 // localno skladiste
-var najprod=document.getElementById('najprodavanije');
-var satBody=document.getElementById('satBody');
-var kaisBody=document.getElementById('kaisBody');
-var narukviceBody=document.getElementById('narukviceBody');
-if(najprod !=null)
-{
-document.addEventListener("DOMContentLoaded", () => {
-  const ui = new UI();
-  najprod= new Products();
-  // setup app
-  ui.setupAPP();
-  // uzmi sve proizvode
-  najprod
-    .getProducts(ui)
-    .then(() => {
+var najprod = document.getElementById('najprodavanije');
+var satBody = document.getElementById('satBody');
+var kaisBody = document.getElementById('kaisBody');
+var narukviceBody = document.getElementById('narukviceBody');
+if (najprod != null) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const ui = new UI();
+    najprod = new Products();
+    // setup app
+    ui.setupAPP();
+    // uzmi sve proizvode
+    najprod
+      .getProducts(ui)
+      .then(() => {
 
-    });
-});
-}
-else if(satBody!=null)
-{
-//Ucitavanje satova
-document.addEventListener("DOMContentLoaded",()=>{
- 
-  const ui=new UI();
-  satBody=new Products();
-  ui.setupAPP();
-  satBody
-  .getSatovi(ui)
-  .then(()=>
-  {
-
+      });
   });
-});
 }
-else if(kaisBody !=null)
-{
-  document.addEventListener("DOMContentLoaded",()=>{
- 
-    const ui=new UI();
-    kaisBody=new Products();
+else if (satBody != null) {
+  //Ucitavanje satova
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const ui = new UI();
+    satBody = new Products();
+    ui.setupAPP();
+    satBody
+      .getSatovi(ui)
+      .then(() => {
+
+      });
+  });
+}
+else if (kaisBody != null) {
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const ui = new UI();
+    kaisBody = new Products();
     ui.setupAPP();
     kaisBody
-    .getKaisevi(ui)
-    .then(()=>
-    {
-  
-    });
+      .getKaisevi(ui)
+      .then(() => {
+
+      });
   });
 }
-else if(narukviceBody!=null)
-{
-  document.addEventListener("DOMContentLoaded",()=>{
- 
-    const ui=new UI();
-    narukviceBody=new Products();
+else if (narukviceBody != null) {
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const ui = new UI();
+    narukviceBody = new Products();
     ui.setupAPP();
     narukviceBody
-    .getNarukvice(ui)
-    .then(()=>
-    {
-  
-    });
+      .getNarukvice(ui)
+      .then(() => {
+
+      });
   });
 }
 
