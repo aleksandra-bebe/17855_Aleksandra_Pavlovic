@@ -530,11 +530,62 @@ li a:hover {
 .articleComments div{
   width: 100%;
   background-color: var(--primaryColor);
-  padding: 20px;
   margin-top:15px;
+  display: inline-block;
+}
+.commentImgUser{
+  width: 75px;
+  height: 75px;
+  float: left;
+  border-radius: 50%;
+}
+.divUser{
+  margin-left: 5px;
+  display: grid !important;
+  margin-bottom: 5px;
+  width: 20% !important;
+  float: left;
+}
+.divComment{
+  width: 75% !important;
+}
+.divUser label{
+  float: left;
+  width: 75px;
+}
+.commentSendBtn{
 }
 
-.commentSendBtn{
+@media screen and (max-width: 768px) {
+  .article-img {
+  width: 100%;
+  }
+  .articleInformation{
+    width: 100%;
+  }
+  .articleInformation div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .articleRating{
+    display: inline !important;
+  }
+  .rate-article{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+  }
+  .articleAddToChart{
+    width: 100%;
+    margin-top: 25px;
+  } 
+  .commentSendBtn{
+    margin-top: 10px;
+  }
+  .divUser{
+    width: auto !important;
+  }
 }
 /* --------------- End of article page --------- */
 /* --------------- User menu ------------------*/
