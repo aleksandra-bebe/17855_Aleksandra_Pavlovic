@@ -44,12 +44,32 @@ namespace Projekat.Controllers
             lista.OrderBy(a => a.BrojProdaja);
             return lista;
         }
+        
+        [Route("GetNarukvica1")]
+        [HttpGet]
+        public async Task<List<Artikal>> GetNarukvica1()
+        {
+            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Narukvica.ToString() && a.NaStanju !=0  && a.Obrisan==false).ToListAsync();
+        }
+
+        [Route("GetSat1")]
+        [HttpGet]
+        public async Task<List<Artikal>> GetSatovi1()
+        {
+            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Sat.ToString() && a.NaStanju !=0 && a.Obrisan==false).ToListAsync();
+        }
+        [Route("GetKais1")]
+        [HttpGet]
+        public async Task<List<Artikal>> GetKaiseve1()
+        {
+            return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString() && k.NaStanju!=0  && k.Obrisan==false).ToListAsync();
+        }
 
         [Route("GetKais")]
         [HttpGet]
         public async Task<List<Artikal>> GetKaiseve()
         {
-            return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString() && k.Obrisan==false).ToListAsync();
+            return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString()  && k.Obrisan==false).ToListAsync();
         }
         [Route("PostArtikal/{tipId}")]
         [HttpPost]
@@ -216,7 +236,7 @@ namespace Projekat.Controllers
         [HttpGet]
         public async Task<List<Artikal>> GetNarukvica()
         {
-            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Narukvica.ToString() && a.Obrisan==false).ToListAsync();
+            return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Narukvica.ToString()  && a.Obrisan==false).ToListAsync();
         }
 
         [Route("GetSat")]
@@ -225,6 +245,7 @@ namespace Projekat.Controllers
         {
             return await Context.Artikli.Where(a => a.Tip.Naziv == Tipovi.Sat.ToString() && a.Obrisan==false).ToListAsync();
         }
+        
 
         [Route("PostTip")]
         [HttpPost]

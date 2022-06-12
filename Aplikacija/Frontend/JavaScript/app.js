@@ -65,7 +65,7 @@ class Products {
   }
   async getSatovi(ui) {
     try {
-      fetch("https://localhost:5001/Artikal/GetSat").then(p => {
+      fetch("https://localhost:5001/Artikal/GetSat1").then(p => {
         p.json().then(data => {
           Storage.saveProducts(data);
           ui.displayProducts(data, ui);
@@ -78,7 +78,7 @@ class Products {
   }
   async getKaisevi(ui) {
     try {
-      fetch("https://localhost:5001/Artikal/GetKais").then(p => {
+      fetch("https://localhost:5001/Artikal/GetKais1").then(p => {
         p.json().then(data => {
           Storage.saveProducts(data);
           ui.displayProducts(data, ui);
@@ -91,7 +91,7 @@ class Products {
   }
   async getNarukvice(ui) {
     try {
-      fetch("https://localhost:5001/Artikal/GetNarukvica").then(p => {
+      fetch("https://localhost:5001/Artikal/GetNarukvica1").then(p => {
         p.json().then(data => {
           Storage.saveProducts(data);
           ui.displayProducts(data, ui);
