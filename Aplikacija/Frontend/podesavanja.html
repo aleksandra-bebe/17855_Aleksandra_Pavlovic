@@ -14,219 +14,124 @@
     <link rel="stylesheet" href="./styles.css" />
   </head> 
    
-
 <body>
-<div class="container1">
-<div class="row flex-lg-nowrap">
-  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-    
-    <div class="card p-3">
-      <div class="e-navlist e-navlist--active-bg">
-        <ul class="nav">
-          <li class="nav-item"><a href="index.html"><i class="fa fa-fw fa-th mr-1"></i><span>Pocetna strana</span></a></li>
-          <li class="nav-item"><a href="profil.html"><i class="fa fa-fw fa-th mr-1"></i><span>Profil</span></spa></span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="row">
-      <div class="col mb-3">
-        <div class="card">
-          <div class="card-body">
-            <div class="e-profile">
-              <div class="row">
-                <div class="container2 bootstrap snippet">
-                  <div class="row">
-                  <div class="col-12 col-sm-auto mb-3"> 
-                  <div class="mx-auto" style="width: 140px;">
-                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <img id="imgUser" alt="profile image">
-                    </div>
-                  </div>
-                </div>  
-              
-                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                  <div class="text-center text-sm-left mb-2 mb-sm-0">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap" id="pUsername"></h4>
-                    <p class="mb-0" id="pUserEmail"></p>
-                    <div class="mt-2">
-                      <button class="btn btn-primary" type="button" > 
-                         <i class="fa fa-fw fa-camera"></i>
-                         <input type="file" class="form-control" id="profilePicture">
-                       </button>
-                    </div>
-                  </div>
-                  <div class="text-center text-sm-right">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-content pt-3">
-                <div class="tab-pane active">
-                    <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Ime</label>
-                              <input class="form-control" type="text" id="inputIme" name="name" placeholder="Korisnik ">
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Prezime</label>
-                              <input class="form-control" type="text" id="inputPrezime" name="name" placeholder="Korisnik">
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Email</label>
-                              <input class="form-control" type="text" id="inputEmail" placeholder="user@example.com" >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Korisnicko ime</label>
-                              <input class="form-control" type="text" name="username" id="inputUsername" placeholder="korisnik.k">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>Telefon</label>
-                              <input class="form-control" type="text" name="telefon" id="inputTelefon" placeholder="+3819988332">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                              <div class="form-group">
-                                <label>Adresa</label>
-                                <input class="form-control" type="text" name="adresa" id="inputAdresa" placeholder="Aleksandra Medvedeva br.14">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" onclick="sacuvajIzmene();">Sacuvaj izmene</button>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Promeni lozinku</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Trenutna lozinka</label>
-                              <input class="form-control" id="inputTrenutnaLozinka" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Nova lozinka</label>
-                              <input class="form-control" id="inputNovaLozinka" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Potvrdi lozinku</label>
-                              <input class="form-control" id="inputPotvrdaNovaLozinka" type="password" placeholder="••••••"></div>
-                          </div>
-                        </div>
-                      </div>
-                    <div class="row">
-                      <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" onclick="promeniLozinku();">Promeni Lozinku</button>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-3 mb-3">
-                      <div class="card mb-3">
-                        <div class="card-body">
-                          <div class="px-xl-3">
-                            <button class="btn btn-block btn-secondary" onclick="logOut()">
-                              <i class="fa fa-sign-out"></i>
-                              <span>Odjavi se</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                </div>
+<div class="container rounded bg-white mt-5 mb-5">
+   
+            <div class="card p-3">
+              <div class="e-navlist e-navlist--active-bg">
+                <ul class="nav">
+                  <li class="nav-item"><a href="index.html"><i class="fa fa-fw fa-th mr-1"></i><span>Pocetna strana</span></a></li>
+                  <li class="nav-item"><a href="profil.html"><i class="fa fa-fw fa-th mr-1"></i><span>Porudzbine</span></spa></span></a></li>
+                </ul>
               </div>
             </div>
-          </div>
+    <div class="row-pod">
+        <div class="col-md-7 ">
+          <div class="col-12 col-sm-auto mb-3"> 
+            <div class="mx-auto" style="width: 140px;">
+              <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                <img id="imgUser" alt="profile image">
+              </div>
+            </div>
+          </div> 
+              <h3 class="pt-sm-2 pb-1 mb-0 text-nowrap" id="pUsername"></h3>
+              <p class="mb-0" id="pUserEmail"></p>
+              <div class="mt-2">
+                <button class="btn btn-primary" type="button" > 
+                   <i class="fa fa-fw fa-camera"></i>
+                   <input type="file" class="form-control" id="profilePicture">
+                 </button>
+              </div>
+            </div>
+        <div class="col-md-8 ">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="text-right">PODESAVANJE PROFILA</h2>
+                </div>
+                <div class="row-mt-2">
+                    <div class="col-md-6"><label class="labels">Ime</label><input id="inputIme" type="text" class="form-control" placeholder="Korisnik" name="name" ></div>
+                    <div class="col-md-6"><label class="labels">Prezime</label><input id="inputPrezime" type="text" class="form-control" value="" placeholder="surname" name="name"></div>
+                    <div class="col-md-12"><label class="labels">Email</label><input id="inputEmail" type="text" class="form-control" placeholder="enter phone number" value=""></div>
+                    <div class="col-md-12"><label class="labels">Korisnicko ime</label><input id="inputUsername" type="text" class="form-control" placeholder="enter address line 1" value=""></div>
+                    <div class="col-md-12"><label class="labels">Telefon</label><input id="inputTelefon" type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Adresa</label><input id="inputAdresa" type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    
+                </div>
+                <button class="btn btn-primary" onclick="sacuvajIzmene()">Sacuvaj izmene</button>
+            </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-</div>
+        <div class="col-md-8">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                   <h2 class="text-right">PROMENI LOZINKU</h2>
+                </div><br>
+                <div class="row-mt-2">
+                <div class="form-group"><label class="labels">Trenutna lozinka</label><input  id="inputTrenutnaLozinka" type="password" class="form-control" placeholder="********"></div> <br>
+                <div class="form-group"><label class="labels">Nova lozinka</label><input id ="inputNovaLozinka" type="password" class="form-control" placeholder="********" ></div> <br>
+                <div class="form-groput"><label class="labels">Potvrdi lozinku</label><input id="inputPotvrdaNovaLozinka" type="password" placeholder="********"></div> <br>
+            </div>
+            <div class="mt-5 text-center"><button class="btn btn-primary" type="button" onclick="promeniLozinku()">Promeni lozinku</button></div> <br>
+            <div class="mt-5 text-center"><button class="btn btn-primary" type="button" onclick="logOut()">Odjavi se</button></div>
+        </div>
+        </div>
 </div>
 <footer class="footer-distributed">
-  <div class="footer-left">
-    <h3>Lux<span>Store</span></h3>
-
-    <p class="footer-links">
-      <a href="index.html" class="link-1">Početna</a>
-
-      <a href="watches.html">Satovi</a>
-
-      <a href="kaisevi.html">Kaisevi</a>
-
-      <a href="narukvice.html">Narukvice</a>
-
-      <a href="oKompaniji.html">O Kompaniji</a>
-
-      <a href="about.html">O Nama</a>
-      <a href="kontakt.html">Kontakt</a>
-    </p>
-
-    <p class="footer-company-name">Lux Store © 2022</p>
-  </div>
-
-  <div class="footer-center">
-    <div>
-      <i class="fa fa-map-marker"></i>
-      <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
+    <div class="footer-left">
+      <h3>Lux<span>Store</span></h3>
+  
+      <p class="footer-links">
+        <a href="index.html" class="link-1">Početna</a>
+  
+        <a href="watches.html">Satovi</a>
+  
+        <a href="kaisevi.html">Kaisevi</a>
+  
+        <a href="narukvice.html">Narukvice</a>
+  
+        <a href="oKompaniji.html">O Kompaniji</a>
+  
+        <a href="about.html">O Nama</a>
+        <a href="kontakt.html">Kontakt</a>
+      </p>
+  
+      <p class="footer-company-name">Lux Store © 2022</p>
     </div>
-
-    <div>
-      <i class="fa fa-phone"></i>
-      <p>+381 60555333</p>
+  
+    <div class="footer-center">
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>Aleksandra Medvedeva 14</span> Nis, Srbija</p>
+      </div>
+  
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+381 60555333</p>
+      </div>
+  
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:luxstore@company.com">luxstore@gmail.com</a></p>
+      </div>
     </div>
-
-    <div>
-      <i class="fa fa-envelope"></i>
-      <p><a href="mailto:luxstore@company.com">luxstore@gmail.com</a></p>
+  
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>O kompaniji</span>
+        Najizdržljiviji digitalni i analogno-digitalni satovi u industriji, 
+        kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti 
+        na otvorenom širom sveta.
+      </p>
+  
+      <div class="footer-icons">
+        <a href="#"><i class="fab fa-facebook-square"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
     </div>
-  </div>
-
-  <div class="footer-right">
-    <p class="footer-company-about">
-      <span>O kompaniji</span>
-      Najizdržljiviji digitalni i analogno-digitalni satovi u industriji, 
-      kojima veruju vojno osoblje, organi za sprovođenje zakona, surferi i entuzijasti 
-      na otvorenom širom sveta.
-    </p>
-
-    <div class="footer-icons">
-      <a href="#"><i class="fab fa-facebook-square"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
-    </div>
-  </div>
-</footer>
-<script src="JavaScript/storage.js"></script>
-<script src="JavaScript/podesavanja.js"></script>
+</div>
+  </footer>
 </body>
-</html>
+  <script src="JavaScript/storage.js"></script>
+  <script src="JavaScript/podesavanja.js"></script>
+  </html>

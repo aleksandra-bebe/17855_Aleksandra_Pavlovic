@@ -66,12 +66,15 @@ window.onload = function pageOnLoad() {
 
   if (cart.length > 0) {
     var temp = "";
+    var ukupnaCena;
     cart.forEach((itemData) => {
+      ukupnaCena=itemData.cena * itemData.amount;
       temp += "<tr>";
       temp += "<td>" + itemData.naziv + "</td>";
       temp += "<td>" + itemData.opis + "</td>";
       temp += "<td>" + itemData.amount + "</td>";
       temp += "<td>" + itemData.cena + "</td>";
+      temp+="<td>" +  ukupnaCena+"</td>";
     });
     document.getElementById('proizvodi').innerHTML = temp;
   }
