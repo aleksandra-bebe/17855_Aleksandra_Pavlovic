@@ -1358,129 +1358,137 @@ textarea{
   }
   
   .dropdown a:hover {background-color: #ddd;} 
-  /*Profile page*/
-  .row{
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    margin: 20px;
-  
-   
-  }
-  .col.mb-3{
-    align-self: center;
-    width: auto;
-    display: flex;
-  }
-  .e-profile{
-    align-self: center;
-     display:flex; 
-    flex-direction: row; 
-    background-color: rgba(255, 255, 255, 0.377);
-  
-  }
-  .form{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    border: 100px;
-    margin:20px;
-  }
-  .card-body{
-     display: flex;
-    flex-direction: row;
-    margin:20px;
-    align-items: center;
-  }
-  .container1{
-  background-color: #dbd8d3;
-  display: flex;
-  align-self: center;
-  }
-  .container2{
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-  }
-  .row1{
-    display: flex;
-    flex-direction: column;
-    margin:20px;
-    align-items: center;
-  }
-  .card-body1{
-    margin: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-  }
  
-  .card-body2{
-    margin: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-  }
-  /*END*/
+  /* Podesavanje  */
 
-  /*Profile page*/
-  .tab-pane{
+
+
+.labels {
+    font-size: 11px
+}
+.p-3{
+  display: flex;
+  flex-direction: column;
+}
+.row-pod{
+  display: flex;
+  flex-direction: row;
+  margin: 30px;
+  justify-content: center;
+  padding: 15px;
+}
+
+.row-mt-2{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.col-md-8{
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  width: 350px;
+}
+
+.text-right{
+  text-align: center;
+} 
+.img.rounded-circle{
+  border-radius: 30px;
+  
+}
+@media only screen and (max-width: 700px) {
+  .row-pod {
     display: flex;
     flex-direction: column;
     align-items: center;
  
-    margin:50px;
-    
   }
+}
+
+  /* End Podesavanja page*/
 
    /* Potvrda stranica */
-   .pIme, .pPrezime{
-    align-self: center;
-    display: inline;
-    margin: 10px;
-  }
-  .pEmail{
-    margin-top:10px;
-    margin-left: 25px;
-    display: flex;
-    align-items: center;
-  }
-  .pBroj{
-    display:flex;
-    align-items: center;
-    margin-left: 30px;
+  
+  .podaci{
+  
+     margin: 20px;
+    justify-content: center;
+    text-align: center;
   }
   .adresa{
-    width: 300px;
     display: flex;
     flex-direction: column;
-    align-self:center;
+    align-self: center;
     align-items: center;
-    margin:25px;
+    width: 300px;
   }
-  .poruci.banner-btn, .otkazi.banner-btn{
-  margin-left: 400px;
-  margin-bottom: 10px;
-  }
+ .dugmici{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+ }
 .popust{
   align-self: center;
   text-align: center;
   color: red;
   /* background-color: rgba(226, 223, 223, 0.8); */
 }
+.row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+}
+.col{
+  display: flex;
+  align-self: center;
+}
+@media only screen and (max-width: 700px) {
+  .podaci {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+}
+@media only screen and (max-width: 700px) {
+  .adresa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+}
+@media only screen and (max-width: 700px) {
+  .popust {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+}
+@media only screen and (max-width: 700px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+}
+@media only screen and (max-width: 700px) {
+  .dugmici{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+  }
+}
+/* END potvrda stranica */
+
+
+
+
 
 

@@ -23,12 +23,14 @@ function prikaziSatove() {
             if (data.length > 0) {
               var temp = "";
               data.forEach((itemData) => {
+                var ukupnaCena=itemData.cenaPopust*itemData.kolicina;
                 temp += "<tr>";
                   temp+="<td>"+   itemData.naziv+  "</td>";
+                  // temp+="<td>"+   itemData.cena+   "</td>";
                   temp+="<td>"+   itemData.opis+   "</td>";
                   temp+="<td>"+   itemData.kolicina+ "</td>";
-                  temp+="<td>"+   itemData.cena+   "</td>";
                   temp+="<td>"+ itemData.cenaPopust+ "</td>";
+                  temp+="<td>"+ ukupnaCena+"</td>"
                   //  temp+="<td>"+  ar + "</td>";
                  
                   });

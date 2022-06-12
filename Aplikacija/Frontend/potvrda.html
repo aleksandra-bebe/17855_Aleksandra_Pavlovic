@@ -25,25 +25,23 @@
         </nav> -->
       </div>
       <div class="row">
-      <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-        <div class="text-center text-sm-left mb-2 mb-sm-0">
+        <div class="podaci">
           <h2 class="pIme"  id="pIme"></h2>
           <h2 class="pPrezime"  id="pPrezime"></h2>
             <!-- <h2 class="pt-sm-2 pb-1 mb-0 text-nowrap"  id="pUsername"></h2> -->
-            <div class="pEmail">
+            <div >
             <p class="pEmail" id="pUserEmail"></p>
             </div>
-            <div class="pBroj">
+            <div>
               <h4>Broj online kupovina: </h4>
-            <h3 class="pBrojKupovina" id="pBrojKupovina"></h3>
+            <h3  id="pBrojKupovina"></h3>
             </div>
         </div>
-    </div>
     <div class="adresa">
       <input id="adresaDostave" class="adresaDostave" type="text"  name="adresaDostave" placeholder="Hilandrska br.5,Nis,18000">
       <h5> Unesite adresu dostave!</h5>
     </div>
-      </div>
+        </div>
       <div class="popust">
         <h3  id="popust"> </h3>
         <h4  id="popust1"></h4>
@@ -61,7 +59,8 @@
                 <th>Naziv </th>
                 <th>Opis </th>
                 <th>Kolicina </th>
-                <th>Cena sa popustom</th>
+                <th>Cena/Cena sa popustom</th>
+                <th>Ukupna cena</th>
               </tr>
             </thead>
             <tbody class="tbody" id="proizvodi"></tbody>
@@ -70,11 +69,11 @@
           <hr class="clear">
         </div>
       </div>
-      <h3 id="ErrorText" class="Error"></h3>
-      <div class="cart-footer1>">
-        <button class="poruci banner-btn" onclick="poruci()"> Poruci</button>
-        <button class="otkazi banner-btn" onclick="window.location='./index.html'">Otkazi</button>
-      </div>   
+      <div class="dugmici">
+      <button class="poruci banner-btn" onclick="poruci()"> Poruci</button>
+      <button class="otkazi banner-btn" onclick="window.location='./index.html'">Otkazi</button>
+      </div>
+      <h3 id="ErrorText" class="Error"></h3> 
           </div>
           <footer class="footer-distributed">
             <div class="footer-left">

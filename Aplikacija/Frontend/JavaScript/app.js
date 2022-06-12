@@ -260,7 +260,7 @@ function check() {
   let cart = Storage.getCart();
 
   if (user) {
-    if (cart) {
+    if (cart[0]) {
       var potvrda = true;
       cart.forEach(p => {
         if (p.amount > p.naStanju) {
@@ -301,6 +301,12 @@ function ProfilePage() {
   basicInormation.className = "basicInfor";
   profileInformation.appendChild(basicInormation);
 
+
+  var imageUser=document.createElement("img");
+  imageUser.src='data:/image/png;base64,' + user.slika;
+  imageUser.className="commentImgUser";
+  basicInormation.appendChild(imageUser);
+
   var header = document.createElement("h2");
   header.classList.add("user-menu-header");
   header.innerHTML = user.ime + " " + user.prezime;
@@ -314,7 +320,7 @@ function ProfilePage() {
 
   let dugme = document.createElement("button");
   var br = document.createElement("br");
-  dugme.innerHTML = "Moj profil";
+  dugme.innerHTML = "Porudzbine";
   dugme.className = "banner-btn";
   basicInormation.appendChild(dugme);
   basicInormation.appendChild(br);

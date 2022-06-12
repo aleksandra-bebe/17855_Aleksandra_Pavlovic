@@ -126,6 +126,7 @@ function promeniLozinku() {
             },
         }).then(r => {
             if (r.ok) {
+                alert("Uspesno izmenjena lozinka!");
                 window.location.reload();
             }
             else {
