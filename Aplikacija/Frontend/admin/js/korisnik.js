@@ -25,6 +25,8 @@ fetch("https://localhost:5001/Korisnik/GetKorisnik").then(
 )
 }
 
+
+
 prikaziKorisnike();
 
 

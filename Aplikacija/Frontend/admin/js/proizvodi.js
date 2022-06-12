@@ -29,7 +29,6 @@ function prikaziSatove() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
-              temp += "<td>" + itemData.obrisan + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -59,7 +58,6 @@ function prikaziKaiseve() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
-              temp += "<td>" + itemData.obrisan + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -89,7 +87,6 @@ function prikaziNarukvice() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
-              temp += "<td>" + itemData.obrisan + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -143,13 +140,14 @@ function dodajArtikal() {
   let cena = document.getElementById("cena").value;
   let opis = document.getElementById("opis").value;
   let naStanju = document.getElementById("naStanju").value;
-  let tipId = document.getElementById("tipId").value;
+  let tipId = document.getElementById("selectTip").value;
   document.getElementById("naziv").value = "";
   document.getElementById("cena").value = "";
   document.getElementById("opis").value = "";
   document.getElementById("naStanju").value = "";
-  document.getElementById("tipId").value = "";
+  document.getElementById("selectTip").value = "";
 
+  // console.log("Tip koji ste dobili je ::" + tipId);
   if (!naziv) {
     alert("Morate uneti naziv proizvoda!");
     return;

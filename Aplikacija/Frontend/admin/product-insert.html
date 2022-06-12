@@ -418,7 +418,7 @@
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
                                     <li class="active"><a href="#description"><i class="icon nalika-edit"
-                                                aria-hidden="true"></i> Informacije o proizvodu</a></li>
+                                                aria-hidden="true"></i> Informacije o artiklu</a></li>
                                 </ul>
                                 <div class="add-product">
                                     <a href="product-list.html">Lista artikala</a>
@@ -431,32 +431,31 @@
                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                                         <div class="review-content-section">
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"></span>
-                                                                <input type="text" id="naziv" class="form-control"
-                                                                    placeholder="Naziv proizvoda">
+                                                                <span class="input-group-addon">Naziv artikla:</span>
+                                                                <input type="text" id="naziv" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"></span>
-                                                                <input type="text" id="cena" class="form-control"
-                                                                    placeholder="Cena proizvoda">
+                                                                <span class="input-group-addon">Cena artikla:</span>
+                                                                <input type="text" id="cena" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"></span>
-                                                                <input type="text" id="opis" class="form-control"
-                                                                    placeholder="Opis proizvoda">
+                                                                <span class="input-group-addon">Opis artikla:</span>
+                                                                <input type="text" id="opis" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"></span>
-                                                                <input type="text" id="naStanju" class="form-control"
-                                                                    placeholder="Na stanju">
+                                                                <span class="input-group-addon">Na stanju:</span>
+                                                                <input type="text" id="naStanju" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"></span>
-                                                                <input type="number" id="tipId" class="form-control"
-                                                                    placeholder="Tip artikla">
+                                                                <span class="input-group-addon">Tip artikla:</span>
+                                                                <!-- <input type="number" id="tipId" class="form-control" -->
+                                                                <!-- placeholder="Tip artikla"> -->
+                                                                <!-- <select class="form-control" name="tip" id="selectTip"></select> -->
+                                                                <select class="form-control" name="tip"
+                                                                    id="selectTip"></select>
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Slika proizvoda:</span>
+                                                                <span class="input-group-addon">Slika artikla:</span>
                                                                 <input type="file" class="form-control"
                                                                     id="profilePicture">
                                                             </div>
@@ -496,6 +495,7 @@
 
                                                 <!-- jquery
 		============================================ -->
+                                                <script src="js/tip.js"></script>
                                                 <script src="js/proizvodi.js"></script>
                                                 <script src="js/vendor/jquery-1.12.4.min.js"></script>
                                                 <!-- bootstrap JS
