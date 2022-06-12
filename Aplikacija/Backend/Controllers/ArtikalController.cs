@@ -19,6 +19,23 @@ namespace Projekat.Controllers
             Context = context;
         }
 
+       
+         [Route("UkupanBrojArtikala")]
+        [HttpGet]
+          public async Task<ActionResult> UkupanBrojArtikala()
+        { 
+            try{
+                 var suma =Context.Artikli.Where(p=> p.Obrisan == false).Count();
+
+                 return Ok(suma);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        
+        }
+
         [Route("GetNajprodavanije")]
         [HttpGet]
         public async Task<List<Artikal>> GetNajprodavanije()
@@ -64,10 +81,9 @@ namespace Projekat.Controllers
             }
         }
 
-         //trenutno bez slike!!!
-        [Route("UpdateArtikal/{ArtikalId}/{naziv}/{cena}/{opis}/{naStanju}")]
+        [Route("UpdateArtikal/{ArtikalId}/{naziv}/{cena}/{opis}/{naStanju}/{tipId}")]
         [HttpPut]
-        public async Task<ActionResult> Promeni(int ArtikalId,string naziv, int cena, string opis, int naStanju, [FromBody] string slika)
+        public async Task<ActionResult> Promeni(int ArtikalId,string naziv, int cena, string opis, int naStanju,int tipId ,[FromBody] string slika)
         {
             if (string.IsNullOrWhiteSpace(naziv) || naziv.Length > 50)
             {
@@ -76,6 +92,8 @@ namespace Projekat.Controllers
             try
             {
                 var artikal = Context.Artikli.Where(p => p.ArtikalId == ArtikalId).FirstOrDefault();
+                var tip=await Context.Tipovi.Where(p => p.TipId == tipId).FirstOrDefaultAsync();
+
                 // var artikal = Context.Artikli.Where(p => p.Naziv == naziv).FirstOrDefault();
                 if (artikal != null && artikal.Obrisan==false)
                 {
@@ -83,10 +101,11 @@ namespace Projekat.Controllers
                     artikal.Cena = cena;
                     artikal.Opis = opis;
                     artikal.NaStanju = naStanju;
+                    artikal.Tip=tip;
 
-                    if(slika.Length > 0){
-                        artikal.Image = Convert.FromBase64String(slika);
-                    }
+                    // if(slika.Length > 0){
+                    //     artikal.Image = Convert.FromBase64String(slika);
+                    // }
                     // artikal.Image = slika;
                     await Context.SaveChangesAsync();
                     return Ok($"Uspesno promenjen artikal! ID: {artikal.ArtikalId}");
@@ -302,8 +321,8 @@ namespace Projekat.Controllers
                     // artikalSlika=p.Image,
                     brojProdaja=p.BrojProdaja,
                     image = p.Image,
-                    prosecnaOcena = p.ProsecnaOcena
-                    // tip=p.Tip.TipId
+                    prosecnaOcena = p.ProsecnaOcena,
+                    tipId=p.Tip.TipId
 
                 }).ToArrayAsync();
                 return Ok(proizvod);

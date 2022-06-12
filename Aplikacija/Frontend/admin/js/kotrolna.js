@@ -30,3 +30,33 @@ function brojTransakcija()
 
 brojTransakcija();
 
+function ukupnaZarada()
+{
+    fetch("https://localhost:5001/Transakcija/VratiZaradu").then(
+  res => {
+    res.json().then(
+      data => {
+        document.getElementById("zarada").innerHTML = data + " rsd";
+      }
+      )
+    }
+  )
+}
+
+ukupnaZarada();
+
+function UkupanBrojAktivnihArtiala()
+{
+    fetch("https://localhost:5001/Artikal/UkupanBrojArtikala").then(
+  res => {
+    res.json().then(
+      data => {
+        document.getElementById("artikli").innerHTML = data;
+      }
+      )
+    }
+  )
+}
+
+UkupanBrojAktivnihArtiala();
+

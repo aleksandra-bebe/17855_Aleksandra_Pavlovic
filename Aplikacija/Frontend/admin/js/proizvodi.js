@@ -29,6 +29,7 @@ function prikaziSatove() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
+              temp += "<td>" + itemData.prosecnaOcena + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -58,6 +59,7 @@ function prikaziKaiseve() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
+              temp += "<td>" + itemData.prosecnaOcena + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -87,6 +89,7 @@ function prikaziNarukvice() {
               temp += "<td>" + itemData.opis + "</td>";
               temp += "<td>" + itemData.naStanju + "</td>";
               temp += "<td>" + itemData.brojProdaja + "</td>";
+              temp += "<td>" + itemData.prosecnaOcena + "</td>";
               temp += "<td><a href='product-insert2.html?" + itemData.artikalId + "' data-toggle='tooltip' title='Edit' class='pd-setting-ed'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>" + "</a></td>";
               temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiArtikal(" + itemData.artikalId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
             });
@@ -126,7 +129,7 @@ function artikalDetaljno() {
           // document.getElementById("opis").innerHTML = data[0].opis;
           document.getElementById("opis").value = data[0].opis;
 
-          // document.getElementById("tip").value = data[0].tip;
+          document.getElementById("tipId").value = data[0].tipId;
 
           document.getElementById("imgProfilePicture").src = 'data:image/png;base64,' + data[0].image;
         }
@@ -199,11 +202,13 @@ function izmeniArtikal() {
   let cena = document.getElementById("cena").value;
   let opis = document.getElementById("opis").value;
   let naStanju = document.getElementById("naStanju").value;
+  let tipId = document.getElementById("tipId").value;
+
 
   var codedFile = document.getElementById("imgProfilePicture").src;
   var byteString = codedFile.split(',')[1];
 
-  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju, {
+  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/"+ tipId, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
