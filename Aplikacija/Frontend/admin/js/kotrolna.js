@@ -4,7 +4,6 @@ function brojKorisnika()
   res => {
     res.json().then(
       data => {
-        // console.log(data);
         document.getElementById("brojKorisnika").innerHTML = data.length;
       }
       )
@@ -20,7 +19,6 @@ function brojTransakcija()
   res => {
     res.json().then(
       data => {
-        // console.log(data);
         document.getElementById("brojTransakcija").innerHTML = data.length;
       }
       )

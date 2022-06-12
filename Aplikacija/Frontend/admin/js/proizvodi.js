@@ -16,7 +16,6 @@ function prikaziSatove() {
     res => {
       res.json().then(
         data => {
-          // console.log(data);
           if (data.length > 0) {
 
             var temp = "";
@@ -46,7 +45,6 @@ function prikaziKaiseve() {
     res => {
       res.json().then(
         data => {
-          // console.log(data);
           if (data.length > 0) {
 
             var temp = "";
@@ -76,7 +74,6 @@ function prikaziNarukvice() {
     res => {
       res.json().then(
         data => {
-          // console.log(data);
           if (data.length > 0) {
 
             var temp = "";
@@ -102,9 +99,6 @@ function prikaziNarukvice() {
 }
 
 function artikalDetaljno() {
-  // var url = window.location.href;
-  // const strs = url.split('?');
-  // const id = url.at()
   var url = window.location.href;
   var id = url.substring(url.lastIndexOf('?') + 1);
 
@@ -112,21 +106,15 @@ function artikalDetaljno() {
     res => {
       res.json().then(
         data => {
-          // console.log("Podaci o proizvodu")
-          // console.log(data);
-          // document.getElementById("title1").innerHTML = data[0].naziv;
 
           document.getElementById("artikalID").value = data[0].artikalID;
 
           document.getElementById("title").value = data[0].naziv;
 
-          // document.getElementById("cena").innerHTML = data[0].cena + '$';
           document.getElementById("cena").value = data[0].cena;
 
-          // document.getElementById("naStanju").innerHTML = data[0].naStanju;
           document.getElementById("naStanju").value = data[0].naStanju;
 
-          // document.getElementById("opis").innerHTML = data[0].opis;
           document.getElementById("opis").value = data[0].opis;
 
           document.getElementById("tipId").value = data[0].tipId;
@@ -150,7 +138,6 @@ function dodajArtikal() {
   document.getElementById("naStanju").value = "";
   document.getElementById("selectTip").value = "";
 
-  // console.log("Tip koji ste dobili je ::" + tipId);
   if (!naziv) {
     alert("Morate uneti naziv proizvoda!");
     return;
@@ -224,18 +211,6 @@ function izmeniArtikal() {
   });
 }
 
-// function izbrisiArtikal(val){
-//   fetch("https://localhost:5001/Artikal/DeleteArtikal/" + val, { method: "DELETE" }).then(p => {
-//     if (!p.ok) {
-//         alert("Nije moguce obrisati artikal!");
-//     } else {
-//       // history.go(0);
-//       window.alert("Uspesno ste obrisali proizvod");
-//       window.location = "http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html";
-
-//     }
-// });
-// }
 function vratiNaListu() {
   window.location = "product-list.html";
 
@@ -245,14 +220,33 @@ function izbrisiArtikal(val) {
     if (!p.ok) {
       alert("Nije moguce obrisati artikal!");
     } else {
-      // history.go(0);
       window.alert("Uspesno ste obrisali proizvod");
       window.location = "product-list.html";
 
     }
   });
 }
-// dodajArtikal();
+
+function getTip() {
+  fetch("https://localhost:5001/Tip/GetTip").then((res) => {
+    res.json().then((data) => {
+      if (data.length > 0) {
+
+        var select = document.getElementById("selectTip");
+         
+
+        for (var i = 0; i < data.length; i++) {
+          var option = document.createElement("OPTION"),
+            txt = document.createTextNode(data[i].naziv);
+          option.appendChild(txt);
+          option.setAttribute("value", data[i].tipId);
+          select.insertBefore(option, select.lastChild);
+        }
+      }
+    });
+  });
+}
+getTip();
 prikaziNarukvice();
 prikaziKaiseve();
 prikaziSatove();

@@ -46,7 +46,6 @@ function dodajKorisnika(){
 
 
 function izbrisiKorisnika(val){
-  // console.log(val);
   fetch("https://localhost:5001/Korisnik/ObrisiKorisnika/" + val, { method: "PUT" }).then(p => {
     if (!p.ok) {
         alert("Nije moguce obrisati korisnika!");
