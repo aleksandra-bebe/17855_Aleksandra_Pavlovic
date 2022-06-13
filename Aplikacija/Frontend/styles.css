@@ -705,7 +705,7 @@ li a:hover {
     align-items: center;
 }
 
-.user-menu-content input[type="text"], .user-menu-content input[type="password"]{
+.user-menu-content input[type="text"], .user-menu-content input[type="password"], .user-menu-content input[type="number"]{
   width: 60%;
   padding: 10px;
   margin: auto;
@@ -727,7 +727,7 @@ li a:hover {
   color: var(--primaryColor);
   display: inline;
 }
-.registration-content input[type="text"], .registration-content input[type="password"]{
+.registration-content input[type="text"], .registration-content input[type="password"], .registration-content input[type="number"]{
   width: 40%;
 }
 .registration-btn{
