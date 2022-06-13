@@ -54,7 +54,7 @@
                     <div class="col-md-6"><label class="labels">Prezime</label><input id="inputPrezime" type="text" class="form-control" value="" placeholder="surname" name="name"></div>
                     <div class="col-md-12"><label class="labels">Email</label><input id="inputEmail" type="text" class="form-control" placeholder="enter phone number" value=""></div>
                     <div class="col-md-12"><label class="labels">Korisnicko ime</label><input id="inputUsername" type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Telefon</label><input id="inputTelefon" type="number" class="form-control" placeholder="Vas broj telefona..." pattern="+381[6][0-9]{7}--[0-9]" value="+381"></div>
+                    <div class="col-md-12"><label class="labels">Telefon</label><input id="inputTelefon" type="number"  oninput="this.value=this.value.slice(0,this.maxLength)" class="form-control" placeholder="Vas broj telefona..."  maxlength="10"></div>
                     <div class="col-md-12"><label class="labels">Adresa</label><input id="inputAdresa" type="text" class="form-control" placeholder="enter address line 2" value=""></div>
                     
                 </div>
