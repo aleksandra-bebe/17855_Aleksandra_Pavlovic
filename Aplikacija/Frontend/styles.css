@@ -490,6 +490,9 @@ li a:hover {
   padding-right: 3px;
 }
 
+.rate-article li::before { color:black; }
+.rate-article li.active::before {color: var(--primaryColor); }
+
 .rate-article li:hover,
 .rate-article li:hover ~ li {
   color: var(--primaryColor);
@@ -502,7 +505,7 @@ li a:hover {
   margin-top:15px;
   display: flex;
   justify-content: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .articleComments{

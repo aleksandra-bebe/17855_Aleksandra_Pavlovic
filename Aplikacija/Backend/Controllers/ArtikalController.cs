@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Projekat.Models;
+using System.Net.Http;
 
 namespace Projekat.Controllers
 {
@@ -353,18 +355,17 @@ namespace Projekat.Controllers
             }
         }
 
-        [Route("OceniProizvod/{artikalId}/{ocena}")]    
-        [HttpPut]
-        public async Task<ActionResult> OceniProizvod(int artikalId, int ocena)
+        [Route("PostKomentar/{artikalId}/{korisnikId}/{ocena}")]    
+        [HttpPost]
+        public async Task<ActionResult> OceniProizvod(int artikalId, int korisnikId, int ocena, [FromBody] string opisKomentara)
         {
             try
             {
                 var artikal = await Context.Artikli.Where(p => p.ArtikalId == artikalId).FirstAsync();
                 if(artikal == null)
                 {
-                    throw new Exception("Ne postoji trazeni artikal!");
+                    return BadRequest("Ne postoji trazeni artikal!");
                 }
-
                 if(artikal.ProsecnaOcena > 0)
                 {
                 artikal.ProsecnaOcena = (artikal.ProsecnaOcena + ocena)/2;
@@ -372,36 +373,23 @@ namespace Projekat.Controllers
                 else{
                     artikal.ProsecnaOcena += ocena;
                 }
-                await Context.SaveChangesAsync();
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [Route("PostKomentar/{artikalId}/{korisnikId}")]    
-        [HttpPost]
-        public async Task<ActionResult> OceniProizvod(int artikalId, int korisnikId, [FromBody] string opisKomentara)
-        {
-            try
-            {
-                var artikal = await Context.Artikli.Where(p => p.ArtikalId == artikalId).FirstAsync();
-                if(artikal == null)
-                {
-                    throw new Exception("Ne postoji trazeni artikal!");
-                }
 
                 var korisnik = await Context.Korisnici.Where(p => p.KorisnikId == korisnikId).FirstAsync();
                 if(korisnik == null)
                 {
-                    throw new Exception("Ne postoji trazeni korisnik!");
+                    return BadRequest("Ne postoji trazeni korisnik!");
+                }
+
+                var komentari = await Context.Komentari.Where(p => (p.Artikal.ArtikalId == artikalId) && (p.Korisnik.KorisnikId == korisnikId)).ToListAsync();
+
+                if(komentari.Count() > 0){
+                    return StatusCode(403);
                 }
                 var komentar = new Komentar();
                 komentar.OpisKomentar = opisKomentara;
                 komentar.Artikal = artikal;
                 komentar.Korisnik = korisnik;
+                komentar.Ocena = ocena;
 
                 Context.Komentari.Add(komentar);
                 await Context.SaveChangesAsync();
@@ -425,7 +413,8 @@ namespace Projekat.Controllers
                   {
                       KomentarId = x.KomentarId,
                       OpisKomentar = x.OpisKomentar,
-                      Korisnik = x.Korisnik
+                      Korisnik = x.Korisnik,
+                      Ocena = x.Ocena
                   }
                 )
                 .ToListAsync();
