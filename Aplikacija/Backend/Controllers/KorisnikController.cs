@@ -322,31 +322,5 @@ namespace Proba.Controllers
                     return BadRequest("Korisnik nije pronadjen");
                 }
         }
-
-        [Route("PosaljiEmail/{fromMail}/{toMail}/{subject}/{body}")]
-        [HttpPost]
-        public async Task<ActionResult> PosaljiEmail(string fromMail, string toMail, string subject, string body)
-        {
-            var hostName = Dns.GetHostName();
-               var host = Dns.GetHostEntry(hostName).AddressList[0];
-            try
-            {
-               
-               return Ok(host);
-               //var ipAddress = host.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
-               //return Ok(ipAddress);
-               //SmtpClient ss = new SmtpClient(ipAddress.ToString());  
-               //ss.Port = 25;  
-               //ss.UseDefaultCredentials = false;  
-               //ss.EnableSsl = true;
-               //ss.Send(fromMail, toMail, subject, body);  
-               return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
     }
 }

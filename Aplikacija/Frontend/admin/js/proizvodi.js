@@ -100,8 +100,10 @@ function prikaziNarukvice() {
 
 function artikalDetaljno() {
   var url = window.location.href;
-  var id = url.substring(url.lastIndexOf('?') + 1);
-
+  var index = url.lastIndexOf('?');
+  if(index == -1) return;
+  var id = url.substring( index + 1);
+  if(!id) return;
   fetch("https://localhost:5001/Artikal/VratiArtikal/" + id).then(
     res => {
       res.json().then(
@@ -233,8 +235,8 @@ function getTip() {
       if (data.length > 0) {
 
         var select = document.getElementById("selectTip");
-         
 
+        if(!select) return;
         for (var i = 0; i < data.length; i++) {
           var option = document.createElement("OPTION"),
             txt = document.createTextNode(data[i].naziv);
