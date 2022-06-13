@@ -382,7 +382,7 @@ namespace Projekat.Controllers
 
                 var komentari = await Context.Komentari.Where(p => (p.Artikal.ArtikalId == artikalId) && (p.Korisnik.KorisnikId == korisnikId)).ToListAsync();
 
-                if(komentari != null){
+                if(komentari.Count() > 0){
                     return StatusCode(403);
                 }
                 var komentar = new Komentar();
