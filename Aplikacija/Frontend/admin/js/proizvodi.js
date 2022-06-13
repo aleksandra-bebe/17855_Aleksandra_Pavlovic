@@ -119,7 +119,9 @@ function artikalDetaljno() {
 
           document.getElementById("opis").value = data[0].opis;
 
-          document.getElementById("tipId").value = data[0].tipId;
+          // document.getElementById("tipId").value = data[0].tipId;
+          document.getElementById("selectTip").value = data[0].tipId;
+
 
           document.getElementById("imgProfilePicture").src = 'data:image/png;base64,' + data[0].image;
         }
@@ -191,7 +193,9 @@ function izmeniArtikal() {
   let cena = document.getElementById("cena").value;
   let opis = document.getElementById("opis").value;
   let naStanju = document.getElementById("naStanju").value;
-  let tipId = document.getElementById("tipId").value;
+  // let tipId = document.getElementById("tipId").value;
+  let tipId = document.getElementById("selectTip").value;
+
 
   if(!naziv){alert("Morate uneti naziv artikla!"); return;}
   if(!cena) {alert("Morate uneti cenu artikla!"); return;}
