@@ -193,6 +193,9 @@ function izmeniArtikal() {
   let naStanju = document.getElementById("naStanju").value;
   let tipId = document.getElementById("tipId").value;
 
+  if(!naziv){alert("Morate uneti naziv artikla!"); return;}
+  if(!cena) {alert("Morate uneti cenu artikla!"); return;}
+  if(!naStanju) {alert("Morate uneti broj artikala na stanju!"); return;}
 
   var codedFile = document.getElementById("imgProfilePicture").src;
   var byteString = codedFile.split(',')[1];

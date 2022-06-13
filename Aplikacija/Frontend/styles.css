@@ -1164,6 +1164,7 @@ input[type="submit"] {
   display: inline-block;
   margin: 0 14px;
   transition: all 0.6s ease 0s;
+  margin-bottom: 50px;
   /* flip speed goes here */
   /* hide back of pane during swap */
   /* add zindex:2 to front pane to  placed it above back when swapped.

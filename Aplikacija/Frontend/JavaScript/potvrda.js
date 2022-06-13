@@ -122,9 +122,14 @@ function poruci() {
             }, 7000);
           }
           else {
-            Storage.removeCart();
-            window.location = './profil.html';
-            alert("Proizvod je porucen!");
+            p.json().then(
+              data => {
+                Storage.removeCart();
+                Storage.removeUser();
+                Storage.saveUser(data);
+                window.location = './profil.html';
+                alert("Proizvod je porucen!");
+              })
           }
         })
     });

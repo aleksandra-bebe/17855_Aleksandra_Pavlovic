@@ -123,10 +123,9 @@ namespace Projekat.Controllers
                     artikal.NaStanju = naStanju;
                     artikal.Tip=tip;
 
-                    // if(slika.Length > 0){
-                    //     artikal.Image = Convert.FromBase64String(slika);
-                    // }
-                    // artikal.Image = slika;
+                     if(slika.Length > 0){
+                         artikal.Image = Convert.FromBase64String(slika);
+                     }
                     await Context.SaveChangesAsync();
                     return Ok($"Uspesno promenjen artikal! ID: {artikal.ArtikalId}");
                 }

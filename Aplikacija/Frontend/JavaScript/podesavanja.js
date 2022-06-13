@@ -120,8 +120,10 @@ function sacuvajIzmene() {
                         "prezime": prezime.value,
                         "telefon": telefon.value,
                         "adresa": adresa.value,
+                        "slika":oldUser.slika
                     });
                     localStorage.setItem("user", userNew);
+                    alert("Uspesno ste promenili podatke!");
                     window.location.reload();
                 });
             }

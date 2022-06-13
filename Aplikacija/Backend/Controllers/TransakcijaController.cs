@@ -126,7 +126,7 @@ namespace Proba.Controllers
             kor.BrojOnlineKupovina++;
             Context.Transakcije.Add(tr);
             await Context.SaveChangesAsync();
-             return Ok("Dodata je transakcija");
+             return Ok(tr.Korisnik);
 
             }   
             catch(Exception e)
