@@ -104,9 +104,6 @@ class Products {
   }
 }
 
-
-
-
 function StarRating(host, prosecnaOcena) {
   for (let i = 1; i <= 5; i++) {
     var star = document.createElement("span");
@@ -117,31 +114,22 @@ function StarRating(host, prosecnaOcena) {
   }
   host.innerHTML += " " + prosecnaOcena;
 }
-
+var ocenaProizvoda = 0;
 function RateProduct(host, productId) {
   for (let i = 1; i <= 5; i++) {
     var star = document.createElement("li");
     var span = document.createElement("i");
     star.classList.add("fa");
     star.classList.add("fa-star");
-    star.title = "Rate " + (6 - i);
+    star.title = "Rate " + i;
     star.onclick = (e) => {
-      var ocena = 6 - i;
-      fetch("https://localhost:5001/Artikal/OceniProizvod/" + productId + "/" + ocena, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(p => {
-        if (p.ok) {
-          alert("Uspesno ste ocenili proizvod");
-          getProduct(productId);
-        }
-        else {
-          p.text().then(errorText => { console.log(errorText) });
-          alert("Greska pri ocenjivanju proizvoda");
-        }
-      });
+      var li = document.getElementsByClassName("rate-article")[0].getElementsByTagName("li");
+      let action = 'add';
+      for (const span of li) {
+          span.classList[action]('active');
+          if (span === e.target) action = 'remove';
+      }
+      ocenaProizvoda = i;
     };
     host.appendChild(star);
   }
@@ -154,7 +142,11 @@ function posaljiKomentar(productId) {
     alert("Unesite komentar!");
     return;
   }
-  fetch("https://localhost:5001/Artikal/PostKomentar/" + productId + "/" + korisnikId, {
+  if(ocenaProizvoda == 0){
+    alert("Morate oceniti proizvod!");
+    return;
+  }
+  fetch("https://localhost:5001/Artikal/PostKomentar/" + productId + "/" + korisnikId + "/" + ocenaProizvoda, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -163,7 +155,11 @@ function posaljiKomentar(productId) {
   }).then(p => {
     if (p.ok) {
       alert("Uspesno ste komentarisali proizvod");
+      ocenaProizvoda = 0;
       getProduct(productId);
+    }
+    else if(p.status == 403){
+      alert("Vec ste komentarisali ovaj artikal!")
     }
     else {
       p.text().then(errorText => { console.log(errorText) });
@@ -200,6 +196,18 @@ function ShowArticleComments(host, articleId) {
             var username = document.createElement("label");
             username.innerHTML = itemData.korisnik.korisnickoIme;
             divUser.appendChild(username);
+
+            var articleRating = document.createElement("div");
+            articleRating.style.textAlign = "left";
+            for (let i = 1; i <= 5; i++) {
+              var star = document.createElement("span");
+              star.classList.add("fa");
+              star.classList.add("fa-star");
+              console.log(itemData.ocena);
+              if (itemData.ocena >= i) star.style.color = "var(--mainWhite)";
+              articleRating.appendChild(star);
+            }
+            divUser.appendChild(articleRating);
 
             divComment.innerHTML = itemData.opisKomentar;
 
