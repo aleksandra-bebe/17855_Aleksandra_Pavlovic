@@ -19,12 +19,20 @@ namespace Projekat.Models{
         [Column("Opis")]
         public string Opis{get;set;}
 
-        [Column("Na stanju")]
-        public bool NaStanju{get;set;}
+        [Column("NaStanju")]
+        public int NaStanju{get;set;}
 
         [Column("Image")]
-        [MaxLength(255)]
         public byte[] Image{get;set;}
+
+        [Column("BrojProdaja")]
+        public int BrojProdaja {get;set;}
+
+        [Column("Obrisan")]
+        public bool Obrisan {get; set;}
+
+        [Column("ProsecnaOcena")]
+        public decimal ProsecnaOcena {get;set;}
 
         public Tip Tip{get;set;}
 

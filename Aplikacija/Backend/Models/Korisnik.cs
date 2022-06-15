@@ -6,7 +6,7 @@ namespace Projekat.Models{
     [Table("Korisnik")]
     public class Korisnik{
         [Key]
-        [Column("KorisnikID")]
+        [Column("KorisnikId")]
         public int KorisnikId{get;set;}
 
         [Column("Ime")]
@@ -27,17 +27,20 @@ namespace Projekat.Models{
         [MinLength(8)]
         public string Sifra{get;set;}
 
-        [Required]
-        public Boolean Admin{get;set;}
-
-        [Column("BrojKupljenihProizvoda")]
-        public int Broj{get;set;}
+        [Column("BrojOnlineKupovina")]
+        public int BrojOnlineKupovina{get;set;}
 
         [Column("Telefon")]
-        public int Telefon{get;set;}
+        public string Telefon{get;set;}
 
         [Column("Adresa")]
         public string Adresa{get;set;}
+
+        [Column("Slika")]
+        public byte[] Slika { get; set; }
+
+        [Column("Obrisan")]
+        public bool Obrisan {get; set;}
 
         public List<Komentar> Komentari {get; set;}
 
