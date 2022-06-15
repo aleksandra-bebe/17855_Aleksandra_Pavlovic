@@ -108,7 +108,7 @@ function poruci() {
         var popust = (posto / 100) * cenaPr;
         novaCena = cenaPr - popust;
       }
-      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalId + "/" + kol + "/" + adresa + "/" + novaCena,
+      fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalID + "/" + kol + "/" + adresa + "/" + novaCena,
         {
           method: 'POST',
           headers: {
