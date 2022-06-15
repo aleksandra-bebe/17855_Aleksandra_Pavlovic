@@ -54,7 +54,6 @@ class Products {
     try {
       fetch("https://localhost:5001/Artikal/GetNajprodavanije").then(p => {
         p.json().then(data => {
-          Storage.saveProducts(data);
           ui.displayProducts(data, ui);
         });
       });
@@ -67,7 +66,6 @@ class Products {
     try {
       fetch("https://localhost:5001/Artikal/GetSat1").then(p => {
         p.json().then(data => {
-          Storage.saveProducts(data);
           ui.displayProducts(data, ui);
         });
       });
@@ -80,7 +78,6 @@ class Products {
     try {
       fetch("https://localhost:5001/Artikal/GetKais1").then(p => {
         p.json().then(data => {
-          Storage.saveProducts(data);
           ui.displayProducts(data, ui);
         });
       });
@@ -93,7 +90,6 @@ class Products {
     try {
       fetch("https://localhost:5001/Artikal/GetNarukvica1").then(p => {
         p.json().then(data => {
-          Storage.saveProducts(data);
           ui.displayProducts(data, ui);
         });
       });
@@ -126,8 +122,8 @@ function RateProduct(host, productId) {
       var li = document.getElementsByClassName("rate-article")[0].getElementsByTagName("li");
       let action = 'add';
       for (const span of li) {
-          span.classList[action]('active');
-          if (span === e.target) action = 'remove';
+        span.classList[action]('active');
+        if (span === e.target) action = 'remove';
       }
       ocenaProizvoda = i;
     };
@@ -142,7 +138,7 @@ function posaljiKomentar(productId) {
     alert("Unesite komentar!");
     return;
   }
-  if(ocenaProizvoda == 0){
+  if (ocenaProizvoda == 0) {
     alert("Morate oceniti proizvod!");
     return;
   }
@@ -158,7 +154,7 @@ function posaljiKomentar(productId) {
       ocenaProizvoda = 0;
       getProduct(productId);
     }
-    else if(p.status == 403){
+    else if (p.status == 403) {
       alert("Vec ste komentarisali ovaj artikal!")
     }
     else {
@@ -276,7 +272,7 @@ function check() {
           potvrda = false
         }
       })
-      if(potvrda){
+      if (potvrda) {
         window.location = './potvrda.html';
       }
     }
@@ -310,9 +306,9 @@ function ProfilePage() {
   profileInformation.appendChild(basicInormation);
 
 
-  var imageUser=document.createElement("img");
-  imageUser.src='data:/image/png;base64,' + user.slika;
-  imageUser.className="commentImgUser";
+  var imageUser = document.createElement("img");
+  imageUser.src = 'data:/image/png;base64,' + user.slika;
+  imageUser.className = "commentImgUser";
   basicInormation.appendChild(imageUser);
 
   var header = document.createElement("h2");
@@ -702,7 +698,7 @@ function showArticlePage(product) {
 
   var articlePrice = document.createElement("div");
   articlePrice.className = "articlePrice";
-  articlePrice.innerHTML = "$" + product.cena;
+  articlePrice.innerHTML = product.cena + " RSD";
   basicInormation.appendChild(articlePrice);
 
   var articleRate = document.createElement("div");
@@ -744,7 +740,7 @@ function showArticlePage(product) {
   articleAddToChart.classList.add("articleAddToChart");
   articleAddToChart.setAttribute('data-id', productId);
   articleAddToChart.innerHTML = `<i class="fas fa-shopping-cart"></i> DODAJ U KORPU`;
-  let inCart = cart.find((item) => item.artikalId == productId);
+  let inCart = cart.find((item) => item.artikalID == productId);
   if (inCart) {
     articleAddToChart.innerText = `Vec je u korpi`;
     articleAddToChart.disabled = true;
@@ -754,7 +750,9 @@ function showArticlePage(product) {
     event.target.innerText = "Vec je u korpi";
     event.target.disabled = true;
     // uzmi proizvod od proizvoda
-    let cartItem = { ...Storage.getProduct(productId), amount: 1 };
+    product.amount = 1;
+    product.image = product.image.split(',')[1];
+    let cartItem = product;
     // dodaj u korpu
     cart = [...cart, cartItem];
     // sacuvaj korpu u local storage
@@ -828,19 +826,19 @@ class UI {
   }
 
   addCartItem(item) {
-
+    console.log("item",item)
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `<img src=data:image/png;base64,${item.image} alt="product" />
             <div>
               <h4>${item.naziv}</h4>
               <h5>${item.cena} RSD </h5>
-              <span class="remove-item" data-id=${item.artikalId}>Ukloni</span>
+              <span class="remove-item" data-id=${item.artikalID}>Ukloni</span>
             </div>
             <div>
-              <i class="fas fa-chevron-up" data-id=${item.artikalId}></i>
+              <i class="fas fa-chevron-up" data-id=${item.artikalID}></i>
               <p id="amount" class="item-amount">${item.amount} </p>
-              <i class="fas fa-chevron-down" data-id=${item.artikalId}></i>
+              <i class="fas fa-chevron-down" data-id=${item.artikalID}></i>
             </div>`;
     cartContent.appendChild(div);
   }
@@ -891,6 +889,7 @@ class UI {
   hideProfilePage() {
     profileOverlay.classList.remove("transparentBcg");
     profileDOM.classList.remove("showUser");
+    body.style.overflowY = "scroll";
   }
 
   getBagButtons() {
@@ -898,7 +897,7 @@ class UI {
     buttonsDOM = buttons;
     buttons.forEach((button) => {
       let id = button.dataset.id;
-      let inCart = cart.find((item) => item.artikalId == id);
+      let inCart = cart.find((item) => item.artikalID == id);
       if (inCart) {
         button.innerText = "Vec je u korpi";
         button.disabled = true;
@@ -911,18 +910,30 @@ class UI {
             event.target.innerText = "Vec je u korpi";
             event.target.disabled = true;
             // uzmi proizvod od proizvoda
-            let cartItem = { ...Storage.getProduct(id), amount: 1 };
-            // dodaj u korpu
-            cart = [...cart, cartItem];
-            console.log("cart:", cart);
-            // sacuvaj korpu u local storage
-            Storage.saveCart(cart);
-            // postavimo vrednost korpi
-            this.setCartValues(cart);
-            // prikazi proizvod korpe
-            this.addCartItem(cartItem);
-            // prikazi korpu
-            this.showCart();
+            fetch("https://localhost:5001/Artikal/VratiArtikal/" + id).then(
+              res => {
+                res.json().then(
+                  data => {
+                    var product = data[0];
+                    product.amount = 1;
+                    let cartItem = product;
+                    // dodaj u korpu
+                    cart = [...cart, cartItem];
+                    console.log("cart:", cart);
+                    // sacuvaj korpu u local storage
+                    Storage.saveCart(cart);
+                    // postavimo vrednost korpi
+                    this.setCartValues(cart);
+                    // prikazi proizvod korpe
+                    this.addCartItem(cartItem);
+                    // prikazi korpu
+                    this.showCart();
+                  }
+                )
+              }
+            )
+
+
           });
         }
       }
@@ -968,7 +979,7 @@ class UI {
       } else if (event.target.classList.contains("fa-chevron-up")) {
         let addAmount = event.target;
         let id = addAmount.dataset.id;
-        let tempItem = cart.find((item) => item.artikalId == id);
+        let tempItem = cart.find((item) => item.artikalID == id);
         tempItem.amount = tempItem.amount + 1;
         Storage.saveCart(cart);
         this.setCartValues(cart);
@@ -976,7 +987,7 @@ class UI {
       } else if (event.target.classList.contains("fa-chevron-down")) {
         let lowerAmount = event.target;
         let id = lowerAmount.dataset.id;
-        let tempItem = cart.find((item) => item.artikalId == id);
+        let tempItem = cart.find((item) => item.artikalID == id);
         tempItem.amount = tempItem.amount - 1;
         if (tempItem.amount > 0) {
           Storage.saveCart(cart);
@@ -990,7 +1001,7 @@ class UI {
     });
   }
   clearCart() {
-    let cartItems = cart.map((item) => item.artikalId);
+    let cartItems = cart.map((item) => item.artikalID);
     cartItems.forEach((id) => this.removeItem(id));
     while (cartContent.children.length > 0) {
       cartContent.removeChild(cartContent.children[0]);
@@ -998,7 +1009,7 @@ class UI {
     this.hideCart();
   }
   removeItem(id) {
-    cart = cart.filter((item) => item.artikalId != id);
+    cart = cart.filter((item) => item.artikalID != id);
     this.setCartValues(cart);
     Storage.saveCart(cart);
     let button = this.getSingleButton(id);
@@ -1010,7 +1021,6 @@ class UI {
   }
 }
 
-// localno skladiste
 var najprod = document.getElementById('najprodavanije');
 var satBody = document.getElementById('satBody');
 var kaisBody = document.getElementById('kaisBody');

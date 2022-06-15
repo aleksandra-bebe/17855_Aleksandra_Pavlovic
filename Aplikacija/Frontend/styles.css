@@ -500,13 +500,15 @@ li a:hover {
 }
 
 .rate-article {
-  float: right;
-  width: 35%;
-  margin-top:15px;
   display: flex;
   justify-content: center;
   flex-direction: row;
-  margin-left: 50%;
+}
+@media only screen and (max-width: 1025px) and (min-width: 1023px)  
+{
+  .rate-article {
+    margin-left: 50%;
+  }
 }
 
 .articleComments{
