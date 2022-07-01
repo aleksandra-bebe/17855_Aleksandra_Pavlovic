@@ -27,6 +27,7 @@ const userMenuContent = document.querySelector(".user-menu-content");
 const profileOverlay = document.querySelector(".profile-overlay");
 const profileDOM = document.querySelector(".profile");
 const nav=document.querySelector("nav-item");
+const zaposleniDOM=document.querySelector(".zaposleni-center");
 
 
 // meni togler
@@ -1184,4 +1185,83 @@ function getProduct(productId) {
       )
     }
   )
+}
+var zap=document.getElementById('zaposleni');
+document.addEventListener("DOMContentLoaded", function() {
+  iscrtajZaposlen();
+});
+// Zaposleni ucitavanje i iscrtavanje
+function iscrtajZaposlen(){
+ 
+  fetch("https://localhost:5001/Zaposlen/GetZaposlen",{
+    method:"GET",
+    headers:{
+      "Content-Type" : "application/json"
+    }
+  }).then( res=>{
+    if(res.ok){
+     res.json().then(data=>{
+      if(data){
+        Storage.saveZaposleni(data);
+        iscrtaj();
+      }
+     })
+    }
+    
+    }
+  )
+}
+function iscrtaj()
+{
+  var zapCenter=document.querySelector(".zaposlen-center");
+
+  var zapInformation=document.createElement("div");
+  zapInformation.className="zapInformation";
+  zapCenter.appendChild(zapInformation);
+  
+  var zaposleni=Storage.getZaposleni();
+  zaposleni.forEach((item)=>
+  {
+    var divZaposlen=document.createElement("divZaposlen");
+    divZaposlen.className="divZaposlen";
+  
+    let header=document.createElement("h2");
+    header.innerHTML=item.ime + " "+ item.prezime ;
+    ime.className="label1";
+    divZaposlen.appendChild(header);
+  
+    let email=document.createElement("h3");
+    email.innerHTML=item.email;
+    email.className="label1";
+    divZaposlen.appendChild(email);
+
+    
+    var zaposlenRating = document.createElement("div1");
+    prosecnaOcena = item.prosecnaOcena;
+    StarRating(zaposlenRating, prosecnaOcena);
+    zaposlenRating.className = "zaposlenRating1";
+    divZaposlen.appendChild(zaposlenRating);
+    
+    let result ="";
+
+    result+=`
+    <article class="zaposleni" onclick="getZaposlen('${zaposleni.zaposlenId}')">
+    </article>
+    `;
+
+    zapInformation.appendChild(divZaposlen);
+  })
+  
+}
+function getZaposlen(zaposlenId){
+  fetch("https://localhost:5001/Zaposlen/VratiZaposlen" +zaposlenId).then(
+    res=>{
+      res.json().then(
+        data=>{
+          showZaposleniPage(data[0]);
+        }
+      )
+    }
+  )
+
 }

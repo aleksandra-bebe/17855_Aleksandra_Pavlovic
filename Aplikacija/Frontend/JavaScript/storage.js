@@ -29,4 +29,12 @@ class Storage {
     static saveTip(tip){
       localStorage.setItem("tip", JSON.stringify(tip));
     }
+    static getZaposleni(){
+      return localStorage.getItem("zap")
+      ? JSON.parse(localStorage.getItem("zap"))
+      : [];
+    }
+    static saveZaposleni(zap){
+      localStorage.setItem("zap", JSON.stringify(zap));
+    }
   }

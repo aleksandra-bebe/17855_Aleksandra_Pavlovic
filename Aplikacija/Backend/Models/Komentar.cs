@@ -19,5 +19,7 @@ namespace Projekat.Models{
         public Artikal Artikal {get;set;}
         
         public Korisnik Korisnik {get;set;}
+         [JsonIgnore]
+        public Zaposlen Zaposlen{get;set;}
     }
 }
