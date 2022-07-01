@@ -26,6 +26,7 @@ const productsDOM = document.querySelector(".products-center");
 const userMenuContent = document.querySelector(".user-menu-content");
 const profileOverlay = document.querySelector(".profile-overlay");
 const profileDOM = document.querySelector(".profile");
+const nav=document.querySelector("nav-item");
 
 
 // meni togler
@@ -48,6 +49,70 @@ let buttonsDOM = [];
 let user = [];
 
 let ui_global;
+
+//Dinamicko ucitavanje sastrane
+function Show(){
+  navInformation = document.querySelector(".navInformation");
+  navInformation.innerHTML = "";
+  var basicInormation = document.createElement("div");
+  basicInormation.className = "basicInfor";
+  navInformation.appendChild(basicInormation);
+  //  host.innerHTML="";
+  fetch("https://localhost:5001/Tip/GetTip",{
+    method:"GET",
+    headers:{
+      "Content-Type": "application/json"
+    }
+  }).then(
+    res=>{
+      res.json().then(
+        data=>{
+          console.log(data);
+          data.forEach((itemData)=>{
+            var nav=document.createElement("nav-item");
+            
+            var divNaziv=document.createElement("divNaziv");
+            divNaziv.className="divNaziv";
+
+            let naziv=document.createElement("link");
+            naziv.innerHTML=itemData.naziv;
+            naziv.className="nav-link";
+            divNaziv.appendChild(naziv);
+            nav.appendChild(divNaziv);
+            navInformation.appendChild(nav);
+            naziv.onclick=(event)=>{
+              let naziv1= itemData.naziv;
+              Storage.saveTip(itemData);
+              this.Stranice(naziv1);
+              
+            }
+          })
+        }
+      )
+    }
+  )
+  }
+//otvaranje stranica
+function Stranice(naziv){
+  let naziv1= naziv;
+  console.log(naziv1);
+    if(naziv1 =="sat"){
+    window.location='./watches.html';
+      }
+     else if(naziv1 =="kais"){
+      window.location='./strips.html';
+      }
+     else if(naziv1 =="narukvica"){
+     window.location='./narukvice.html';
+      }
+    else{
+      var opened = window.open("drawer.html ", "_self");
+      opened.postMessage("draw","*");
+      window.addEventListener("message",draw,false);
+      let naslov=document.createElement("h2");
+      naslov.innerHTML=naziv1;
+    }
+  }
 // uzimanje proizvoda
 class Products {
   async getProducts(ui) {
@@ -98,7 +163,18 @@ class Products {
       console.log(error);
     }
   }
-}
+  async getOstalo(ui)
+  {
+    var tip=Storage.getTip();
+    var naziv1=tip.naziv;
+   fetch("https://localhost:5001/Artikal/GetOstale/" + naziv1).then(p=>{
+         p.json().then(data=>{
+           ui.displayProducts(data,ui);
+         });
+       });
+     }
+  }
+  
 
 function StarRating(host, prosecnaOcena) {
   for (let i = 1; i <= 5; i++) {
@@ -1025,6 +1101,7 @@ var najprod = document.getElementById('najprodavanije');
 var satBody = document.getElementById('satBody');
 var kaisBody = document.getElementById('kaisBody');
 var narukviceBody = document.getElementById('narukviceBody');
+var tipId=document.getElementById('tipId');
 if (najprod != null) {
   document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI();
@@ -1074,6 +1151,20 @@ else if (narukviceBody != null) {
     ui.setupAPP();
     narukviceBody
       .getNarukvice(ui)
+      .then(() => {
+
+      });
+  });
+}
+else {
+   document.addEventListener("DOMContentLoaded", () => {
+
+    const ui = new UI();
+    tipId = new Products();
+    let naziv=tipId.naziv;
+    ui.setupAPP();
+    tipId
+      .getOstalo(ui)
       .then(() => {
 
       });

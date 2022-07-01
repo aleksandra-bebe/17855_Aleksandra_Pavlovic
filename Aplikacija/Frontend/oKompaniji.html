@@ -18,46 +18,41 @@
   <nav class="navbar">
     <div class="navbar-center">
       <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars" onclick="Show()"></i>
         <i class="fas fa-times"></i>
       </div>
       <a href="index.html" class="logo"><img src="/images/logo-rosa.png" alt="" /></a>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link active">Početna</a>
-        </li>
-        <li class="nav-item">
-          <a href="watches.html" class="nav-link">Satovi</a>
-        </li>
-        <li class="nav-item">
-          <a href="strips.html" class="nav-link">Kaisevi</a>
-        </li>
-        <li class="nav-item">
-          <a href="narukvice.html" class="nav-link">Narukvice</a>
-        </li>
-        <li class="nav-item">
-          <a href="oKompaniji.html" class="nav-link">O Kompaniji</a>
-        </li>
-        <li class="nav-item">
-          <a href="about.html" class="nav-link">O Nama</a>
-        </li>
-        <li class="nav-item">
-          <a href="kontakt.html" class="nav-link">Kontakt</a>
-        </li>
-      </ul>
+      <div class="nav">
+        <div class="nav-list">
+          <div class="navInformation">
+          </div>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Pocetna</a>
+          </li>
+          <li class="nav-item">
+            <a href="oKompaniji.html" class="nav-link">O Kompaniji</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">O Nama</a>
+          </li>
+          <li class="nav-item">
+            <a href="kontakt.html" class="nav-link">Kontakt</a>
+          </li>
+        </div>
+      </div>
       <h1>Lux Prodavnica</h1>
       <div style="display:inline-flex;">
-        <div class="cart-btn">
+      <div class="cart-btn">
+        <span class="nav-icon">
+          <i class="fas fa-cart-plus"></i>
+        </span>
+        <div class="cart-items">0</div>
+      </div>
+      <div class="user-btn">
           <span class="nav-icon">
-            <i class="fas fa-cart-plus"></i>
+              <i class="fa-solid fa-user"></i>
           </span>
-          <div class="cart-items">0</div>
-        </div>
-        <div class="user-btn">
-          <span class="nav-icon">
-            <i class="fa-solid fa-user"></i>
-          </span>
-        </div>
+      </div>
       </div>
     </div>
   </nav>
@@ -236,14 +231,14 @@
     <div class="footer-left">
       <h3>Lux<span>Store</span></h3>
 
-      <p class="footer-links">
+       <p class="footer-links">
         <a href="index.html" class="link-1">Početna</a>
 
-        <a href="watches.html">Satovi</a>
+        <!-- <a href="watches.html">Satovi</a>
 
         <a href="strips.html">Kaisevi</a>
 
-        <a href="narukvice.html">Narukvice</a>
+        <a href="narukvice.html">Narukvice</a> -->
 
         <a href="oKompaniji.html">O Kompaniji</a>
 
@@ -251,7 +246,7 @@
 
 
         <a href="kontakt.html">Kontakt</a>
-      </p>
+      </p> 
 
       <p class="footer-company-name">Lux Prodavnica © 2022</p>
     </div>

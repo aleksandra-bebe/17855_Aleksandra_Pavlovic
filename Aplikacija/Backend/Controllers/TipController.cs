@@ -71,6 +71,36 @@ namespace Proba.Controllers
               return BadRequest(e.InnerException);
           }
         }
+        [Route("ObrisiTip/{id}")]
+        [HttpDelete]
+        public async Task<ActionResult> ObrisiTip(int id){
+            if(id<=0)
+            {
+                return BadRequest("Pogresan ID!");
+            }
+            try{
+                var t=await Context.Tipovi.FindAsync(id);
+                List<Artikal> artikli= await Context.Artikli.Where(p=>p.Tip.TipId == id).ToListAsync();
+                if(artikli !=null){
+                  foreach (var a in artikli)
+                  {
+                    List<Komentar> kom=await Context.Komentari.Where(p=>p.Artikal.ArtikalId == a.ArtikalId).ToListAsync();
+                     if(kom!=null)
+                     Context.Komentari.RemoveRange(kom);
+                  }
+                
+                Context.Artikli.RemoveRange(artikli);
+                }
+                Context.Tipovi.Remove(t);
+                await Context.SaveChangesAsync();
+                return Ok($"Uspesno izbrisan tip sa id:{t.TipId}");
+                
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
     }
 }

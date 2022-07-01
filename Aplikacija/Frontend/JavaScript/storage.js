@@ -21,4 +21,12 @@ class Storage {
     static removeCart(){
       localStorage.removeItem("cart");
     }
+    static getTip(){
+      return localStorage.getItem("tip")
+      ? JSON.parse(localStorage.getItem("tip"))
+      : [];
+    }
+    static saveTip(tip){
+      localStorage.setItem("tip", JSON.stringify(tip));
+    }
   }

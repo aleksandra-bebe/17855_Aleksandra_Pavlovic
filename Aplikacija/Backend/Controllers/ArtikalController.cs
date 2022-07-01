@@ -73,6 +73,12 @@ namespace Projekat.Controllers
         {
             return await Context.Artikli.Where(k => k.Tip.Naziv == Tipovi.Kais.ToString()  && k.Obrisan==false).ToListAsync();
         }
+        [Route("GetOstale/{naziv}")]
+        [HttpGet]
+        public async Task<List<Artikal>> GetOstale(string naziv)
+        {
+            return await Context.Artikli.Where(k=>k.Tip.Naziv == naziv && k.Obrisan==false).ToListAsync();
+        }
         [Route("PostArtikal/{tipId}")]
         [HttpPost]
         public async Task<ActionResult> PostArtikal([FromBody] Artikal artikal, [FromRoute] int tipId)

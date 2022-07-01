@@ -57,80 +57,13 @@
     </div>
   </nav>
   <!--end navbar-->
-  <blockquote class="w3-panel w3-leftbar w3-light-grey">
-    <p class="w3-large", style="text-align: center;">
-  
-      <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Inspirisani glamurom, donosimo vam najaktuelnije trendove sa svetskih tržista, 
-        koje smo prilagodili i tako učinili pristupačnim širem krugu onih koji razumeju suštinu i snagu modnog izraza. <br>
-        Zato, isključite sve ono što Vas sputava - postanite LUX !
-       </i>
-    </p>
-    <!-- <p>Albert Einstein</p> -->
-  </blockquote>
-  <h1 style="text-align: center;">Nas tim!</h1>
-  <section class="flipgallery">
-
-    <div class="wrapper flip-gallery">
-
-      <div class="active">
-        <div class="flip-container">
-          <div class="flipper">
-            <div class="front">
-              <img alt="" src="images/edol.jpg" style="width: 250px; height: 350px;">
-              <div><b>Direktor </b>
-                <br>Lux
-              </div>
-            </div>
-            <div class="back">
-              <h2> <b>Edol Pelivanovic
-              </b></h2>
-              <div>
-                <h3>Osnivac kompanije Lux prodavnica</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flip-container">
-          <div class="flipper">
-            <div class="front">
-              <img alt="" src="images/aleksandra.jpg" style="width: 250px; height: 350px;">
-              <div><b>Prodavac</b>
-                <br>Lux
-              </div>
-            </div>
-            <div class="back">
-              <h2> <b>Aleksandra Pavlovic
-              </b></h2>
-              <div>
-                <h3>Nas cenjeni prodavac</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flip-container">
-          <div class="flipper">
-            <div class="front">
-              <img alt="" src="images/jana.jpg" style="width: 250px; height: 350px;">
-              <div><b>Menadžer</b>
-                <br>Lux
-              </div>
-            </div>
-            <div class="back">
-              <h2> <b>Jana Arsic</b></h2>
-              <div>
-                <h3>Menadžer Lux prodavnice</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      <section class="products" style="display: none;" ;>
-        <div class="section-title container">
-          <h2>Najprodavanije</h2>
-        </div>
-        <div id="najprodavanije" class="products-center"></div>
-      </section>
-      <!-- end producst-->
+  <section class="products"> 
+    <div class="section-title">
+      <h2> </h2>
+    </div>
+    <div  id="tipId" class="products-center"></div>
+  </section>
+  <!-- end producst-->
   <!-- cart -->
   <div class="cart-overlay">
     <div class="cart">
@@ -144,7 +77,7 @@
         <!-- end cart item-->
       </div>
       <div class="cart-footer">
-        <h3>Ukupno :<span class="cart-total">0</span> RSD </h3>
+        <h3>Ukupno : <span class="cart-total">0</span> RSD </h3>
         <button class="clear-cart banner-btn">Ocisti korpu</button>
         <div class="cart-footer">
           <button class="buy-cart banner-btn" onclick="check()"> Poruci </button>
@@ -164,7 +97,6 @@
        <input id="loginUsername" type="text" placeholder="Korisnicko ime">
        <input id="loginPassword" type="password" placeholder="Lozinka">
        <button class="login-btn banner-btn" onclick="login()">Uloguj se</button>
-       <h3 id="loginErrorText" class="loginError"></h3>
        <div class="registrationDiv"> <p style="display: inline;">Nemate nalog?</p> <button class="registration-btn">Registruj se</button></div>
     </div> 
   </div>
@@ -212,7 +144,7 @@
             <div id="adresa_error"></div>
           </div>
           <div class="reg_div" id="broj_div">
-            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10">
+            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput"  oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10">
             <div id="broj_error"></div>
           </div>
           <div class="reg_div">
@@ -221,21 +153,21 @@
       </div>
     </div>
   </div>
-    
   <!-- end registration page-->
-    <!-- Profile overrlay -->
+  <!-- Profile overrlay -->
   <div class="user-menu-overlay profile-overlay">
     <div class="profile">
       <span class="close-user-menu close-profile-page">
         <i class="fas fa-window-close"></i>
       </span>
       <div class="profileInformation">
+
       </div>
     </div>
   </div>
   <!-- end profile overlay -->
-  <!-- article page -->
-  <div class="user-menu-overlay article-overlay">
+   <!-- article page -->
+   <div class="user-menu-overlay article-overlay">
     <div class="article">
       <span class="close-user-menu close-article-page">
         <i class="fas fa-window-close"></i>
@@ -250,7 +182,7 @@
   <footer class="footer-distributed">
     <div class="footer-left">
       <h3>Lux<span>Store</span></h3>
- 
+
       <p class="footer-links">
         <a href="index.html" class="link-1">Početna</a>
 
@@ -304,10 +236,11 @@
       </div>
     </div>
   </footer>
-</div>
+  <!-- <script src="satovi.js"></script> -->
   <script src="JavaScript/app.js"></script>
   <script src="JavaScript/storage.js"></script>
-      
 </body>
 
 </html>
+
+ 
