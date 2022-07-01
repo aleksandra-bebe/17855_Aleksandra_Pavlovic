@@ -446,6 +446,12 @@ li a:hover {
   width: 35%;
   float: right;
 }
+@media screen and (max-width: 768px) {
+  .articleDescription{
+    width: 100%;
+    float: right;
+  }
+}
 .articleRating,.articlePrice,.rate-article{
   float: right;
   width: 35%;
@@ -468,6 +474,7 @@ li a:hover {
     cursor: pointer;
     width: 35%;
     margin-top: 25px;
+    border-radius: 5%;
 }
 .articleAddToChart{
   float: right;
@@ -475,6 +482,12 @@ li a:hover {
     padding: 20px;
     position: relative;
     transform: none;
+}
+@media only screen and  (min-width: 769px)  
+{
+  .articleAddToChart{
+    margin-right: 40px;
+  }
 }
 .articleAddToChart:hover,.commentSendBtn:hover{
   color: var(--mainWhite);
@@ -507,6 +520,9 @@ li a:hover {
 @media only screen and (max-width: 1025px) and (min-width: 1023px)  
 {
   .rate-article {
+    margin-left: 50%;
+  }
+  #oceniteH3{
     margin-left: 50%;
   }
 }
@@ -580,7 +596,7 @@ li a:hover {
   }
   .rate-article{
     display: flex !important;
-    flex-direction: row-reverse !important;
+    flex-direction: row !important;
   }
   .articleAddToChart{
     width: 100%;

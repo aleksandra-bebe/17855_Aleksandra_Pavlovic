@@ -271,6 +271,8 @@ function ShowArticleComments(host, articleId) {
 
             var articleRating = document.createElement("div");
             articleRating.style.textAlign = "left";
+            articleRating.style.display = "flex";
+            articleRating.style.flexDirection = "row";
             for (let i = 1; i <= 5; i++) {
               var star = document.createElement("span");
               star.classList.add("fa");
@@ -781,6 +783,7 @@ function showArticlePage(product) {
   articleRate.className = "rate-article";
   RateProduct(articleRate, productId);
   var h3 = document.createElement("h3");
+  h3.id = "oceniteH3";
   h3.innerHTML = "Ocenite proizvod";
   h3.style = "float:right;width:35%;margin-top:40px;";
   basicInormation.appendChild(h3);
