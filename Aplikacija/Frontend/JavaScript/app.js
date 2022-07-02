@@ -51,7 +51,7 @@ let user = [];
 
 let ui_global;
 
-//Dinamicko ucitavanje sastrane
+//Dinamicko ucitavanje sa strane
 function Show(){
   navInformation = document.querySelector(".navInformation");
   navInformation.innerHTML = "";
@@ -70,16 +70,13 @@ function Show(){
         data=>{
           console.log(data);
           data.forEach((itemData)=>{
-            var nav=document.createElement("nav-item");
+            var nav=document.createElement("li");
             
-            var divNaziv=document.createElement("divNaziv");
-            divNaziv.className="divNaziv";
-
-            let naziv=document.createElement("link");
+            let naziv=document.createElement("a");
             naziv.innerHTML=itemData.naziv;
             naziv.className="nav-link";
-            divNaziv.appendChild(naziv);
-            nav.appendChild(divNaziv);
+
+            nav.appendChild(naziv);
             navInformation.appendChild(nav);
             naziv.onclick=(event)=>{
               let naziv1= itemData.naziv;

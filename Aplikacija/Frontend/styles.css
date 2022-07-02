@@ -168,6 +168,18 @@ li a {
   text-decoration: none;
 }
 
+.navInformation{
+  display: flex;
+  flex-direction: column;
+}
+
+.navInformation li{
+  padding: 10px;
+}
+.navInformation li :hover{
+  cursor: pointer;
+}
+
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: #111;
