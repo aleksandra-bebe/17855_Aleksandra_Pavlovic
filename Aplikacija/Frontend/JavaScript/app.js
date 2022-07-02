@@ -1238,20 +1238,17 @@ function iscrtaj()
     StarRating(zaposlenRating, prosecnaOcena);
     zaposlenRating.className = "zaposlenRating1";
     divZaposlen.appendChild(zaposlenRating);
-    
-    let result ="";
-
-    result+=`
-    <article class="zaposleni" onclick="getZaposlen('${zaposleni.zaposlenId}')">
-    </article>
-    `;
-
     zapInformation.appendChild(divZaposlen);
+    let zapId=item.zaposlenId;
+    if(item.every==onload){
+      divZaposlen.onclick=(event)=>{
+          this.getZaposlen(zapId);
+      }
+    }
   })
-  
 }
 function getZaposlen(zaposlenId){
-  fetch("https://localhost:5001/Zaposlen/VratiZaposlen" +zaposlenId).then(
+  fetch("https://localhost:5001/Zaposlen/VratiZaposlen/" +zaposlenId).then(
     res=>{
       res.json().then(
         data=>{
@@ -1261,4 +1258,177 @@ function getZaposlen(zaposlenId){
     }
   )
 
+}
+
+function showZaposleniPage(zaposlen)
+{
+  
+  var zaposlenId=zaposlen.zaposlenID;
+  console.log(zaposlenId);
+  userOverlay.classList.remove("transparentBcg");
+  userDOM.classList.remove("showUser");
+  registrationOverlay.classList.remove("transparentBcg");
+  registrationOverlay.classList.remove("showUser");
+  articleOverlay.classList.add("transparentBcg");
+  articleDOM.classList.add("showUser");
+  body.style.overflowY = "hidden";
+
+   
+
+   articleInformation = document.querySelector(".articleInformation");
+   articleInformation.innerHTML = "";
+   var basicInormation = document.createElement("div");
+   articleInformation.appendChild(basicInormation);
+
+   var header = document.createElement("h2");
+   header.classList.add("user-menu-header");
+   header.classList.add("article-header");
+   header.innerHTML = zaposlen.ime + " " + zaposlen.prezime;
+   basicInormation.appendChild(header);
+ 
+
+   var articleRating = document.createElement("div");
+   prosecnaOcena = zaposlen.prosecnaOcena;
+   StarRating(articleRating, prosecnaOcena);
+   articleRating.className = "articleRating";
+   basicInormation.appendChild(articleRating);
+
+
+
+   var articleRate = document.createElement("div");
+  articleRate.className = "rate-article";
+  RateProduct(articleRate, zaposlenId);
+  var h3 = document.createElement("h3");
+  h3.id = "oceniteH3";
+  h3.innerHTML = "Ocenite proizvod";
+  h3.style = "float:right;width:35%;margin-top:40px;";
+  basicInormation.appendChild(h3);
+  basicInormation.appendChild(articleRate);
+
+  var newCommentDiv = document.createElement("div");
+  newCommentDiv.className = "newCommentDiv";
+  var newComment = document.createElement("input");
+  newComment.placeholder = "Unesite vas komentar...";
+  newComment.type = "text";
+  newComment.className = "input";
+  newComment.id = "inputComment";
+  var unesiteKomentar = document.createElement("h3");
+  unesiteKomentar.innerHTML = "Unesite komentar";
+  newCommentDiv.appendChild(unesiteKomentar);
+  newCommentDiv.appendChild(newComment);
+ 
+  var commentSendBtn = document.createElement("button");
+  commentSendBtn.classList.add("commentSendBtn");
+  commentSendBtn.innerHTML = `POSALJI`;
+  newCommentDiv.appendChild(commentSendBtn);
+  basicInormation.appendChild(newCommentDiv);
+  commentSendBtn.onclick = (event) => {
+    if (!Storage.getUser()) {
+      alert("Morate biti prijavljeni da bi ostavili komentar!");
+      return;
+    }
+    this.posaljiKomentarZaposlen(zaposlenId);
+  }
+
+    // Sekcija za komentare
+    var commentInformation = document.createElement("div");
+    var articleComments = document.createElement("div");
+    articleComments.className = "articleComments";
+    ShowArticleZaposlen(articleComments, zaposlenId);
+    var komentari = document.createElement("h3");
+    komentari.style = "margin-top:25px;";
+    komentari.innerHTML = "Komentari korisnika";
+    commentInformation.appendChild(komentari);
+    commentInformation.appendChild(articleComments);
+  
+    articleInformation.appendChild(commentInformation);
+}
+
+function posaljiKomentarZaposlen(zapId){
+  var korisnikId=Storage.getUser().korisnikId;
+  console.log(korisnikId);
+  var opisKomentara=document.getElementById("inputComment").value;
+  if (!opisKomentara) {
+    alert("Unesite komentar!");
+    return;
+  }
+  if (ocenaProizvoda == 0) {
+    alert("Morate oceniti proizvod!");
+    return;
+  }
+  fetch("https://localhost:5001/Zaposlen/PostKomentarZaposlen/"+zapId + "/"+korisnikId +"/" + ocenaProizvoda,{
+  method:"POST",
+  headers:{
+    "Content-Type": "application/json"
+  },
+  body:JSON.stringify(opisKomentara)
+  }).then(p=>{
+    if(p.ok){
+      alert("Uspesno ste komentarisali i ocenili zaposlenog!");
+      ocenaProizvoda=0;
+      getZaposlen(zapId);
+    }
+    else if(p.status ==403){
+      alert("Vec ste komentarisali ovog zaposlenog!");
+    }
+    else{
+      p.text().then(errorText => { console.log(errorText) });
+      alert("Greska pri komentarisanju zaposlenog");
+    }
+  });
+}
+
+function  ShowArticleZaposlen(host,zaposlenId){
+  host.innerHTML="";
+  fetch("https://localhost:5001/Zaposlen/VratiKomentareZaposleni/" + zaposlenId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(
+    res => {
+      res.json().then(
+        data => {
+          console.log(data);
+          data.forEach((itemData) => {
+            var div = document.createElement("div");
+            var divUser = document.createElement("div");
+            divUser.className = "divUser";
+            var divComment = document.createElement("div");
+            divComment.className = "divComment";
+
+            //div user
+            var imageUser = document.createElement("img");
+            imageUser.src = 'data:image/png;base64,' + itemData.korisnik.slika;
+            imageUser.className = "commentImgUser";
+            divUser.appendChild(imageUser);
+
+            var username = document.createElement("label");
+            username.innerHTML = itemData.korisnik.korisnickoIme;
+            divUser.appendChild(username);
+
+            var articleRating = document.createElement("div");
+            articleRating.style.textAlign = "left";
+            articleRating.style.display = "flex";
+            articleRating.style.flexDirection = "row";
+            for (let i = 1; i <= 5; i++) {
+              var star = document.createElement("span");
+              star.classList.add("fa");
+              star.classList.add("fa-star");
+              console.log(itemData.ocena);
+              if (itemData.ocena >= i) star.style.color = "var(--mainWhite)";
+              articleRating.appendChild(star);
+            }
+            divUser.appendChild(articleRating);
+
+            divComment.innerHTML = itemData.opisKomentar;
+
+            div.appendChild(divUser);
+            div.appendChild(divComment);
+            host.appendChild(div);
+          });
+        }
+      )
+    }
+  )
 }

@@ -94,7 +94,7 @@ namespace Projekat.Controllers
                   {
                       KomentarId = x.KomentarId,
                       OpisKomentar = x.OpisKomentar,
-                      Zaposlen = x.Zaposlen,
+                      Korisnik = x.Korisnik,
                       Ocena = x.Ocena
                   }
                 )
@@ -157,7 +157,7 @@ namespace Projekat.Controllers
 
           [Route("VratiZaposlen/{zaposlenId}")]    
         [HttpGet]
-        public async Task<ActionResult> VrariArtikal(int zaposlenId)
+        public async Task<ActionResult> VratiZaposlenog(int zaposlenId)
         {
             try
             {
