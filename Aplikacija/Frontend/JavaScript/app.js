@@ -30,6 +30,7 @@ const nav=document.querySelector("nav-item");
 const zaposleniDOM=document.querySelector(".zaposleni-center");
 
 
+
 // meni togler
 const selectElement = function (element) {
   return document.querySelector(element);
@@ -40,6 +41,7 @@ let body = selectElement("body");
 
 menuToggler.addEventListener("click", function () {
   body.classList.toggle("open");
+  Show();
 });
 
 // korpa
@@ -53,11 +55,7 @@ let ui_global;
 
 //Dinamicko ucitavanje sa strane
 function Show(){
-  navInformation = document.querySelector(".navInformation");
-  navInformation.innerHTML = "";
-  var basicInormation = document.createElement("div");
-  basicInormation.className = "basicInfor";
-  navInformation.appendChild(basicInormation);
+  
   //  host.innerHTML="";
   fetch("https://localhost:5001/Tip/GetTip",{
     method:"GET",
@@ -68,28 +66,44 @@ function Show(){
     res=>{
       res.json().then(
         data=>{
-          console.log(data);
-          data.forEach((itemData)=>{
-            var nav=document.createElement("li");
-            
-            let naziv=document.createElement("a");
-            naziv.innerHTML=itemData.naziv;
-            naziv.className="nav-link";
-
-            nav.appendChild(naziv);
-            navInformation.appendChild(nav);
-            naziv.onclick=(event)=>{
-              let naziv1= itemData.naziv;
-              Storage.saveTip(itemData);
-              this.Stranice(naziv1);
-              
-            }
+          if(data){
+            Storage.saveTip(data);
+            this.Prikazi();
+          }
+           
           })
         }
       )
     }
-  )
-  }
+  
+
+function Prikazi()
+{
+   var tip=Storage.getTip();
+  navInformation = document.querySelector(".navInformation");
+  navInformation.innerHTML = "";
+  var basicInormation = document.createElement("div");
+  basicInormation.className = "basicInfor";
+  navInformation.appendChild(basicInormation);
+
+  tip.forEach((itemData)=>{
+    var nav=document.createElement("li");
+            
+    let naziv=document.createElement("a");
+    naziv.innerHTML=itemData.naziv;
+    naziv.className="nav-link";
+  
+    nav.appendChild(naziv);
+    navInformation.appendChild(nav);
+    naziv.onclick=(event)=>{
+      let naziv1= itemData.naziv;
+      Storage.removeTip();
+      Storage.saveTip(itemData);
+      this.Stranice(naziv1);
+      
+    }
+  })
+}
 //otvaranje stranica
 function Stranice(naziv){
   let naziv1= naziv;
@@ -935,7 +949,9 @@ class UI {
       userDOM.classList.add("showUser");
     }
   }
+  
 
+ 
   showRegistrationPage() {
     userOverlay.classList.remove("transparentBcg");
     userDOM.classList.remove("showUser");
@@ -1025,6 +1041,7 @@ class UI {
     closeCartBtn.addEventListener("click", this.hideCart);
     closeUserMenuBtn.addEventListener("click", this.hideUserMenu);
     userBtn.addEventListener("click", this.showUserMenu);
+
     registrationBtn.addEventListener("click", this.showRegistrationPage);
     closeRegistrationMenuBtn.addEventListener("click", this.hideRegistrationPage);
     closeArticlePageBtn.addEventListener("click", this.hideArticlePage);
@@ -1183,13 +1200,15 @@ function getProduct(productId) {
     }
   )
 }
+
 var zap=document.getElementById('zaposleni');
 document.addEventListener("DOMContentLoaded", function() {
   iscrtajZaposlen();
 });
+
+
 // Zaposleni ucitavanje i iscrtavanje
 function iscrtajZaposlen(){
- 
   fetch("https://localhost:5001/Zaposlen/GetZaposlen",{
     method:"GET",
     headers:{
@@ -1198,7 +1217,7 @@ function iscrtajZaposlen(){
   }).then( res=>{
     if(res.ok){
      res.json().then(data=>{
-      if(data){
+        if(data){
         Storage.saveZaposleni(data);
         iscrtaj();
       }
@@ -1238,6 +1257,7 @@ function iscrtaj()
     StarRating(zaposlenRating, prosecnaOcena);
     zaposlenRating.className = "zaposlenRating1";
     divZaposlen.appendChild(zaposlenRating);
+
     zapInformation.appendChild(divZaposlen);
     let zapId=item.zaposlenId;
     if(item.every==onload){
@@ -1262,7 +1282,6 @@ function getZaposlen(zaposlenId){
 
 function showZaposleniPage(zaposlen)
 {
-  
   var zaposlenId=zaposlen.zaposlenID;
   console.log(zaposlenId);
   userOverlay.classList.remove("transparentBcg");
@@ -1300,7 +1319,7 @@ function showZaposleniPage(zaposlen)
   RateProduct(articleRate, zaposlenId);
   var h3 = document.createElement("h3");
   h3.id = "oceniteH3";
-  h3.innerHTML = "Ocenite proizvod";
+  h3.innerHTML = "Ocenite zaposlenog";
   h3.style = "float:right;width:35%;margin-top:40px;";
   basicInormation.appendChild(h3);
   basicInormation.appendChild(articleRate);
@@ -1328,6 +1347,7 @@ function showZaposleniPage(zaposlen)
       return;
     }
     this.posaljiKomentarZaposlen(zaposlenId);
+    
   }
 
     // Sekcija za komentare
@@ -1367,6 +1387,9 @@ function posaljiKomentarZaposlen(zapId){
       alert("Uspesno ste komentarisali i ocenili zaposlenog!");
       ocenaProizvoda=0;
       getZaposlen(zapId);
+      var zapCenter=document.querySelector(".zaposlen-center");
+      zapCenter.innerHTML="";
+      iscrtajZaposlen();
     }
     else if(p.status ==403){
       alert("Vec ste komentarisali ovog zaposlenog!");
@@ -1422,7 +1445,6 @@ function  ShowArticleZaposlen(host,zaposlenId){
             divUser.appendChild(articleRating);
 
             divComment.innerHTML = itemData.opisKomentar;
-
             div.appendChild(divUser);
             div.appendChild(divComment);
             host.appendChild(div);
@@ -1432,3 +1454,4 @@ function  ShowArticleZaposlen(host,zaposlenId){
     }
   )
 }
+
