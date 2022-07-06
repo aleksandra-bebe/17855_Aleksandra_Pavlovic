@@ -40,6 +40,9 @@ class Storage {
     static saveTip(tip){
       localStorage.setItem("tip", JSON.stringify(tip));
     }
+    static removeTip(){
+      localStorage.removeItem("tip");
+    }
     static getZaposleni(){
       return localStorage.getItem("zap")
       ? JSON.parse(localStorage.getItem("zap"))
@@ -47,5 +50,8 @@ class Storage {
     }
     static saveZaposleni(zap){
       localStorage.setItem("zap", JSON.stringify(zap));
+    }
+    static removeZaposleni(){
+      localStorage.removeItem("zap");
     }
   }

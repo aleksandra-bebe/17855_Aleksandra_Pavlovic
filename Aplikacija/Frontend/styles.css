@@ -126,7 +126,7 @@ body {
 }
 
 .nav-item {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  /* border-bottom: 2px solid rgba(255, 255, 255, 0.3); */
 }
 
 .nav-link {
@@ -137,6 +137,7 @@ body {
   letter-spacing: 2px;
   margin-right: -2px;
   transition: color 0.5s;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-link:hover {
@@ -171,6 +172,7 @@ li a {
 .navInformation{
   display: flex;
   flex-direction: column;
+  
 }
 
 .navInformation li{
