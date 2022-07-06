@@ -1,3 +1,4 @@
+const token = localStorage.getItem("token");
 function changePicture() {
   var file = document.getElementById("profilePicture").files[0];
   var img = document.getElementById("imgProfilePicture");
@@ -21,7 +22,7 @@ function prikaziSatove() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
-              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
+              temp += "<td><img src=data:image/png;base64," + itemData.image + " alt='slikaProizvoda'/>" + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -50,7 +51,7 @@ function prikaziKaiseve() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
-              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
+              temp += "<td><img src=data:image/png;base64," + itemData.image + " alt='slikaProizvoda'/>" + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -79,7 +80,7 @@ function prikaziNarukvice() {
             var temp = "";
             data.forEach((itemData) => {
               temp += "<tr>";
-              temp += "<td><img src=data:image/png;base64,"+itemData.image +" alt='slikaProizvoda'/>"  + "</td>";
+              temp += "<td><img src=data:image/png;base64," + itemData.image + " alt='slikaProizvoda'/>" + "</td>";
               temp += "<td>" + itemData.artikalId + "</td>";
               temp += "<td>" + itemData.naziv + "</td>";
               temp += "<td>" + itemData.cena + "</td>";
@@ -101,9 +102,9 @@ function prikaziNarukvice() {
 function artikalDetaljno() {
   var url = window.location.href;
   var index = url.lastIndexOf('?');
-  if(index == -1) return;
-  var id = url.substring( index + 1);
-  if(!id) return;
+  if (index == -1) return;
+  var id = url.substring(index + 1);
+  if (!id) return;
   fetch("https://localhost:5001/Artikal/VratiArtikal/" + id).then(
     res => {
       res.json().then(
@@ -172,13 +173,21 @@ function dodajArtikal() {
     fetch("https://localhost:5001/Artikal/DodajArtikal/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/" + tipId, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": token,
       },
       body: JSON.stringify(byteString)
     }).then(r => {
       if (r.ok) {
         alert("Artikal je uspesno dodat!");
         window.location.reload();
+      }
+      else if (r.status == 401) {
+        alert("Niste autorizovani!");
+        Storage.removeUser();
+        Storage.removeToken();
+        window.location = "../index.html";
+         throw new Error();
       }
       else {
         alert("Nije moguce dodati artikal!");
@@ -197,25 +206,34 @@ function izmeniArtikal() {
   let tipId = document.getElementById("selectTip").value;
 
 
-  if(!naziv){alert("Morate uneti naziv artikla!"); return;}
-  if(!cena) {alert("Morate uneti cenu artikla!"); return;}
-  if(!naStanju) {alert("Morate uneti broj artikala na stanju!"); return;}
+  if (!naziv) { alert("Morate uneti naziv artikla!"); return; }
+  if (!cena) { alert("Morate uneti cenu artikla!"); return; }
+  if (!naStanju) { alert("Morate uneti broj artikala na stanju!"); return; }
 
   var codedFile = document.getElementById("imgProfilePicture").src;
   var byteString = codedFile.split(',')[1];
 
-  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/"+ tipId, {
+  fetch("https://localhost:5001/Artikal/UpdateArtikal/" + id + "/" + naziv + "/" + cena + "/" + opis + "/" + naStanju + "/" + tipId, {
     method: "PUT",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": token,
     },
     body: JSON.stringify(byteString)
   }).then(p => {
-    if (!p.ok) {
-      window.alert("Nije moguce izmeniti artikal!");
-    } else {
+    if (p.ok) {
       alert("Uspesno ste izmenili proizvod");
       window.location = "product-list.html";
+    } 
+    else if (p.status == 401) {
+      alert("Niste autorizovani!");
+      Storage.removeUser();
+      Storage.removeToken();
+      window.location = "../index.html";
+      throw new Error();
+    }
+    else {
+      window.alert("Nije moguce izmeniti artikal!");
     }
   });
 }
@@ -225,15 +243,29 @@ function vratiNaListu() {
 
 }
 function izbrisiArtikal(val) {
-  fetch("https://localhost:5001/Artikal/ObrisiArtikal/" + val, { method: "PUT" }).then(p => {
-    if (!p.ok) {
-      alert("Nije moguce obrisati artikal!");
-    } else {
-      window.alert("Uspesno ste obrisali proizvod");
-      window.location = "product-list.html";
-
-    }
-  });
+  fetch("https://localhost:5001/Artikal/ObrisiArtikal/" + val,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token,
+      },
+    }).then(p => {
+      if (p.ok) {
+        window.alert("Uspesno ste obrisali proizvod");
+        window.location = "product-list.html";
+      } 
+      else if (p.status == 401) {
+        alert("Niste autorizovani!");
+        Storage.removeUser();
+        Storage.removeToken();
+        window.location = "../index.html";
+        throw new Error();
+      }
+      else {
+        alert("Nije moguce obrisati artikal!");
+      }
+    });
 }
 
 function getTip() {
@@ -243,7 +275,7 @@ function getTip() {
 
         var select = document.getElementById("selectTip");
 
-        if(!select) return;
+        if (!select) return;
         for (var i = 0; i < data.length; i++) {
           var option = document.createElement("OPTION"),
             txt = document.createTextNode(data[i].naziv);

@@ -68,13 +68,13 @@ window.onload = function pageOnLoad() {
     var temp = "";
     var ukupnaCena;
     cart.forEach((itemData) => {
-      ukupnaCena=itemData.cena * itemData.amount;
+      ukupnaCena = itemData.cena * itemData.amount;
       temp += "<tr>";
       temp += "<td>" + itemData.naziv + "</td>";
       temp += "<td>" + itemData.opis + "</td>";
       temp += "<td>" + itemData.amount + "</td>";
       temp += "<td>" + itemData.cena + "</td>";
-      temp+="<td>" +  ukupnaCena+"</td>";
+      temp += "<td>" + ukupnaCena + "</td>";
     });
     document.getElementById('proizvodi').innerHTML = temp;
   }
@@ -108,20 +108,16 @@ function poruci() {
         var popust = (posto / 100) * cenaPr;
         novaCena = cenaPr - popust;
       }
+      var token = Storage.getToken();
       fetch("https://localhost:5001/Transakcija/PostTransakcija/" + user.korisnikId + "/" + product.artikalID + "/" + kol + "/" + adresa + "/" + novaCena,
         {
           method: 'POST',
           headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json; charset=UTF-8",
+            "Authorization": token,
           }
         }).then(p => {
-          if (!p.ok) {
-            p.text().then(errorText => { errorLabel.innerHTML = errorText });
-            setTimeout(() => {
-              errorLabel.innerHTML = ""
-            }, 7000);
-          }
-          else {
+          if(p.ok) {
             p.json().then(
               data => {
                 Storage.removeCart();
@@ -131,6 +127,19 @@ function poruci() {
                 alert("Proizvod je porucen!");
               })
           }
+          else if (p.status == 401) {
+            alert("Niste autorizovani!");
+            Storage.removeUser();
+            Storage.removeToken();
+            window.location = "../index.html";
+          }
+          else{
+            p.text().then(errorText => { errorLabel.innerHTML = errorText });
+            setTimeout(() => {
+              errorLabel.innerHTML = ""
+            }, 7000);
+          }
+         
         })
     });
   }

@@ -15,11 +15,22 @@ class Storage {
       ? JSON.parse(localStorage.getItem("user"))
       :null;
     }
+    static saveToken(token){
+      localStorage.setItem("token",token);
+    }
+    static getToken(){
+      return localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      :null;
+    }
     static removeUser(){
       localStorage.removeItem("user");
     }
     static removeCart(){
       localStorage.removeItem("cart");
+    }
+    static removeToken(){
+      localStorage.removeItem("token");
     }
     static getTip(){
       return localStorage.getItem("tip")

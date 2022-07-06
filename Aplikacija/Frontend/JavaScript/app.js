@@ -26,8 +26,8 @@ const productsDOM = document.querySelector(".products-center");
 const userMenuContent = document.querySelector(".user-menu-content");
 const profileOverlay = document.querySelector(".profile-overlay");
 const profileDOM = document.querySelector(".profile");
-const nav=document.querySelector("nav-item");
-const zaposleniDOM=document.querySelector(".zaposleni-center");
+const nav = document.querySelector("nav-item");
+const zaposleniDOM = document.querySelector(".zaposleni-center");
 
 
 // meni togler
@@ -52,65 +52,65 @@ let user = [];
 let ui_global;
 
 //Dinamicko ucitavanje sa strane
-function Show(){
+function Show() {
   navInformation = document.querySelector(".navInformation");
   navInformation.innerHTML = "";
   var basicInormation = document.createElement("div");
   basicInormation.className = "basicInfor";
   navInformation.appendChild(basicInormation);
   //  host.innerHTML="";
-  fetch("https://localhost:5001/Tip/GetTip",{
-    method:"GET",
-    headers:{
+  fetch("https://localhost:5001/Tip/GetTip", {
+    method: "GET",
+    headers: {
       "Content-Type": "application/json"
     }
   }).then(
-    res=>{
+    res => {
       res.json().then(
-        data=>{
+        data => {
           console.log(data);
-          data.forEach((itemData)=>{
-            var nav=document.createElement("li");
-            
-            let naziv=document.createElement("a");
-            naziv.innerHTML=itemData.naziv;
-            naziv.className="nav-link";
+          data.forEach((itemData) => {
+            var nav = document.createElement("li");
+
+            let naziv = document.createElement("a");
+            naziv.innerHTML = itemData.naziv;
+            naziv.className = "nav-link";
 
             nav.appendChild(naziv);
             navInformation.appendChild(nav);
-            naziv.onclick=(event)=>{
-              let naziv1= itemData.naziv;
+            naziv.onclick = (event) => {
+              let naziv1 = itemData.naziv;
               Storage.saveTip(itemData);
               this.Stranice(naziv1);
-              
+
             }
           })
         }
       )
     }
   )
-  }
+}
 //otvaranje stranica
-function Stranice(naziv){
-  let naziv1= naziv;
+function Stranice(naziv) {
+  let naziv1 = naziv;
   console.log(naziv1);
-    if(naziv1 =="sat"){
-    window.location='./watches.html';
-      }
-     else if(naziv1 =="kais"){
-      window.location='./strips.html';
-      }
-     else if(naziv1 =="narukvica"){
-     window.location='./narukvice.html';
-      }
-    else{
-      var opened = window.open("drawer.html ", "_self");
-      opened.postMessage("draw","*");
-      window.addEventListener("message",draw,false);
-      let naslov=document.createElement("h2");
-      naslov.innerHTML=naziv1;
-    }
+  if (naziv1 == "sat") {
+    window.location = './watches.html';
   }
+  else if (naziv1 == "kais") {
+    window.location = './strips.html';
+  }
+  else if (naziv1 == "narukvica") {
+    window.location = './narukvice.html';
+  }
+  else {
+    var opened = window.open("drawer.html ", "_self");
+    opened.postMessage("draw", "*");
+    window.addEventListener("message", draw, false);
+    let naslov = document.createElement("h2");
+    naslov.innerHTML = naziv1;
+  }
+}
 // uzimanje proizvoda
 class Products {
   async getProducts(ui) {
@@ -161,18 +161,17 @@ class Products {
       console.log(error);
     }
   }
-  async getOstalo(ui)
-  {
-    var tip=Storage.getTip();
-    var naziv1=tip.naziv;
-   fetch("https://localhost:5001/Artikal/GetOstale/" + naziv1).then(p=>{
-         p.json().then(data=>{
-           ui.displayProducts(data,ui);
-         });
-       });
-     }
+  async getOstalo(ui) {
+    var tip = Storage.getTip();
+    var naziv1 = tip.naziv;
+    fetch("https://localhost:5001/Artikal/GetOstale/" + naziv1).then(p => {
+      p.json().then(data => {
+        ui.displayProducts(data, ui);
+      });
+    });
   }
-  
+}
+
 
 function StarRating(host, prosecnaOcena) {
   for (let i = 1; i <= 5; i++) {
@@ -216,10 +215,12 @@ function posaljiKomentar(productId) {
     alert("Morate oceniti proizvod!");
     return;
   }
+  var token = Storage.getToken();
   fetch("https://localhost:5001/Artikal/PostKomentar/" + productId + "/" + korisnikId + "/" + ocenaProizvoda, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": token,
     },
     body: JSON.stringify(opisKomentara)
   }).then(p => {
@@ -227,6 +228,12 @@ function posaljiKomentar(productId) {
       alert("Uspesno ste komentarisali proizvod");
       ocenaProizvoda = 0;
       getProduct(productId);
+    }
+    else if(p.status == 401){
+      alert("Niste autorizovani!");
+      Storage.removeUser();
+      Storage.removeToken();
+      window.location = "../index.html";
     }
     else if (p.status == 403) {
       alert("Vec ste komentarisali ovaj artikal!")
@@ -302,35 +309,36 @@ function login() {
     errorLabel.innerHTML = "Unesite korisničko ime i šifru";
     return;
   }
-  if (username == "admin" && password == "admin") {
-    alert("Uspesno ste se ulogovali kao admin");
-    //window.location = "/admin/index.html";
-    window.location = "./admin/index.html";
-    return false;
-  }
-  else {
-    try {
-      fetch("https://localhost:5001/Korisnik/UlogujSe/" + username + "/" + password).then(p => {
-        if (p.ok) {
-          p.json().then(data => {
-            if (data) {
+
+  try {
+    fetch("https://localhost:5001/Korisnik/UlogujSe/" + username + "/" + password).then(p => {
+      if (p.ok) {
+        p.json().then(data => {
+          if (data) {
+            console.log("data: ", data);
+            Storage.saveUser(data.korisnik);
+            Storage.saveToken(data.token);
+            if (data.korisnik.tipKorisnika === "Admin") {
+              alert("Uspesno ste se ulogovali kao admin");
+              window.location = "./admin/index.html"
+            }
+            else {
               alert("Uspesno ste se ulogovali");
-              Storage.saveUser(data);
               ProfilePage();
             }
-          });
-        }
-        else {
-          p.text().then(errorText => { errorLabel.innerHTML = errorText });
-          setTimeout(() => {
-            errorLabel.innerHTML = ""
-          }, 7000);
-        }
-      });
-    }
-    catch (error) {
-      console.log(error);
-    }
+          }
+        });
+      }
+      else {
+        p.text().then(errorText => { errorLabel.innerHTML = errorText });
+        setTimeout(() => {
+          errorLabel.innerHTML = ""
+        }, 7000);
+      }
+    });
+  }
+  catch (error) {
+    console.log(error);
   }
 }
 //Kupovina proizvoda provera !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -432,6 +440,7 @@ function ProfilePage() {
     let confirmAction = confirm("Da li zelite da se odjavite?");
     if (confirmAction) {
       Storage.removeUser();
+      Storage.removeToken();
       window.location = "index.html";
     }
   }
@@ -903,7 +912,7 @@ class UI {
   }
 
   addCartItem(item) {
-    console.log("item",item)
+    console.log("item", item)
     const div = document.createElement("div");
     div.classList.add("cart-item");
     div.innerHTML = `<img src=data:image/png;base64,${item.image} alt="product" />
@@ -1102,7 +1111,7 @@ var najprod = document.getElementById('najprodavanije');
 var satBody = document.getElementById('satBody');
 var kaisBody = document.getElementById('kaisBody');
 var narukviceBody = document.getElementById('narukviceBody');
-var tipId=document.getElementById('tipId');
+var tipId = document.getElementById('tipId');
 if (najprod != null) {
   document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI();
@@ -1158,11 +1167,11 @@ else if (narukviceBody != null) {
   });
 }
 else {
-   document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
 
     const ui = new UI();
     tipId = new Products();
-    let naziv=tipId.naziv;
+    let naziv = tipId.naziv;
     ui.setupAPP();
     tipId
       .getOstalo(ui)
@@ -1183,78 +1192,76 @@ function getProduct(productId) {
     }
   )
 }
-var zap=document.getElementById('zaposleni');
-document.addEventListener("DOMContentLoaded", function() {
+var zap = document.getElementById('zaposleni');
+document.addEventListener("DOMContentLoaded", function () {
   iscrtajZaposlen();
 });
 // Zaposleni ucitavanje i iscrtavanje
-function iscrtajZaposlen(){
- 
-  fetch("https://localhost:5001/Zaposlen/GetZaposlen",{
-    method:"GET",
-    headers:{
-      "Content-Type" : "application/json"
+function iscrtajZaposlen() {
+
+  fetch("https://localhost:5001/Zaposlen/GetZaposlen", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
     }
-  }).then( res=>{
-    if(res.ok){
-     res.json().then(data=>{
-      if(data){
-        Storage.saveZaposleni(data);
-        iscrtaj();
-      }
-     })
+  }).then(res => {
+    if (res.ok) {
+      res.json().then(data => {
+        if (data) {
+          Storage.saveZaposleni(data);
+          iscrtaj();
+        }
+      })
     }
-    
-    }
+
+  }
   )
 }
-function iscrtaj()
-{
-  var zapCenter=document.querySelector(".zaposlen-center");
+function iscrtaj() {
+  var zapCenter = document.querySelector(".zaposlen-center");
 
-  var zapInformation=document.createElement("div");
-  zapInformation.className="zapInformation";
+  var zapInformation = document.createElement("div");
+  zapInformation.className = "zapInformation";
   zapCenter.appendChild(zapInformation);
-  
-  var zaposleni=Storage.getZaposleni();
-  zaposleni.forEach((item)=>
-  {
-    var divZaposlen=document.createElement("divZaposlen");
-    divZaposlen.className="divZaposlen";
-  
-    let header=document.createElement("h2");
-    header.innerHTML=item.ime + " "+ item.prezime ;
-    ime.className="label1";
+
+  var zaposleni = Storage.getZaposleni();
+  zaposleni.forEach((item) => {
+    var divZaposlen = document.createElement("divZaposlen");
+    divZaposlen.className = "divZaposlen";
+
+    let header = document.createElement("h2");
+    header.innerHTML = item.ime + " " + item.prezime;
+    ime.className = "label1";
     divZaposlen.appendChild(header);
-  
-    let email=document.createElement("h3");
-    email.innerHTML=item.email;
-    email.className="label1";
+
+    let email = document.createElement("h3");
+    email.innerHTML = item.email;
+    email.className = "label1";
     divZaposlen.appendChild(email);
 
-    
+
     var zaposlenRating = document.createElement("div1");
     prosecnaOcena = item.prosecnaOcena;
     StarRating(zaposlenRating, prosecnaOcena);
     zaposlenRating.className = "zaposlenRating1";
     divZaposlen.appendChild(zaposlenRating);
-    
-    let result ="";
 
-    result+=`
+    let result = "";
+
+    result += `
     <article class="zaposleni" onclick="getZaposlen('${zaposleni.zaposlenId}')">
     </article>
     `;
 
     zapInformation.appendChild(divZaposlen);
   })
-  
+
 }
-function getZaposlen(zaposlenId){
-  fetch("https://localhost:5001/Zaposlen/VratiZaposlen" +zaposlenId).then(
-    res=>{
+function getZaposlen(zaposlenId) {
+  fetch("https://localhost:5001/Zaposlen/VratiZaposlen" + zaposlenId).then(
+    res => {
       res.json().then(
-        data=>{
+        data => {
           showZaposleniPage(data[0]);
         }
       )

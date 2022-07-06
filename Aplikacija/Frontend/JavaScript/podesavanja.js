@@ -31,6 +31,7 @@ function logOut() {
     let confirmAction = confirm("Da li zelite da se odjavite?");
     if (confirmAction) {
         Storage.removeUser();
+        Storage.removeToken();
         window.location = "./index.html";
     }
 }
@@ -49,6 +50,7 @@ function sacuvajIzmene() {
     });
 
     var file = document.getElementById("profilePicture").files[0];
+    var token = Storage.getToken();
     if (file) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -58,7 +60,8 @@ function sacuvajIzmene() {
             fetch("https://localhost:5001/Korisnik/PromenaFromBodyKorisnik", {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": token,
                 },
                 body: user
             }).then(r => {
@@ -95,6 +98,12 @@ function sacuvajIzmene() {
                         }
                     });
                 }
+                else if( r.status == 401){
+                    alert("Niste autorizovani!");
+                    Storage.removeUser();
+                    Storage.removeToken();
+                    window.location = "../index.html";
+                }
                 else {
                     r.text().then(errorText => { alert(errorText); });
                 }
@@ -105,7 +114,8 @@ function sacuvajIzmene() {
         fetch("https://localhost:5001/Korisnik/PromenaFromBodyKorisnik", {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token,
             },
             body: user
         }).then(r => {
@@ -126,6 +136,12 @@ function sacuvajIzmene() {
                     alert("Uspesno ste promenili podatke!");
                     window.location.reload();
                 });
+            }
+            else if( r.status == 401){
+                alert("Niste autorizovani!");
+                Storage.removeUser();
+                Storage.removeToken();
+                window.location = "../index.html";
             }
             else {
                 r.text().then(errorText => { alert(errorText); });
@@ -150,17 +166,24 @@ function promeniLozinku() {
     }
 
     var user = Storage.getUser();
-    console.log("user ", user);
+    var token = Storage.getToken();
     try {
         fetch("https://localhost:5001/Korisnik/PromeniLozinku/" + user.korisnikId + "/" + trenutnaLozinka + "/" + novaLozinka, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token,
             },
         }).then(r => {
             if (r.ok) {
                 alert("Uspesno izmenjena lozinka!");
                 window.location.reload();
+            }
+            else if( r.status == 401){
+                alert("Niste autorizovani!");
+                Storage.removeUser();
+                Storage.removeToken();
+                window.location = "../index.html";
             }
             else {
                 r.text().then(errorText => { alert(errorText); });
