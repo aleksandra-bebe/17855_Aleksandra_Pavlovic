@@ -189,12 +189,12 @@ namespace Proba.Controllers
         return BadRequest("Pogrešan ID!");
       }
       var korisnik = await Context.Korisnici.Where(k => k.KorisnikId == korisnikId).FirstOrDefaultAsync();
-      if (korisnik.Sifra != staraLozinka)
+      if (!BCrypt.Net.BCrypt.Verify(staraLozinka, korisnik.Sifra))
       {
         return BadRequest("Pogrešna lozinka!");
       }
 
-      korisnik.Sifra = novaLozinka;
+      korisnik.Sifra = BCrypt.Net.BCrypt.HashPassword(novaLozinka);
 
       try
       {
@@ -270,6 +270,7 @@ namespace Proba.Controllers
       try
       {
         k.TipKorisnika = Role.User;
+        k.Sifra = BCrypt.Net.BCrypt.HashPassword(k.Sifra);
         Context.Korisnici.Add(k);
         await Context.SaveChangesAsync();
         var korisnikReturn = await Context.Korisnici.Where(p => p.KorisnickoIme == k.KorisnickoIme).FirstOrDefaultAsync();
@@ -305,7 +306,7 @@ namespace Proba.Controllers
         {
           return BadRequest("Korisnik sa unetim korisničkim imenom ne postoji!");
         }
-        if (korisnik.Sifra != sifra)
+        if (!BCrypt.Net.BCrypt.Verify(sifra, korisnik.Sifra))
         {
           return BadRequest("Uneta šifra je pogresna!");
         }
