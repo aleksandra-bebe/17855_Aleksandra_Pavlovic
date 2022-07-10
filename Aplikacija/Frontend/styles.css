@@ -142,7 +142,9 @@ body {
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-
+.navbar-center h1{
+  margin-right: 15%;
+}
 .nav-link:hover {
   color: var(--primaryColor);
 }
