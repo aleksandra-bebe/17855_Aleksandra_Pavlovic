@@ -22,7 +22,9 @@ function prikaziTip() {
               ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +
               "</button></td></tr>";
           });
-          document.getElementById("data").innerHTML = temp;
+          var data = document.getElementById("data");
+          if(!data) return;
+          data.innerHTML = temp;
         }
       });
     } else if (p.status == 401) {

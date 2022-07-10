@@ -104,8 +104,8 @@
 function logOut(){
 	let confirmAction = confirm("Da li zelite da se odjavite?");
     if (confirmAction) {
-      Storage.removeUser();
-      Storage.removeToken();
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
       window.location = "../index.html";
     }
 }

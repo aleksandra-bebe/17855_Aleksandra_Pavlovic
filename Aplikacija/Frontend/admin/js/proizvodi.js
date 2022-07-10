@@ -29,7 +29,9 @@ function Show() {
             itemData.naziv +
             "</a></li>";
         });
-        document.getElementById("nazivi").innerHTML = temp;
+        var nazivi = document.getElementById("nazivi");
+        if(!nazivi) return;
+        nazivi.innerHTML = temp;
       }
     });
   });
@@ -38,6 +40,7 @@ function Show() {
 function tabovi() {
   let queryString = window.location.search;
   queryString = queryString.substring(1);
+  if(!queryString) return;
   var satovi = document.getElementById("proizvod");
   if (!satovi) return;
   fetch("https://localhost:5001/Artikal/GetOstale/" + queryString + "").then(
@@ -156,7 +159,9 @@ function prikaziKaiseve() {
             ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +
             "</button></td></tr>";
         });
-        document.getElementById("kaisevi1").innerHTML = temp;
+        var kaisevi = document.getElementById("kaisevi1");
+        if(!kaisevi) return;
+        kaisevi.innerHTML = temp;
       }
     });
   });
@@ -192,7 +197,9 @@ function prikaziNarukvice() {
             ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " +
             "</button></td></tr>";
         });
-        document.getElementById("narukvice1").innerHTML = temp;
+        var nar = document.getElementById("narukvice1");
+        if(!nar) return;
+        nar.innerHTML = temp;
       }
     });
   });
@@ -204,6 +211,7 @@ function artikalDetaljno() {
   if (index == -1) return;
   var id = url.substring(index + 1);
   if (!id) return;
+  if(isNaN(id)) return;
   fetch("https://localhost:5001/Artikal/VratiArtikal/" + id).then((res) => {
     res.json().then((data) => {
       document.getElementById("artikalID").value = data[0].artikalID;
