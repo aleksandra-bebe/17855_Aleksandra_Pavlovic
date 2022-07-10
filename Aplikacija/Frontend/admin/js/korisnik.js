@@ -23,7 +23,7 @@ function prikaziKorisnike() {
                 temp += "<td>" + itemData.korisnickoIme + "</td>";
                 temp += "<td>" + itemData.adresa + "</td>";
                 temp += "<td>" + itemData.telefon + "</td>";
-                temp += "<td>" + itemData.obrisan + "</td>";
+                // temp += "<td>" + itemData.obrisan + "</td>";
                 if(admin) temp += "<td> <input type='checkbox' checked onclick='changeAdmin(" + itemData.korisnikId + ", this);' </td>";
                 else{temp += "<td> <input type='checkbox' onclick='changeAdmin(" + itemData.korisnikId + ", this);' </td>";}
                 temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiKorisnika(" + itemData.korisnikId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
