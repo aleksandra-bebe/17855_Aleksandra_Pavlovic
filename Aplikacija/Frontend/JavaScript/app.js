@@ -1303,6 +1303,7 @@ function showZaposleniPage(zaposlen) {
   articleInformation = document.querySelector(".articleInformation");
   articleInformation.innerHTML = "";
   var basicInormation = document.createElement("div");
+  basicInormation.className="bInformation";
   articleInformation.appendChild(basicInormation);
 
   var header = document.createElement("h2");
