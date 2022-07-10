@@ -4,7 +4,7 @@ function prikaziTip() {
         method: "GET",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            Authorization: token,
+            "Authorization": token,
         },
     }).then((p) => {
         if (p.ok) {
@@ -38,10 +38,10 @@ prikaziTip();
 
 function izbrisiTip(val) {
     fetch("https://localhost:5001/Tip/ObrisiTip/" + val, {
-        method: "PUT",
+        method: "DELETE",
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            Authorization: token,
+            "Authorization": token,
         },
     }).then((p) => {
         if (p.ok) {
@@ -75,9 +75,8 @@ function dodajTip() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify(byteString),
+            "Authorization": token,
+          }
         }
       ).then((r) => {
         if (r.ok) {

@@ -23,7 +23,7 @@ function Show() {
         var temp = "";
         data.forEach((itemData) => {
           temp +=
-            "<li style='display:inline; padding:15px; text-transform: capitalize; justify-content:space-around; font-size:40px'><a style='color:white;' href='http://127.0.0.1:5500/Aplikacija/Frontend/admin/product-list.html?" +
+            "<li style='display:inline; padding:15px; text-transform: capitalize; justify-content:space-around; font-size:40px'><a style='color:white;' href='./product-list.html?" +
             itemData.naziv +
             "' >" +
             itemData.naziv +

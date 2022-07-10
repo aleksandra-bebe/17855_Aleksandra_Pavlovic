@@ -59,7 +59,10 @@ function dodajZaposlenog() {
         "Authorization": token,
       }
     }).then(p => {
-      if (p.status == 401) {
+      if(p.ok){
+        window.alert("Uspesno ste dodali zaposlenog!");
+      }
+      else if (p.status == 401) {
         alert("Niste autorizovani!");
         Storage.removeUser();
         Storage.removeToken();

@@ -1371,6 +1371,10 @@ function showZaposleniPage(zaposlen) {
 }
 
 function posaljiKomentarZaposlen(zapId) {
+  if(!Storage.getUser()){
+    alert("Morate biti prijavljeni za komentarisanje zaposlenih!");
+    return;
+  }
   var korisnikId = Storage.getUser().korisnikId;
   console.log(korisnikId);
   var opisKomentara = document.getElementById("inputComment").value;
@@ -1382,10 +1386,12 @@ function posaljiKomentarZaposlen(zapId) {
     alert("Morate oceniti proizvod!");
     return;
   }
+  var token = Storage.getToken();
   fetch("https://localhost:5001/Zaposlen/PostKomentarZaposlen/" + zapId + "/" + korisnikId + "/" + ocenaProizvoda, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": token,
     },
     body: JSON.stringify(opisKomentara)
   }).then(p => {
@@ -1399,6 +1405,11 @@ function posaljiKomentarZaposlen(zapId) {
     }
     else if (p.status == 403) {
       alert("Vec ste komentarisali ovog zaposlenog!");
+    }
+    else if (p.status == 401) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location = "./index.html";
     }
     else {
       p.text().then(errorText => { console.log(errorText) });
