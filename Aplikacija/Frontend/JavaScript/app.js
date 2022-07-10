@@ -908,6 +908,7 @@ class UI {
         <!-- end single product-->
           `;
     });
+    if(!productsDOM) return;
     productsDOM.innerHTML = result;
     this.getBagButtons();
     this.cartLogic();
@@ -1238,7 +1239,7 @@ function iscrtajZaposlen() {
 }
 function iscrtaj() {
   var zapCenter = document.querySelector(".zaposlen-center");
-
+  if(!zapCenter) return;
   var zapInformation = document.createElement("div");
   zapInformation.className = "zapInformation";
   zapCenter.appendChild(zapInformation);
