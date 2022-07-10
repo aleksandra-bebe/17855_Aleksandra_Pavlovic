@@ -96,16 +96,15 @@
                                 <span class="mini-click-non">Meni</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Kontrolni
-                                            panel</span></a></li>
-                                <li><a title="Korisnici" href="workers.html"><span
-                                            class="mini-sub-pro">Korisnici</span></a></li>
-                                <li><a title="Product List" href="product-list.html"><span class="mini-sub-pro">Lista
-                                            artikala</span></a></li>
-                                <li><a title="Product Edit" href="product-insert.html"><span
-                                            class="mini-sub-pro">Dodavanje artikla</span></a></li>
-                                <li><a title="Transakcije" href="transakcije.html"><span
-                                            class="mini-sub-pro">Transakcije</span></a></li>
+                              <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Kontrolni panel</span></a></li>
+                              <li><a title="Korisnici" href="workers.html"><span class="mini-sub-pro">Korisnici</span></a></li>
+                              <li><a title="Korisnici" href="workers.html"><span class="mini-sub-pro">Zaposleni</span></a></li>
+                              <li><a title="Korisnici" href="add-workers.html"><span class="mini-sub-pro">Dodaj zaposlenog</span></a></li>
+                              <li><a title="Product List" href="product-list.html"><span class="mini-sub-pro">Lista artikala</span></a></li>
+                              <li><a title="Product Edit" href="product-insert.html"><span class="mini-sub-pro">Dodavanje artikla</span></a></li>
+                              <li><a title="Tip add" href="tip-insert.html"><span class="mini-sub-pro">Dodaj novi tip</span></a></li>
+                              <li><a title="Tip show" href="tip-list.html"><span class="mini-sub-pro">Lista tipova</span></a></li>
+                              <li><a title="Transakcije" href="transakcije.html"><span class="mini-sub-pro">Transakcije</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -179,16 +178,15 @@
                                         <li><a data-toggle="collapse" data-target="#Charts" href="#">Meni <span
                                                     class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
                                             <ul class="collapse dropdown-header-top">
-                                                <li><a title="Dashboard v.1" href="index.html"><span
-                                                            class="mini-sub-pro">Kontrolni panel</span></a></li>
-                                                <li><a title="Zaposljeni" href="workers.html"><span
-                                                            class="mini-sub-pro">Korisnici</span></a></li>
-                                                <li><a title="Product List" href="product-list.html"><span
-                                                            class="mini-sub-pro">Lista artikala</span></a></li>
-                                                <li><a title="Product Edit" href="product-insert.html"><span
-                                                            class="mini-sub-pro">Dodavanje artikla</span></a></li>
-                                                <li><a title="Transakcije" href="transakcije.html"><span
-                                                            class="mini-sub-pro">Transakcije</span></a></li>
+                                              <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Kontrolni panel</span></a></li>
+                                              <li><a title="Korisnici" href="workers.html"><span class="mini-sub-pro">Korisnici</span></a></li>
+                                              <li><a title="Korisnici" href="workers.html"><span class="mini-sub-pro">Zaposleni</span></a></li>
+                                              <li><a title="Korisnici" href="add-workers.html"><span class="mini-sub-pro">Dodaj zaposlenog</span></a></li>
+                                              <li><a title="Product List" href="product-list.html"><span class="mini-sub-pro">Lista artikala</span></a></li>
+                                              <li><a title="Product Edit" href="product-insert.html"><span class="mini-sub-pro">Dodavanje artikla</span></a></li>
+                                              <li><a title="Tip add" href="tip-insert.html"><span class="mini-sub-pro">Dodaj novi tip</span></a></li>
+                                              <li><a title="Tip show" href="tip-list.html"><span class="mini-sub-pro">Lista tipova</span></a></li>
+                                              <li><a title="Transakcije" href="transakcije.html"><span class="mini-sub-pro">Transakcije</span></a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -212,7 +210,6 @@
                                             </div>
                                             <div class="breadcomb-ctn">
                                                 <h2>Lista artikala</h2>
-
                                             </div>
                                         </div>
                                     </div>
@@ -229,115 +226,24 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap">
-                            <h4>Lista artikala</h4>
+                            <h4>Odaberite vrstu artikla</h4>
                             <div class="add-product">
                                 <a href="product-insert.html">Dodaj artikal</a>
                             </div>
-                            <ul class="nav nav-tabs" id="myNavTabs">
-                                <li class="active"><a href="#navtabs1" data-toggle="tab">Satovi</a>
-                                <li><a href="#navtabs2" data-toggle="tab">Kaisevi</a>
-                                <li><a href="#navtabs3" data-toggle="tab">Narukvice</a>
+                            <hr class="clear">
+                            <ul class="nav nav-tabs table-responsive" >
+                                   <span id="nazivi"></span>
+                                   <br><br>
                             </ul>
-
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="navtabs1">
-                                    <br>
-                                    <h2 style="color: #ffffff;">Lista satova</h2>
-                                    <br>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Slika</th>
-                                                <th>ID</th>
-                                                <th>Naziv</th>
-                                                <th>Cena</th>
-                                                <th>Opis</th>
-                                                <th>Na stanju</th>
-                                                <th>Broj prodaja</th>
-                                                <th>Prosecna ocena</th>
-                                                <th>Izmeni</th>
-                                                <th>Obrisi</th>>
-                                            </tr>
-
-
-                                        </thead>
-
-                                        <tbody id="satovi">
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                <div class="tab-pane fade" id="navtabs2">
-                                    <br>
-                                    <h2 style="color: #ffffff;">Lista kaiseva</h2>
-                                    <br>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Slika</th>
-                                                <th>ID</th>
-                                                <th>Naziv</th>
-                                                <th>Cena</th>
-                                                <th>Opis</th>
-                                                <th>Na stanju</th>
-                                                <th>Broj prodaja</th>
-                                                <th>Prosecna ocena</th>
-                                                <th>Izmeni</th>
-                                                <th>Obrisi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="kaisevi">
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                                <div class="tab-pane fade" id="navtabs3">
-                                    <br>
-                                    <h2 style="color: #ffffff;">Lista narukvica</h2>
-                                    <br>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Slika</th>
-                                                <th>ID</th>
-                                                <th>Naziv</th>
-                                                <th>Cena</th>
-                                                <th>Opis</th>
-                                                <th>Na stanju</th>
-                                                <th>Broj prodaja</th>
-                                                <th>Prosecna ocena</th>
-                                                <th>Izmeni</th>
-                                                <th>Obrisi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="narukvice">
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
+                            <div id="proizvod">
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="footer-copyright-area">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-copy-right">
-                            <p>Copyright © 2022 <a href="https://colorlib.com/wp/templates/"></a>LUX</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
-    <script src="../JavaScript/storage.js"></script>
-    <script src="js/authorizationAdmin.js"></script>
+     <script src="../JavaScript/storage.js"></script>
+     <script src="js/authorizationAdmin.js"></script>
     <script src="js/proizvodi.js"></script>
     <!-- jquery
 		============================================ -->
@@ -386,15 +292,5 @@
     <!-- main JS
 		============================================ -->
     <script src="js/main.js"></script>
-    <script>
-        $("#myNavTabs a").click(function (evt) {
-            evt.preventDefault();
-            $(this).tab("show");
-        });
-
-
-
-    </script>
-    <!-- </body> -->
 
 </html>

@@ -55,6 +55,35 @@ namespace Projekat.Controllers
       }
     }
 
+    [Authorize(Role.Admin)]
+    [Route("DodajZaposlenogRadnika/{Ime}/{Prezime}/{Email}")]
+    [HttpPost]
+    public async Task<ActionResult> DodajZaposlenogRadnika(string Ime, string Prezime, string Email)
+    {
+      if (string.IsNullOrWhiteSpace(Ime) || Ime.Length > 50)
+        return BadRequest("Pogresno unet parametar 'Ime'!");
+        if (string.IsNullOrWhiteSpace(Prezime) || Prezime.Length > 50)
+        return BadRequest("Pogresno unet parametar 'Prezime'!");
+
+      try
+      {
+        Zaposlen z = new Zaposlen();
+        z.Ime=Ime;
+        z.Prezime=Prezime;
+        z.Email=Email;
+     
+        Context.Zaposleni.Add(z);
+        await Context.SaveChangesAsync();
+
+        return Ok("Dodat je zaposleni.");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.InnerException);
+      }
+    }
+
+
     [AllowAnonymous]
     [Route("GetZaposlen")]
     [HttpGet]

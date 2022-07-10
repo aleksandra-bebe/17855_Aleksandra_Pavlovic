@@ -318,6 +318,7 @@ function login() {
   var username = document.getElementById("loginUsername").value;
   var password = document.getElementById("loginPassword").value;
   var errorLabel = document.getElementById("loginErrorText");
+  console.log(password);
   if (!username || !password) {
     errorLabel.innerHTML = "Unesite korisničko ime i šifru";
     return;

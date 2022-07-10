@@ -17,7 +17,7 @@
     <!-- Bootstrap CSS
 		============================================ -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Bootstrap CSS
+    <!-- Bootstrap CSSe
 		============================================ -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- nalika Icon CSS
@@ -240,7 +240,7 @@
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Dodavanje artikla</h2>
+                                                <h2>Dodavanje zaposlenog</h2>
                                                 <!-- <p>Welcome to Nalika <span class="bread-ntd">Admin Template</span></p> -->
                                             </div>
                                         </div>
@@ -267,10 +267,10 @@
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
                                     <li class="active"><a href="#description"><i class="icon nalika-edit"
-                                                aria-hidden="true"></i> Informacije o artiklu</a></li>
+                                                aria-hidden="true"></i> Informacije o zaposlenom</a></li>
                                 </ul>
                                 <div class="add-product">
-                                    <a href="product-list.html">Lista artikala</a>
+                                    <a href="zaposleni.html">Lista zaposlenih</a>
                                 </div>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <div class="product-tab-list tab-pane fade active in" id="description">
@@ -280,46 +280,27 @@
                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                                         <div class="review-content-section">
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Naziv artikla:</span>
+                                                                <span class="input-group-addon">Ime:</span>
                                                                 <input type="text" id="naziv" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Cena artikla:</span>
-                                                                <input id="cena" type="number" class="form-control">
+                                                                <span class="input-group-addon">Prezime:</span>
+                                                                <input id="cena" type="text" class="form-control">
                                                             </div>
                                                             <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Opis artikla:</span>
+                                                                <span class="input-group-addon">Email:</span>
                                                                 <input type="text" id="opis" class="form-control">
                                                             </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Na stanju:</span>
-                                                                <input type="number" id="naStanju" class="form-control">
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Tip artikla:</span>
-                                                                <!-- <input type="number" id="tipId" class="form-control" -->
-                                                                <!-- placeholder="Tip artikla"> -->
-                                                                <!-- <select class="form-control" name="tip" id="selectTip"></select> -->
-                                                                <select class="form-control" name="tip"
-                                                                    id="selectTip"></select>
-                                                            </div>
-                                                            <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon">Slika artikla:</span>
-                                                                <input type="file" class="form-control"
-                                                                    id="profilePicture">
-                                                            </div>
-
-
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                     <div class="text-center custom-pro-edt-ds">
                                                                         <button type="submit"
                                                                             class="btn btn-ctl-bt waves-effect waves-light m-r-10"
-                                                                            onclick="dodajArtikal()">Sacuvaj
+                                                                            onclick="dodajZaposlenog()">Sacuvaj
                                                                         </button>
                                                                         <button type="button"
                                                                             class="btn btn-ctl-bt waves-effect waves-light"
-                                                                            onclick="vratiNaListu()">Odustani
+                                                                            onclick="vratiNaListuZaposlenih()">Odustani
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -347,6 +328,7 @@
                                                 <script src="../JavaScript/storage.js"></script>
                                                 <script src="js/authorizationAdmin.js"></script>
                                                 <script src="js/proizvodi.js"></script>
+                                                <script src="js/zaposleni.js"></script>
                                                 <script src="js/vendor/jquery-1.12.4.min.js"></script>
                                                 <!-- bootstrap JS
 		============================================ -->
