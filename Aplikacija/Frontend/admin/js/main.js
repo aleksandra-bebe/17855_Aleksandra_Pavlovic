@@ -101,4 +101,13 @@
  
 })(jQuery); 
 
+function logOut(){
+	let confirmAction = confirm("Da li zelite da se odjavite?");
+    if (confirmAction) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location = "../index.html";
+    }
+}
+
 

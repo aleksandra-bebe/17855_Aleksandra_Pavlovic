@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <!-- font awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+   
   <!-- custom css -->
 </head>
 
@@ -18,7 +18,7 @@
   <nav class="navbar">
     <div class="navbar-center">
       <div class="menu-toggle">
-        <i class="fas fa-bars" onclick="Show()"></i>
+        <i class="fas fa-bars"></i>
         <i class="fas fa-times"></i>
       </div>
       <a href="index.html" class="logo"><img src="/images/logo-rosa.png" alt="" /></a>
@@ -57,59 +57,11 @@
     </div>
   </nav>
   <!--end navbar-->
-  <section class="products">
+  <section class="products"> 
     <div class="section-title">
-      <h2>Kompanija Lux</h2>
-      <div class=" w3-container packing-text w3-sand">
-        <p class="w3-xlarge w3-serif">
-          Iznad svega LUX je priča o emocijama i posvećenosti, a svaka uspešna priča ima svoj početak. LUX je nastao
-          2022. godine kao rezultat jednog porodičnog sna i vizije da se luksuz učini dostupan svima. Da se od
-          svakodnevice napravi svečanost i da se kreiraju trenuci za pamćenje. Veran ovim osnovnim idejama vodiljama
-          LUX je u međuvremenu postao vodeća kompanija u Srbiji u oblasti prodaje satova, nakita i aksesoara i
-          najveći specijalizovani maloprodajni lanac sa personalnim iskustvom u prvom planu.
-
-        </p>
-      </div>
-
-      <section class="flipgallery">
-
-        <div class="wrapper flip-gallery">
-
-          <div class="active1">
-            <div class="flip-container">
-              <div style="position: relative;">
-                <div class="front">
-                  <img alt="" src="images/prodavnica.jpg" style="width: 500px; height: 400px;">
-                </div>
-              </div>
-            </div>
-            <br><br> <br> <br> <br><br> <br>
-          </div>
-        </div>
-        <section>
-          <h2>Pakovanje</h3>
-            <p class="packing-text w3-sand">
-              Vrhunska ambalaža Betonske kocke, u
-              poređenju sa našom standardnom ambalažom, a to je kartonska kocka. Kao
-              naši satovi, betonska kocka je izgrađena na Bauhaus dizajnerskim
-              principima: jednostavno i korisno. Držali smo kocku oslobođenu
-              beskorisnih ukrasa tako da pohvaliće svaki kontekst u koji ga stavite.
-              Tri materijala su bila ključno za umetnički pokret Bauhaus: staklo,
-              čelik i beton. Ove materijali su jednaki delovi korisnosti i
-              gracioznosti. Naši satovi se koriste staklom i čelikom, a naša
-              premijum kocka upotpunjuje trifektu sa Konkretne. Betonska kocka će
-              zaštititi tvoj Veliki Džordž sat, ali To nije sve. Pakovanje možete
-              ponovo da koristite kako god želite. Smislili smo nekoliko primera:
-              plantaža, štek za olovke ili držač za sveće. Kako ćeš repriziti svoju
-              premiju Pakovanja?
-            </p>
+      <h2 id="naslovDrawer"> </h2>
     </div>
-  </section>
-  <section class="products" style="display: none;" ;>
-    <div class="section-title container">
-      <h2>Najprodavanije</h2>
-    </div>
-    <div id="najprodavanije" class="products-center"></div>
+    <div  id="tipId" class="products-center"></div>
   </section>
   <!-- end producst-->
   <!-- cart -->
@@ -125,7 +77,7 @@
         <!-- end cart item-->
       </div>
       <div class="cart-footer">
-        <h3>Ukupno :  <span class="cart-total">0</span> RSD </h3>
+        <h3>Ukupno : <span class="cart-total">0</span> RSD </h3>
         <button class="clear-cart banner-btn">Ocisti korpu</button>
         <div class="cart-footer">
           <button class="buy-cart banner-btn" onclick="check()"> Poruci </button>
@@ -192,7 +144,7 @@
             <div id="adresa_error"></div>
           </div>
           <div class="reg_div" id="broj_div">
-            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10">
+            <input id="broj" type="text" placeholder="Broj telefona" name="broj" class="textInput"  oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10">
             <div id="broj_error"></div>
           </div>
           <div class="reg_div">
@@ -202,23 +154,23 @@
     </div>
   </div>
   <!-- end registration page-->
-    <!-- Profile overrlay -->
-    <div class="user-menu-overlay profile-overlay">
-      <div class="profile">
-        <span class="close-user-menu close-profile-page">
-          <i class="fas fa-window-close"></i>
-        </span>
-        <div class="profileInformation">
-  
-        </div>
+  <!-- Profile overrlay -->
+  <div class="user-menu-overlay profile-overlay">
+    <div class="profile">
+      <span class="close-user-menu close-profile-page">
+        <i class="fas fa-window-close"></i>
+      </span>
+      <div class="profileInformation">
+
       </div>
     </div>
-    <!-- end profile overlay -->
-  <!-- article page -->
-  <div class="user-menu-overlay article-overlay">
+  </div>
+  <!-- end profile overlay -->
+   <!-- article page -->
+   <div class="user-menu-overlay article-overlay">
     <div class="article">
       <span class="close-user-menu close-article-page">
-        <i class="fas fa-window-close"></i>
+        <i class="fas fa-window-close" ></i>
       </span>
       <div class="articleInformation">
 
@@ -231,7 +183,7 @@
     <div class="footer-left">
       <h3>Lux<span>Store</span></h3>
 
-       <p class="footer-links">
+      <p class="footer-links">
         <a href="index.html" class="link-1">Početna</a>
 
         <!-- <a href="watches.html">Satovi</a>
@@ -246,7 +198,7 @@
 
 
         <a href="kontakt.html">Kontakt</a>
-      </p> 
+      </p>
 
       <p class="footer-company-name">Lux Prodavnica © 2022</p>
     </div>
@@ -284,8 +236,11 @@
       </div>
     </div>
   </footer>
+  <!-- <script src="satovi.js"></script> -->
   <script src="JavaScript/app.js"></script>
   <script src="JavaScript/storage.js"></script>
 </body>
 
 </html>
+
+ 

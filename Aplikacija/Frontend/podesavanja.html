@@ -54,7 +54,7 @@
                     <div class="col-md-6"><label class="labels">Prezime</label><input id="inputPrezime" type="text" class="form-control" value="" placeholder="surname" name="name"></div>
                     <div class="col-md-12"><label class="labels">Email</label><input id="inputEmail" type="text" class="form-control" placeholder="enter phone number" value=""></div>
                     <div class="col-md-12"><label class="labels">Korisnicko ime</label><input id="inputUsername" type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Telefon</label><input id="inputTelefon" type="number" class="form-control" placeholder="Vas broj telefona..." pattern="+381[6][0-9]{7}--[0-9]" value="+381"></div>
+                    <div class="col-md-12"><label class="labels">Telefon</label><input id="inputTelefon" type="number"  oninput="this.value=this.value.slice(0,this.maxLength)" class="form-control" placeholder="Vas broj telefona..."  maxlength="10"></div>
                     <div class="col-md-12"><label class="labels">Adresa</label><input id="inputAdresa" type="text" class="form-control" placeholder="enter address line 2" value=""></div>
                     
                 </div>
@@ -81,20 +81,20 @@
     <div class="footer-left">
       <h3>Lux<span>Store</span></h3>
   
-      <p class="footer-links">
+       <p class="footer-links">
         <a href="index.html" class="link-1">Početna</a>
   
-        <a href="watches.html">Satovi</a>
+        <!-- <a href="watches.html">Satovi</a>
   
         <a href="kaisevi.html">Kaisevi</a>
   
-        <a href="narukvice.html">Narukvice</a>
+        <a href="narukvice.html">Narukvice</a> -->
   
         <a href="oKompaniji.html">O Kompaniji</a>
   
         <a href="about.html">O Nama</a>
         <a href="kontakt.html">Kontakt</a>
-      </p>
+      </p> 
   
       <p class="footer-company-name">Lux Store © 2022</p>
     </div>
@@ -135,4 +135,5 @@
 </body>
   <script src="JavaScript/storage.js"></script>
   <script src="JavaScript/podesavanja.js"></script>
+  <script src="JavaScript/authorizationUser.js"></script>
   </html>

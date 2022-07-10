@@ -10,6 +10,7 @@ namespace Projekat.Models
         public DbSet<Korisnik> Korisnici{get;set;}
         public DbSet<Transakcija> Transakcije{get;set;}
         public DbSet<Komentar> Komentari{get;set;}
+        public DbSet<Zaposlen> Zaposleni{get;set;}
 
         public ShopContext(DbContextOptions options) : base(options)
         {
