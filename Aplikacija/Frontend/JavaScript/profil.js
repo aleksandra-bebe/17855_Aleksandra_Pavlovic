@@ -1,5 +1,5 @@
 const ul = document.getElementById('users');
-
+window.onload = function pageOnLoad() {AuthorizeUser();}
 function LogOut() {
   let confirmAction = confirm("Da li zelite da se odjavite?");
   if (confirmAction) {

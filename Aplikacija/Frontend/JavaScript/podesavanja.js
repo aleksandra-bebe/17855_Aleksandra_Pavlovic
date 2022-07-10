@@ -9,6 +9,7 @@ var adresa = document.getElementById("inputAdresa");
 var profilnaSlika = document.getElementById("imgUser");
 
 window.onload = function pageOnLoad() {
+    AuthorizeUser();
     var user = Storage.getUser();
 
     if (!user) {

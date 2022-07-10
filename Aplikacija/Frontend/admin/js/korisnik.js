@@ -13,9 +13,10 @@ function prikaziKorisnike() {
           data => {
             console.log(data);
             if (data.length > 0) {
-
               var temp = "";
               data.forEach((itemData) => {
+                var admin = itemData.tipKorisnika === "Admin";
+                console.log(admin);
                 temp += "<tr>";
                 temp += "<td>" + itemData.ime + "</td>";
                 temp += "<td>" + itemData.prezime + "</td>";
@@ -23,6 +24,8 @@ function prikaziKorisnike() {
                 temp += "<td>" + itemData.adresa + "</td>";
                 temp += "<td>" + itemData.telefon + "</td>";
                 temp += "<td>" + itemData.obrisan + "</td>";
+                if(admin) temp += "<td> <input type='checkbox' checked onclick='changeAdmin(" + itemData.korisnikId + ", this);' </td>";
+                else{temp += "<td> <input type='checkbox' onclick='changeAdmin(" + itemData.korisnikId + ", this);' </td>";}
                 temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiKorisnika(" + itemData.korisnikId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
               });
               document.getElementById('data').innerHTML = temp;
@@ -79,6 +82,35 @@ function izbrisiKorisnika(val) {
     }).then(p => {
       if(p.ok){
         window.alert("Uspesno ste obrisali korisnika");
+        window.location = "workers.html";
+      }
+      else if (p.status == 401) {
+        alert("Niste autorizovani!");
+        Storage.removeUser();
+        Storage.removeToken();
+        window.location = "../index.html";
+        throw new Error();
+      } 
+      else {
+        alert("Nije moguce obrisati korisnika!");
+      }
+    });
+}
+
+function changeAdmin(id,val) {
+  var role = "";
+  if(val.checked) role = "Admin";
+  else{role = "User"}
+  fetch("https://localhost:5001/Korisnik/SetTipKorisnika/" + id + "/" + role,
+    {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": token,
+      }
+    }).then(p => {
+      if(p.ok){
+        window.alert("Uspesno ste promenili tip korisnika");
         window.location = "workers.html";
       }
       else if (p.status == 401) {
