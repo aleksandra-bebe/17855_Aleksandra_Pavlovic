@@ -62,16 +62,16 @@ namespace Projekat.Controllers
     {
       if (string.IsNullOrWhiteSpace(Ime) || Ime.Length > 50)
         return BadRequest("Pogresno unet parametar 'Ime'!");
-        if (string.IsNullOrWhiteSpace(Prezime) || Prezime.Length > 50)
+      if (string.IsNullOrWhiteSpace(Prezime) || Prezime.Length > 50)
         return BadRequest("Pogresno unet parametar 'Prezime'!");
 
       try
       {
         Zaposlen z = new Zaposlen();
-        z.Ime=Ime;
-        z.Prezime=Prezime;
-        z.Email=Email;
-     
+        z.Ime = Ime;
+        z.Prezime = Prezime;
+        z.Email = Email;
+
         Context.Zaposleni.Add(z);
         await Context.SaveChangesAsync();
 
@@ -190,6 +190,29 @@ namespace Projekat.Controllers
           prosecnaOcena = p.ProsecnaOcena,
         }).ToArrayAsync();
         return Ok(z);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize(Role.Admin)]
+    [Route("ObrisiZaposlenog/{id}")]
+    [HttpDelete]
+    public async Task<ActionResult> ObrisiZaposlenog(int id)
+    {
+      if (id <= 0)
+      {
+        return BadRequest("Pogrešan ID!");
+      }
+
+      try
+      {
+        var zaposlen = await Context.Zaposleni.FindAsync(id);
+        Context.Zaposleni.Remove(zaposlen);
+        await Context.SaveChangesAsync();
+        return Ok($"Uspešno izbrisan zaposleni: {zaposlen.Ime}");
       }
       catch (Exception e)
       {

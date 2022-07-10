@@ -352,5 +352,36 @@ namespace Proba.Controllers
         return BadRequest("Korisnik nije pronadjen");
       }
     }
+
+    [Authorize(Role.Admin)]
+    [Route("SetTipKorisnika/{korisnikId}/{role}")]
+    [HttpPut]
+    public async Task<ActionResult> PromeniLozinku(int korisnikId, string role)
+    {
+      if (korisnikId <= 0)
+      {
+        return BadRequest("Pogrešan ID!");
+      }
+      var korisnik = await Context.Korisnici.Where(k => k.KorisnikId == korisnikId).FirstOrDefaultAsync();
+
+      if (role == "User")
+      {
+        korisnik.TipKorisnika = Role.User;
+      }
+      else if (role == "Admin")
+      {
+        korisnik.TipKorisnika = Role.Admin;
+      }
+      try
+      {
+        Context.Korisnici.Update(korisnik);
+        await Context.SaveChangesAsync();
+        return Ok($"Korisnik sa ID: {korisnik.KorisnikId} je uspešno izmenjen!");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

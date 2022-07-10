@@ -1,6 +1,6 @@
 function vratiNaListuZaposlenih() {
-    window.location = "zaposleni.html";
-  }
+  window.location = "zaposleni.html";
+}
 
 const token = localStorage.getItem("token");
 function prikaziZaposlene() {
@@ -15,9 +15,7 @@ function prikaziZaposlene() {
       if (p.ok) {
         p.json().then(
           data => {
-            console.log(data);
             if (data.length > 0) {
-
               var temp = "";
               data.forEach((itemData) => {
                 temp += "<tr>";
@@ -25,8 +23,7 @@ function prikaziZaposlene() {
                 temp += "<td>" + itemData.prezime + "</td>";
                 temp += "<td>" + itemData.email + "</td>";
                 temp += "<td>" + itemData.prosecnaOcena + "</td>";
-                temp += "<td>" + itemData.obrisan + "</td>";
-                temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiZaposlenog(" + itemData.zaposleniId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
+                temp += "<td><button data-toggle='tooltip' title='Trash' onclick='izbrisiZaposlenog(" + itemData.zaposlenId + ")' class='pd-setting-ed'><i class='fa fa-trash-o' aria-hidden='true'></i> " + "</button></td></tr>";
               });
               document.getElementById('data').innerHTML = temp;
             }
@@ -59,7 +56,7 @@ function dodajZaposlenog() {
         "Authorization": token,
       }
     }).then(p => {
-      if(p.ok){
+      if (p.ok) {
         window.alert("Uspesno ste dodali zaposlenog!");
       }
       else if (p.status == 401) {
@@ -67,7 +64,7 @@ function dodajZaposlenog() {
         Storage.removeUser();
         Storage.removeToken();
         window.location = "../index.html";
-         throw new Error();
+        throw new Error();
       }
       else {
         window.alert("Nije moguce dodati zaposlenog!");
@@ -77,28 +74,28 @@ function dodajZaposlenog() {
 
 //treba da se doda metoda u kontroleru
 function izbrisiZaposlenog(val) {
-//   fetch("https://localhost:5001/Korisnik/ObrisiKorisnika/" + val,
-//     {
-//       method: "PUT",
-//       headers: {
-//         "Content-type": "application/json; charset=UTF-8",
-//         "Authorization": token,
-//       }
-//     }).then(p => {
-//       if(p.ok){
-//         window.alert("Uspesno ste obrisali korisnika");
-//         window.location = "workers.html";
-//       }
-//       else if (p.status == 401) {
-//         alert("Niste autorizovani!");
-//         Storage.removeUser();
-//         Storage.removeToken();
-//         window.location = "../index.html";
-//         throw new Error();
-//       } 
-//       else {
-//         alert("Nije moguce obrisati korisnika!");
-//       }
-//     });
+  fetch("https://localhost:5001/Zaposlen/ObrisiZaposlenog/" + val,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": token,
+      }
+    }).then(p => {
+      if (p.ok) {
+        window.alert("Uspesno ste obrisali zaposlenog");
+        window.location = "zaposleni.html";
+      }
+      else if (p.status == 401) {
+        alert("Niste autorizovani!");
+        Storage.removeUser();
+        Storage.removeToken();
+        window.location = "../index.html";
+        throw new Error();
+      }
+      else {
+        alert("Nije moguce obrisati korisnika!");
+      }
+    });
 }
-  
+

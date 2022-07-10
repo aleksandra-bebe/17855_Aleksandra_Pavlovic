@@ -10,7 +10,8 @@ var kolicina = document.getElementById("Kolicina");
 let list = document.getElementById("proizvodi");
 var popustDOM = document.querySelector(".popust");
 
-window.onload = function pageOnLoad() {
+window.onload = function pageOnLoad1() {
+  AuthorizeUser();
   var user = Storage.getUser();
   console.log("user", user);
   var cart = Storage.getCart();

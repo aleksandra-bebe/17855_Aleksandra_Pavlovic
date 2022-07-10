@@ -46,7 +46,7 @@ namespace Projekat.Controllers
     [HttpGet]
     public async Task<List<Artikal>> GetNajprodavanije()
     {
-      var lista = await Context.Artikli.Where(p => p.NaStanju != 0 && p.Obrisan == false).OrderByDescending(p => p.BrojProdaja).Take(20).ToListAsync();
+      var lista = await Context.Artikli.Where(p => p.NaStanju != 0 && p.Obrisan == false && p.Tip.Obrisan == false).OrderByDescending(p => p.BrojProdaja).Take(20).ToListAsync();
 
       return lista;
     }

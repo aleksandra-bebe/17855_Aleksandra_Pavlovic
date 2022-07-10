@@ -28,7 +28,7 @@ namespace Proba.Controllers
     [HttpGet]
     public async Task<List<Tip>> GetTip()
     {
-      return await Context.Tipovi.Where(p => p.TipId > 0).ToListAsync();
+      return await Context.Tipovi.Where(p => p.TipId > 0 && p.Obrisan == false).ToListAsync();
     }
 
     [Authorize(Role.Admin)]
@@ -67,26 +67,15 @@ namespace Proba.Controllers
       try
       {
         var t = await Context.Tipovi.FindAsync(id);
-        List<Artikal> artikli = await Context.Artikli.Where(p => p.Tip.TipId == id).ToListAsync();
-        if (artikli != null)
-        {
-          foreach (var a in artikli)
-          {
-            List<Komentar> kom = await Context.Komentari.Where(p => p.Artikal.ArtikalId == a.ArtikalId).ToListAsync();
-            if (kom != null)
-              Context.Komentari.RemoveRange(kom);
-          }
-
-          Context.Artikli.RemoveRange(artikli);
-        }
-        Context.Tipovi.Remove(t);
+        t.Obrisan = true;
+        Context.Tipovi.Update(t);
         await Context.SaveChangesAsync();
         return Ok($"Uspesno izbrisan tip sa id:{t.TipId}");
 
       }
       catch (Exception e)
       {
-        return BadRequest(e.Message);
+        return BadRequest(e.InnerException);
       }
     }
 
